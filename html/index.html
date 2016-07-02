@@ -110,7 +110,7 @@
     <div class="row">
       <%for (var i = 0; i < data.products.length; i++) {%>
       <div class="col-33">
-        <figure class="item">
+        <figure class="item" data-id="<%=data.products[i].id%>">
           <a class="pic" href="detail.html?id=<%=data.products[i].id%>"><img src="<%=data.products[i].picLink%>" width="<%=data.products[i].width%>" height="<%=data.products[i].height%>"></a>
           <figcaption>
             <strong class="title"><%=data.products[i].name%></strong>
@@ -139,8 +139,10 @@
 <script src="js/lib/template-native.js"></script>
 <script src="js/lib/swipe.js"></script>
 <script src="js/lib/parabola.js"></script>
-<script src="js/lib/serverUrl.js"></script>
-<!--<script src="js/index.js"></script>-->
+<script src="js/lib/main.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+
 <script src="js/index-1.js"></script>
 <script src="js/example.js"></script>
 </html>

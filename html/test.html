@@ -1,51 +1,83 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>列表</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <script src="js/lib/zepto.min.js"></script>
-    <script src="js/lib/serverUrl.js"></script>
+  <meta charset="utf-8">
+  <title>列表</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <script src="js/lib/zepto.min.js"></script>
+  <script src="js/lib/main.js"></script>
+  <script src="js/lib/ajaxHttpRequest.js"></script>
+  <script src="js/lib/zepto.md5.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-          $("#btn").click(function () {
-            $.ajax({
-              type: 'get',
-              async: false,
-              url: server_url + 'v1/index',
-              contentType:"application/json",
-              data: {
-                token: '122'
-              },
-              dataType: "jsonp",
-              jsonp: "callback",
-              jsonpCallback: "handler",
+  <script type="text/javascript">
+    $(function () {
+      $("#btn").click(function () {
+        /*$.ajax({
+          type: 'get',
+          async: false,
+          url: server_url + 'v1/index',
+          contentType: "application/json",
+          data: {
+            token: '122'
+          },
+          dataType: "jsonp",
+          jsonp: "callback",
+          jsonpCallback: "handler",
 
-              success: function (xhr, status, data) {
-                console.log('success==> xhr：' + xhr + ' | status：' + status + ' | data：' + data);
-              },
-              error: function (xhr, errorType, error) {
-                console.log('error==> xhr：' + xhr + ' | errorType：' + errorType + ' | error：' + error);
-              },
-              complete: function (xhr, status) {
-                console.log('complete==> xhr：' + xhr + ' | status：' + status);
-              }
-            });
-          });
-
+          success: function (xhr, status, data) {
+            console.log('success==> xhr：' + xhr + ' | status：' + status + ' | data：' + data);
+          },
+          error: function (xhr, errorType, error) {
+            console.log('error==> xhr：' + xhr + ' | errorType：' + errorType + ' | error：' + error);
+          },
+          complete: function (xhr, status) {
+            console.log('complete==> xhr：' + xhr + ' | status：' + status);
+          }
         });
 
-        function handler(data) {
-            console.log(data);
+        var dataObj = {
+          productId: '1',
+          userId: "123"
         };
 
-    </script>
+        ajaxHttpRequest('v1/index', {
+          data: dataObj,
+          success: function (data, status) {
+            console.log(data);
+            console.log(status);
+            console.log("========success========");
+
+            handler(data);
+            handler(status);
+
+            var a = 1 + 8;
+
+            return a;
+          },
+          error: function (errorType, error) {
+            console.log(errorType);
+            console.log(error);
+            console.log("========error========");
+          }
+        });
+         */
+
+        handler($.md5("123456"));
+
+      });
+    });
+
+    function handler(data) {
+      console.log(data);
+      alert(data);
+    }
+
+  </script>
 </head>
 
 <body ontouchstart>
 <div class="main">
-    <button id="btn">ajax</button>
+  <button id="btn">ajax</button>
 </div>
 </body>
 

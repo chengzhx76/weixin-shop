@@ -3,33 +3,29 @@
  */
 $(function () {
     //jsonp模式：进入该页，请求数据
-    $.ajax({
-        type: 'get',
-        async: false,
-        url: server_url + 'v1/index',
-        contentType: 'application/json',
-        dataType: "jsonp",
-        jsonp: "callback",
-        jsonpCallback: "handler",
-        success: function(data, status, xhr) {
-            console.log(data);
-            console.log(status);
-
+    ajaxHttpRequest('v1/index', {
+        data: {
+            productId: '1'
+        },
+        success: function (data, status) {
             // 请求出现异常
             if (status != "success") {
                 alert("请求出现异常");
+                return;
             }
 
             // 服务器出现异常
             if (!data.meta.success) {
                 alert(data.meta.msg);
+                return;
             }
 
+            handler(data);
+
         },
-        error: function(xhr, errorType, error) {
-            console.log(error);
+        error: function (errorType, error) {
             alert("ERROR--请求出现异常");
-        },
+        }
     });
 });
 
@@ -80,114 +76,71 @@ function handler(data) {
     $(".add").click(function (event) {
         event.preventDefault();
         var $add = $(this);
+        var productId = $add.parents('.item').attr("data-id");
 
-        $.ajax({
-            type: 'get',
-            async: false,
-            url: server_url + '/v1/add?productId=1',
-            contentType: 'application/json',
-            dataType: "jsonp",
-            jsonp: "callback",
-            //jsonpCallback: "handler",
-            success: function(data, status) {
-                console.log(data);
-                console.log(status);
-
-                if (status == "success") { // 请求出现异常
-                    if (data.meta.success) {
-                        // 动画效果
-                        var imgSrc = $add.parents(".item").children('.pic').children('img').attr('src');
-                        var imgObj = $('<img src="' + imgSrc + '">').appendTo("body").css({
-                            "width": "30px",
-                            "height": "30px",
-                            "border-radius": "50px",
-                            "position": "absolute",
-                            "top": toInteger($add.offset().top) + toInteger($add.css("width"))/2-15,
-                            "left": toInteger($add.offset().left)+ toInteger($add.css("height"))/2-15,
-                        });
-                        var bool = new Parabola({
-                            el: imgObj,
-                            callback: function () {
-
-                            },
-                            stepCallback: function (x, y) {
-                            }
-                        });
-                        // 设置配置参数
-                        bool.setOptions({
-                            targetEl: $("#cart"),
-                            curvature: 0.01,
-                            duration: 600
-                        });
-                        // 开始运动
-                        bool.start();
-
-                        // 数量增加
-                        addCount($add, data);
-                        // 金额增加
-                        if($(".total-price").hide()) {
-                            $(".total-price").show();
-                            totalPrice(data)
-                        }else {
-                            totalPrice(data)
-                        }
-
-                    }else { // 服务器出现异常
-                        alert(data.meta.msg);
-                    }
-                } else {
+        ajaxHttpRequest('v1/add', {
+            data: {
+                productId: productId
+            },
+            success: function (data, status) {
+                if (status != "success") { // 请求出现异常
                     alert("请求出现异常");
+                    return;
+                }
+                if (!data.meta.success) { // 服务器出现异常
+                    alert(data.meta.msg);
+                    return;
+                }
+
+                animation($add);
+                // 数量增加
+                addCount($add, data);
+                // 金额增加
+                if($(".total-price").hide()) {
+                    $(".total-price").show();
+                    totalPrice(data)
+                }else {
+                    totalPrice(data)
                 }
             },
-            error: function(xhr, errorType, error) {
-                console.log(error);
+            error: function (errorType, error) {
                 alert("ERROR--请求出现异常");
-            },
+            }
         });
     });
 
     // 减少操作
     $(".sub").click(function () {
         var $sub = $(this);
-
-        $.ajax({
-            type: 'get',
-            async: false,
-            url: server_url + '/v1/sub?productId=1',
-            contentType: 'application/json',
-            dataType: "jsonp",
-            jsonp: "callback",
-            //jsonpCallback: "handler",
-            success: function(data, status) {
-                console.log(data);
-                console.log(status);
-
-                if (status == "success") { // 请求出现异常
-                    if (data.meta.success) {
-                        // 数量增加
-                        subCount($sub, data);
-                        totalPrice(data);
-                    }else { // 服务器出现异常
-                        alert(data.meta.msg);
-                    }
-                } else {
+        var productId = $sub.parents('.item').attr("data-id");
+        ajaxHttpRequest('v1/sub', {
+            data: {
+                productId: productId
+            },
+            success: function (data, status) {
+                if (status != "success") { // 请求出现异常
                     alert("请求出现异常");
+                    return;
                 }
+                if (!data.meta.success) { // 服务器出现异常
+                    alert(data.meta.msg);
+                    return;
+                }
+                subCount($sub, data);
+                totalPrice(data);
             },
-            error: function(xhr, errorType, error) {
-                console.log(error);
+            error: function (errorType, error) {
                 alert("ERROR--请求出现异常");
-            },
+            }
         });
     });
+
 }
 
 // 添加数量
 function addCount($add, data) {
     $add.siblings('.sub').show();
     $add.prev('.count').show();
-    //var count = parseInt(obj.prev().text());
-    //count += 1;
     $add.prev().text(data.data.count);
     $add.parent().siblings(".price").css({
         "font-size":"14px",
@@ -203,8 +156,6 @@ function addCount($add, data) {
 
 // 减少数量
 function subCount($sub, data) {
-    //var count = parseInt($sub.next().text());
-    //count -= 1;
     var count = parseInt(data.data.count);
     if(count == 0) {
         $sub.hide();
@@ -214,26 +165,43 @@ function subCount($sub, data) {
     $sub.next().text(count);
 }
 
-//// 添加金额
-//function addPrice($add, data) {
-//    //var price = parseFloat(obj.parent().siblings(".price").children("strong").text());
-//    //var totalPrice = parseFloat($(".total-price").children("strong").text());
-//    //totalPrice += price;
-//    var totalPrice = parseFloat(data.data.price);
-//    $(".total-price").children("strong").text(totalPrice.toFixed(1));
-//}
-
 // 总金额操作
 function totalPrice(data) {
-    //var price = parseFloat(obj.parent().siblings(".price").children("strong").text());
-    //var totalPrice = parseFloat($(".total-price").children("strong").text());
-    //totalPrice -= price;
-
     var totalPrice = parseFloat(data.data.price);
     if (totalPrice == 0) {
         $(".total-price").hide();
     }
     $(".total-price").children("strong").text(totalPrice.toFixed(1));
+}
+
+// 动画
+function animation($add) {
+    // 动画效果
+    var imgSrc = $add.parents(".item").children('.pic').children('img').attr('src');
+    var imgObj = $('<img src="' + imgSrc + '">').appendTo("body").css({
+        "width": "30px",
+        "height": "30px",
+        "border-radius": "50px",
+        "position": "absolute",
+        "top": toInteger($add.offset().top) + toInteger($add.css("width"))/2-15,
+        "left": toInteger($add.offset().left)+ toInteger($add.css("height"))/2-15,
+    });
+    var bool = new Parabola({
+        el: imgObj,
+        callback: function () {
+
+        },
+        stepCallback: function (x, y) {
+        }
+    });
+    // 设置配置参数
+    bool.setOptions({
+        targetEl: $("#cart"),
+        curvature: 0.01,
+        duration: 600
+    });
+    // 开始运动
+    bool.start();
 }
 
 // 转换成Int类型
