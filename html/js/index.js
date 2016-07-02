@@ -11,23 +11,40 @@ $(function () {
         dataType: "jsonp",
         jsonp: "callback",
         jsonpCallback: "handler",
-        success: function(data, status, xhr) {
+        success: function(data, status) {
             console.log(data);
             console.log(status);
-            console.log(xhr);
+
+            // 请求出现异常
+            if (status != "success") {
+                alert("请求出现异常");
+            }
+
+            // 服务器出现异常
+            if (!data.meta.success) {
+                alert(data.meta.msg);
+            }
+
         },
         error: function(xhr, errorType, error) {
             console.log(error);
+            alert("ERROR--请求出现异常");
         },
     });
 });
 
 function handler(data) {
+    // header
     var header = template('header-temp', data);
     $('.header-wrap').html(header);
 
+    // 商品列表
     var content = template('content-temp', data);
-    $('.content').html(content);
+    $('.content-wap').html(content);
+
+    // 购物车商品总价格价格
+    var totalPirce = parseFloat(data.data.totalPirce);
+    $(".total-price").children("strong").text(totalPirce.toFixed(1));
 
     $('#slideshow').swipeSlide({
         autoSwipe: true,//自动切换默认是
@@ -53,7 +70,7 @@ function handler(data) {
     $('.count').hide();
 
     var $totalPrice = $(".total-price").children("strong").text();
-    if($totalPrice!="" && $totalPrice!="0") {
+    if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
         $(".total-price").show();
     }else {
         $(".total-price").hide();
@@ -162,4 +179,5 @@ function toInteger(text){
     text = parseInt(text);
     return isFinite(text) ? text : 0;
 }
+
 
