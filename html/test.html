@@ -34,25 +34,22 @@
             console.log('complete==> xhr：' + xhr + ' | status：' + status);
           }
         });
+         */
 
         var dataObj = {
           productId: '1',
           userId: "123"
         };
 
+
+
         ajaxHttpRequest('v1/index', {
           data: dataObj,
+//          jsonpCallback: 'handler',
           success: function (data, status) {
             console.log(data);
             console.log(status);
             console.log("========success========");
-
-            handler(data);
-            handler(status);
-
-            var a = 1 + 8;
-
-            return a;
           },
           error: function (errorType, error) {
             console.log(errorType);
@@ -60,16 +57,17 @@
             console.log("========error========");
           }
         });
-         */
 
-        handler($.md5("123456"));
+
+//        handler($.md5("123456"));
 
       });
     });
 
     function handler(data) {
       console.log(data);
-      alert(data);
+      alert("===》handler");
+//      alert(data);
     }
 
   </script>

@@ -61,5 +61,9 @@ function ajaxHttpRequest(url, options) {
             opts.error && opts.error.apply(this, [errorType, error]);
         }
     });
-
 }
+
+function callback(data) {
+    console.log("===》callback");
+}
+

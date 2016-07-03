@@ -7,21 +7,13 @@ $(function () {
         data: {
             productId: '1'
         },
+        jsonpCallback: 'handler',
         success: function (data, status) {
             // 请求出现异常
             if (status != "success") {
                 alert("请求出现异常");
                 return;
             }
-
-            // 服务器出现异常
-            if (!data.meta.success) {
-                alert(data.meta.msg);
-                return;
-            }
-
-            handler(data);
-
         },
         error: function (errorType, error) {
             alert("ERROR--请求出现异常");
@@ -30,6 +22,11 @@ $(function () {
 });
 
 function handler(data) {
+    // 服务器出现异常
+    if (!data.meta.success) {
+        alert(data.meta.msg);
+        return;
+    }
     // header
     var header = template('header-temp', data);
     $('.header-wrap').html(header);
@@ -91,7 +88,6 @@ function handler(data) {
                     alert(data.meta.msg);
                     return;
                 }
-
                 animation($add);
                 // 数量增加
                 addCount($add, data);
@@ -108,6 +104,7 @@ function handler(data) {
             }
         });
     });
+
 
     // 减少操作
     $(".sub").click(function () {
@@ -136,7 +133,6 @@ function handler(data) {
     });
 
 }
-
 // 添加数量
 function addCount($add, data) {
     $add.siblings('.sub').show();
@@ -151,7 +147,6 @@ function addCount($add, data) {
         "border-radius":"6px",
         "background":"#EF4F4F"
     }).children('strong').css("font-size","14px");
-
 }
 
 // 减少数量
