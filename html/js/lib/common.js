@@ -3,7 +3,7 @@
  */
 var timer;
 function showError(msg) {
-    $('#error').html(msg).show();
+    $('#error .err-txt').html(msg).show();
     clearTimeout(timer);
     timer = setTimeout(function() {
         $('#error').hide()
