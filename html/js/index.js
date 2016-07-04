@@ -59,6 +59,9 @@ function handler(data) {
         transitionType: 'ease-in'
     });
 
+    $('.sub').hide();
+    $('.count').hide();
+
     var $totalPrice = $(".total-price").children("strong").text();
     if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
         $(".total-price").show();

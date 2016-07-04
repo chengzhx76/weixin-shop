@@ -43,6 +43,14 @@
 
 /* 错误提示框 */
 .err-hints {
+  position:fixed;
+  bottom:150px;
+  width: 100%;
+  margin:0 auto;
+  text-align: center;
+  display: none;
+}
+.err-txt{
   font-family: '黑体', '微软雅黑';
   padding: 1px 4px;
   font-size: 16px;
@@ -51,9 +59,4 @@
   border-radius: 5px;
   background: #FFEBBB;
   border: solid 1px #BEA383;
-  position:fixed;
-  margin:0 auto;
-  bottom:150px;
-  left:40%;
-  display: none;
 }
