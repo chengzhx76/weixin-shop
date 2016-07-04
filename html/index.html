@@ -8,23 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body ontouchstart>
-  <header class="header">
-    <div class="header-wrap">
-    </div>
-  </header>
-
-  <article class="weui_article content">
-    <h1>商品列表</h1>
-    <div class="content-wap">
-    </div>
-
-  </article>
-
-  <div class="bd spacing">
-    <a href="mall.html" class="into weui_btn bg-orange">进入商城</a>
+  <div class="main-wrap">
   </div>
 
   <footer class="footer weui_tab tab-bottom" style="height:55px;">
@@ -66,72 +54,90 @@
     </a>
   </div>
   <span class="total-price">总价：￥<strong>0</strong></span>
-</body>
 
-<script id="header-temp" type="text/template">
-  <div class="slide" id="slideshow">
-    <% if(data.ads) {%>
-    <ul>
-      <%for (var i = 0; i < data.ads.length; i++) {%>
-      <li>
-        <a href="<%=data.ads[i].linkUrl%>">
-          <img src="<%=data.ads[i].pictureUrl%>" alt="<%=data.ads[i].name%>" width="<%=data.ads[i].width%>" height="<%=data.ads[i].height%>">
-        </a>
-      </li>
-      <%}%>
-    </ul>
-    <div class="dot">
-      <%for (var i = 0; i < data.ads.length; i++) {%>
-      <span></span>
-      <%}%>
-    </div>
-    <%}%>
+  <!-- 网络加载 -->
+  <div id="net-loading" class="net-loading">
+    <div class="loading-icon"></div>
+    <span class="txt">加载中...</span>
   </div>
 
-  <div class="notify">
-    <div class="icon icon-53"></div>
-    <% if(data.notices) {%>
-    <div class="slide notify-text" id="notify-txt">
+  <!-- 添加减少加载 -->
+  <div id="buy-loading" class="buy-loading">
+  </div>
+
+  <!-- 错误提示 -->
+  <div id="error" class="err-hints">错误信息</div>
+</body>
+
+<script id="main-temp" type="text/template">
+  <header class="header">
+    <div class="slide" id="slideshow">
+      <% if(data.ads) {%>
       <ul>
-        <%for (var i = 0; i < data.notices.length; i++) {%>
+        <%for (var i = 0; i < data.ads.length; i++) {%>
         <li>
-          <div class='txt'><%=data.notices[i].content%></div>
+          <a href="<%=data.ads[i].linkUrl%>">
+            <img src="<%=data.ads[i].pictureUrl%>" alt="<%=data.ads[i].name%>" width="<%=data.ads[i].width%>" height="<%=data.ads[i].height%>">
+          </a>
         </li>
         <%}%>
       </ul>
-    </div>
-    <%}%>
-  </div>
-</script>
-
-<script id="content-temp" type="text/template">
-  <div class="bd">
-    <% if(data.products) {%>
-    <div class="row">
-      <%for (var i = 0; i < data.products.length; i++) {%>
-      <div class="col-33">
-        <figure class="item" data-id="<%=data.products[i].id%>">
-          <a class="pic" href="detail.html?id=<%=data.products[i].id%>"><img src="<%=data.products[i].picLink%>" width="<%=data.products[i].width%>" height="<%=data.products[i].height%>"></a>
-          <figcaption>
-            <strong class="title"><%=data.products[i].name%></strong>
-            <em class="desc"><%=data.products[i].desc%></em>
-            <div class="info">
-                <span class="price">
-                  ￥<strong><%=data.products[i].price%></strong>
-                </span>
-              <div class="buy">
-                <span class="sub icon icon-122"></span>
-                <span class="count">0</span>
-                <span class="add icon icon-36"></span>
-              </div>
-            </div>
-            <div class="tag"><%=data.products[i].tag%></div>
-          </figcaption>
-        </figure>
+      <div class="dot">
+        <%for (var i = 0; i < data.ads.length; i++) {%>
+        <span></span>
+        <%}%>
       </div>
       <%}%>
     </div>
-    <%}%>
+    <div class="notify">
+      <div class="icon icon-53"></div>
+      <% if(data.notices) {%>
+      <div class="slide notify-text" id="notify-txt">
+        <ul>
+          <%for (var i = 0; i < data.notices.length; i++) {%>
+          <li>
+            <div class='txt'><%=data.notices[i].content%></div>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+      <%}%>
+    </div>
+  </header>
+  <article class="weui_article content">
+    <h1>商品列表</h1>
+    <div class="bd">
+      <% if(data.products) {%>
+      <div class="row">
+        <%for (var i = 0; i < data.products.length; i++) {%>
+        <div class="col-33">
+          <figure class="item" data-id="<%=data.products[i].id%>">
+            <a class="pic" href="detail.html?id=<%=data.products[i].id%>"><img src="<%=data.products[i].picLink%>" width="<%=data.products[i].width%>" height="<%=data.products[i].height%>"></a>
+            <figcaption>
+              <strong class="title"><%=data.products[i].name%></strong>
+              <em class="desc"><%=data.products[i].desc%></em>
+              <div class="info">
+                <span class="price">
+                  ￥<strong><%=data.products[i].price%></strong>
+                </span>
+                <div class="buy">
+                  <span class="sub icon icon-122"></span>
+                  <span class="count">0</span>
+                  <span class="add icon icon-36"></span>
+                </div>
+              </div>
+              <div class="tag"><%=data.products[i].tag%></div>
+            </figcaption>
+          </figure>
+        </div>
+        <%}%>
+      </div>
+      <%}%>
+    </div>
+  </article>
+
+  <div class="bd spacing">
+    <a href="mall.html" class="into weui_btn bg-orange">进入商城</a>
   </div>
 </script>
 
@@ -142,7 +148,8 @@
 <script src="js/lib/main.js"></script>
 <script src="js/lib/ajaxHttpRequest.js"></script>
 <script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/common.js"></script>
 
-<script src="js/index-1.js"></script>
+<script src="js/index.js"></script>
 <script src="js/example.js"></script>
 </html>

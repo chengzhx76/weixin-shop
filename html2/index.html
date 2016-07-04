@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body ontouchstart>
@@ -155,6 +156,20 @@
     </a>
   </div>
   <span class="total-price">总价：￥<strong>0</strong></span>
+
+  <!-- 网络加载 -->
+  <div id="net-loading" class="net-loading">
+    <div class="loading-icon"></div>
+    <span class="txt">加载中...</span>
+  </div>
+
+  <!-- 添加减少加载 -->
+  <div id="buy-loading" class="buy-loading">
+  </div>
+
+  <!-- 错误提示 -->
+  <div id="error" class="err-hints">错误信息</div>
+
 </body>
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/swipe.js"></script>

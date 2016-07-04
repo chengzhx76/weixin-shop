@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>列表</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <script src="js/lib/zepto.min.js"></script>
+  <script src="js/lib/main.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      $("#btn").click(function () {
+        var obj = $(this);
+        if(obj.attr("working") == "true") {
+          console.log("操作太快了，休息一下吧！");
+          return;  //工作中
+        } else { //没有工作
+          obj.attr("working","true");
+        }
+
+        // 执行业务逻辑
+        setTimeout(function() {
+          console.log("===> 任务执行完！")
+          obj.attr("working","false");
+        }, 2000);
+
+        console.log("======>");
+
+      });
+    });
+//    function checkWork(obj) {
+//
+//    }
+  </script>
+</head>
+
+<body ontouchstart>
+<div class="main">
+  <div id="btn">ajax</div>
+</div>
+</body>
+
+</html>
