@@ -3,8 +3,8 @@
  */
 
 
-setLocVal("userToken", "qcsdcdscascacac");
-setLocVal("appSecret", "hjgjfhkk212334");
+setLocVal("userToken", "122");
+setLocVal("appSecret", "wxclient");
 
 /**
  * localStorage保存数据

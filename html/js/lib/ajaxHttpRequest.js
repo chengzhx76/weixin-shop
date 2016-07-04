@@ -3,7 +3,8 @@
  */
 
 function ajaxHttpRequest(url, options) {
-    var server_url = 'http://122.9.35.24/moblie/';
+    var server_url = 'http://wx.aqd123.com/moblie/';
+    //var server_url = 'http://127.0.0.1/moblie/';
 
     var opts = $.extend({
         'method': 'get',
@@ -20,27 +21,30 @@ function ajaxHttpRequest(url, options) {
     var allUrl = server_url + url;
 
     try{
+        var appSecret = getLocVal('appSecret');
         var timestamp = new Date().getTime();
         var userToken = getLocVal('userToken');
-        var appSecret = getLocVal('appSecret');
     }catch(e) {
         console.log(e)
     }
 
     var postData = {
-        token: userToken,
         appKey: appSecret,
-        timestamp: timestamp
+        timestamp: timestamp,
+        token: userToken
     };
 
+    var signStr = appSecret+timestamp+userToken;
     if(opts.data) {
-        var signStr = timestamp+userToken+appSecret;
+        var paramObj = {};
         $.each(opts.data, function(key, val) {
-            postData[key] = val;
-            signStr += val;
+            paramObj[key] = val;
         });
-        postData.sign = $.md5(signStr);
+        var param = encodeURI(JSON.stringify(paramObj));
+        signStr += param;
+        postData.param = param;
     }
+    postData.sign = $.md5(signStr);
 
     $.ajax({
         type: opts.method,

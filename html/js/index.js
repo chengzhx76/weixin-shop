@@ -5,21 +5,18 @@ $(function () {
     $('#net-loading').show();
     //jsonp模式：进入该页，请求数据
     ajaxHttpRequest('v1/index', {
-        data: {
-            productId: '1'
-        },
         jsonpCallback: 'handler',
         success: function (data, status) {
             // 请求出现异常
             if (status != "success") {
-                showError("请求出现异常");
+                showError("请求出现异常！");
                 $('#net-loading').hide();
                 return;
             }
             $('#net-loading').hide();
         },
         error: function (errorType, error) {
-            showError("ERROR--请求出现异常");
+            showError("ERROR--请求出现异常！");
             $('#net-loading').hide();
         }
     });

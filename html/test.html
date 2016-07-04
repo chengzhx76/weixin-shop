@@ -36,14 +36,15 @@
         });
          */
 
-//        var dataObj = {
+//        var param = {
 //          productId: '1',
 //          userId: "123"
 //        };
-
+//
 //        ajaxHttpRequest('v1/index', {
-//          data: dataObj,
-////          jsonpCallback: 'handler',
+//          data: {
+//            param : JSON.stringify(param)
+//          },
 //          success: function (data, status) {
 //            console.log(data);
 //            console.log(status);
@@ -56,21 +57,16 @@
 //          }
 //        });
 
-//        handler($.md5("123456"));
+        handler($.md5("wxclient1467618513289"));
 
-//        var $obj = $(this);
-//        $obj.attr("disabled",false);
-
-        $("pannel").attr("disabled",true);
-
-        console.log("======>");
+//        console.log("======>");
 
       });
     });
 
     function handler(data) {
       console.log(data);
-      alert("===》handler");
+//      alert("===》handler");
 //      alert(data);
     }
 
@@ -81,8 +77,6 @@
 <div class="main">
   <div id="btn">ajax</div>
 </div>
-<div id ="pannel" style ="width:100%;height:100%;overflow:hidden;"></div>；
-设置下div的属性
 </body>
 
 </html>
