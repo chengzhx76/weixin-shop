@@ -64,6 +64,6 @@ function ajaxHttpRequest(url, options) {
 }
 
 function callback(data) {
-    console.log("===》callback");
+    console.log("===>callback");
 }
 

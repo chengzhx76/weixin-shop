@@ -109,6 +109,7 @@ function handler(data) {
                 $add.attr("working","false");
             },
             error: function (errorType, error) {
+                $('#buy-loading').hide();
                 showError("ERROR--请求出现异常");
             }
         });
