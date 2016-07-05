@@ -59,7 +59,7 @@
       initDatabase();
 
       //显示所有数据库中的数据到页面上去
-//      $("#showAllTheData").click(function () {
+      $("#showAllTheData").click(function () {
         $("#tblData").empty();
         var db = getCurrentDb();
         db.transaction(function (trans) {
@@ -82,7 +82,7 @@
                   }
           )
         });
-//      });
+      });
 
       //页面加载完成后绑定页面按钮的点击事件
       $("#btnSave").click(function () {
