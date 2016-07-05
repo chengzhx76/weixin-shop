@@ -1,0 +1,171 @@
+<!Doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <title>webdb</title>
+  <script src="zepto.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+
+    // 增加商品个数
+    function addProductcount(productId, trans,count) {
+      trans.executeSql(
+              "UPDATE cart SET count = ? WHERE product_id = ?",
+              [count, productId],
+              function (trans, result) {
+              },
+              function (ts, message) {
+                console.log(message);
+              }
+      )
+    }
+
+    // 获取现在商品的个数
+    function getProductCount(productId, trans) {
+      trans.executeSql(
+              "SELECT * FROM cart WHERE product_id = ?",
+              [productId],
+              function (trans, result) {
+                var count = parseInt(result.rows.item(0).count);
+                count+=1;
+                addProductcount(productId, trans, count);
+
+              },
+              function (ts, message) {
+                console.log(message);
+              }
+      )
+    }
+    // 增加商品
+    function addProduct(productId, trans) {
+      getProductCount(productId, trans);
+    }
+
+    // 插入商品
+    function insetProduct(productId, trans) {
+        trans.executeSql(
+                "INSERT INTO cart(product_id, count) VALUES(?,?) ",
+                [productId, 1],
+                function (trans, result) {
+                  return true;
+                },
+                function (ts, message) {
+                  console.log(message);
+                  return false;
+                }
+        )
+    }
+
+    $(function () {
+      initDatabase();
+
+      //显示所有数据库中的数据到页面上去
+//      $("#showAllTheData").click(function () {
+        $("#tblData").empty();
+        var db = getCurrentDb();
+        db.transaction(function (trans) {
+          trans.executeSql(
+                  "SELECT * FROM cart",
+                  [],
+                  function (trans, result) {
+                    if (result) {
+                      for (var i = 0; i < result.rows.length; i++) {
+                        appendDataToTable(result.rows.item(i));//获取某行数据的json对象
+
+                        console.log(JSON.stringify(result.rows.item(i)));
+
+                      }
+                      console.log(JSON.stringify(result.rows));
+                    }
+                  },
+                  function (trans, message) {
+                    console.log(message);
+                  }
+          )
+        });
+//      });
+
+      //页面加载完成后绑定页面按钮的点击事件
+      $("#btnSave").click(function () {
+        var productId = parseInt($("#productId").val().trim());
+        var db = getCurrentDb();
+
+        // 先检查该商品是否已添加
+        db.transaction(function (trans) {
+          trans.executeSql(
+                  "SELECT * FROM cart WHERE product_id = ?",
+                  [productId],
+                  function (trans, result) {
+                    if(result.rows.length > 0) {
+                      addProduct(productId, trans);
+                    }else {
+                      insetProduct(productId, trans);
+                    }
+                  },
+                  function (ts, message) {
+                    console.log(message);
+                  }
+          )
+        });
+      });
+
+    });
+
+    function initDatabase() {
+      var db = getCurrentDb();//初始化数据库
+      if (!db) {
+        alert("您的浏览器不支持HTML5本地数据库");
+        return;
+      }
+
+      db.transaction(
+              function (trans) {//启动一个事务，并设置回调函数
+                //执行创建表的Sql脚本
+                trans.executeSql(
+                        "CREATE TABLE IF NOT EXISTS cart(product_id int unique, count int)",
+//                        "drop table cart",
+                        [],
+                        function (trans, result) { // sql执行成功回调函数（可选）
+                        },
+                        function (trans, message) { // sql执行失败回调函数（可选）
+                          console.log(message);
+                        }
+                );
+              }
+      );
+    }
+
+    function getCurrentDb() {
+      //打开数据库，或者直接连接数据库参数：数据库名称，版本，概述，大小
+      //如果数据库不存在那么创建之
+      var db = openDatabase("shop", "1.0", "it's to save demo data!", 2 * 1024 * 1024);
+      return db;
+    }
+
+    //将数据展示到表格里面
+    function appendDataToTable(data) {
+      //uName,title,words
+      var productId = data.product_id;
+      var count = data.count;
+      var strHtml = "";
+      strHtml += "<tr>";
+      strHtml += "<td>" + productId + "</td>";
+      strHtml += "<td>" + count + "</td>";
+      strHtml += "</tr>";
+      $("#tblData").append(strHtml);
+    }
+  </script>
+</head>
+<body>
+<table>
+  <tr>
+    <td>商品ID：</td>
+    <td><input type="text" name="productId" id="productId" value="1" required/></td>
+  </tr>
+</table>
+<input type="button" value="保存" id="btnSave"/>
+<hr/>
+<input id="showAllTheData" type="button" value="展示数据"/>
+<table id="tblData">
+</table>
+</body>
+</html>
