@@ -4,9 +4,11 @@
 var timer;
 function showError(msg) {
     $('#error .err-txt').html(msg);
-    $('#error').show();
+    $('#error').fadeIn('fast');
+
     clearTimeout(timer);
     timer = setTimeout(function() {
-        $('#error').hide()
-    }, 3000);
+        //$('#error').hide()
+        $('#error').fadeOut('slow');
+    }, 1500);
 }
