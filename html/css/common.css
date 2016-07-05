@@ -44,7 +44,7 @@
 /* 错误提示框 */
 .err-hints {
   position:fixed;
-  bottom:150px;
+  bottom:100px;
   width: 100%;
   margin:0 auto;
   text-align: center;
@@ -52,7 +52,7 @@
 }
 .err-txt{
   font-family: '黑体', '微软雅黑';
-  padding: 1px 4px;
+  padding: 4px 3px;
   font-size: 16px;
   color: #6E5336;
   letter-spacing: 1px;
