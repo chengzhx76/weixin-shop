@@ -1,0 +1,40 @@
+body {
+  font-size: 12px;
+  color: #969696;
+  font-family: Helvetica,Droidsansfallback;
+  background: #F0EFF5;
+}
+ul, li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcaption {
+  margin: 0;
+  padding: 0;
+}
+header .weui-header {
+  background: #F0EFF5;
+  border-bottom: solid 1px #E6E6E6;
+}
+.main .weui_cells {
+  margin-top: 5px;
+}
+.main .weui_cells_tips {
+  height: 30px;
+  font-size: 10px;
+  line-height: 30px;
+}
+.main .weui_btn_area {
+  margin-top: 30px;
+}
+.main .weui_btn_area a:active{
+  color: rgba(255, 255, 255, 0.6);
+}
+.main .tips {
+  margin-top: 10px;
+  color: #888;
+  padding-left: 15px;
+  font-size: 12px;
+}

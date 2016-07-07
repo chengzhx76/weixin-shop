@@ -1,0 +1,46 @@
+body {
+  font-size: 12px;
+  color: #969696;
+  font-family: Helvetica,Droidsansfallback;
+  background: #F0EFF5;
+}
+ul, li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcaption {
+  margin: 0;
+  padding: 0;
+}
+header .weui-header {
+  background: #F0EFF5;
+  border-bottom: solid 1px #F0EFF5;
+}
+
+.main .weui_btn_area {
+  margin-top: 40px;
+}
+.main .weui_cells_tips {
+  height: 30px;
+  margin-top: 12px;
+  line-height: 30px;
+}
+.main .weui_cells_tips .reg {
+  height: 30px;
+  display: block;
+  float: left;
+}
+.main .weui_cells_tips .forget-pwd {
+  height: 30px;
+  display: block;
+  float: right;
+}
+.main .divider-span {
+  margin-top: 50px;
+}
+.main .divider-span span {
+  background-color: #F0EFF5;
+  padding: 9px;
+}
