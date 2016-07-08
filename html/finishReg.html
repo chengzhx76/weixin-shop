@@ -8,35 +8,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
-  <link rel="stylesheet" href="css/msgcode.css">
+  <link rel="stylesheet" href="css/finishReg.css">
 </head>
 <body ontouchstart>
 
 <header class="header">
   <div class="weui-header ">
     <div class="weui-header-left">
-      <a onclick="window.location.href='login.html'" class="icon icon-109 f-black"></a>
+      <a onclick="window.close(-1)" class="icon icon-109 f-black"></a>
     </div>
     <h1 class="weui-header-title f-black">注册</h1>
   </div>
 </header>
 <article class="main">
-  <div class="weui_cells_tips">验证码已发送到手机：<span class="phone">18600536683</span> </div>
   <div class="weui_cells weui_cells_form">
     <div class="weui_cell">
-      <div class="weui_cell_hd"><label class="weui_label">验证码</label></div>
+      <div class="weui_cell_hd"><label class="weui_label">昵称</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入验证码"/>
+        <input class="weui_input" type="text" placeholder="请设置昵称"/>
+      </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_hd"><label class="weui_label">密码</label></div>
+      <div class="weui_cell_bd weui_cell_primary">
+        <input class="weui_input" type="password" placeholder="请设置密码8~12个字符"/>
       </div>
     </div>
   </div>
+
   <div class="weui_btn_area">
-    <a id="next" class="weui_btn weui_btn_disabled weui_btn_warn" href="javascript:;">下一步</a>
+    <!--<a class="weui_btn weui_btn_warn" href="javascript:;">完成</a>-->
+    <a id="finish" class="weui_btn weui_btn_disabled weui_btn_warn" href="javascript:;">完成</a>
   </div>
-  <div class="tips">没有收到验证码？<span class="f-red">重发验证码<span id="second">(30s)</span></span> </div>
+
+
 </article>
 
 </body>
 <script src="js/lib/zepto.min.js"></script>
-<script src="js/msgcode.js"></script>
+<script src="js/finishReg.js"></script>
 </html>

@@ -16,7 +16,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 }
 header .weui-header {
   background: #F0EFF5;
-  border-bottom: solid 1px #F0EFF5;
+  border-bottom: solid 1px #e5e5e5;
 }
 
 .main .weui_btn_area {
@@ -26,6 +26,9 @@ header .weui-header {
   height: 30px;
   margin-top: 12px;
   line-height: 30px;
+}
+.main .weui_cells_tips a {
+  color: #888;
 }
 .main .weui_cells_tips .reg {
   height: 30px;
@@ -39,6 +42,7 @@ header .weui-header {
 }
 .main .divider-span {
   margin-top: 50px;
+  border-bottom: 1px solid #e5e5e5;
 }
 .main .divider-span span {
   background-color: #F0EFF5;

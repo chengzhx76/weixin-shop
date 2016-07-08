@@ -16,7 +16,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 }
 header .weui-header {
   background: #F0EFF5;
-  border-bottom: solid 1px #E6E6E6;
+  border-bottom: solid 1px #e5e5e5;
 }
 .main .weui_cells {
   margin-top: 5px;
