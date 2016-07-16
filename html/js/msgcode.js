@@ -1,13 +1,96 @@
 /**
  * Created by 光灿 on 2016/7/7.
  */
-$("input[type='number']").on("input paste" , function(){
-    var $msg_code = $(this);
-    if(/^\d{4,}$/.test($msg_code.val())) {
-        $('#next').removeClass('weui_btn_disabled').click(function() {
-            window.location.href='finishReg.html';
-        });
-    }else if (!$('#next').hasClass('weui_btn_disabled')){
-        $('#next').addClass('weui_btn_disabled');
+
+var timer = 6;
+function second(){
+    if(timer != 1){
+        timer--;
+        $('#second').html(timer);
+        setTimeout("second()", 1000);
+    }else {
+        $('#send').text('重发验证码')
     }
-});
+}
+
+$(function(){
+    second();
+
+    $("input[type='number']").on("input paste" , function(){
+        var $msg_code = $(this);
+        if(/^\d{4,}$/.test($msg_code.val())) {
+            $('#next').removeClass('weui_btn_disabled').click(function() {
+                $('#net-loading').show();
+                var phone = $('.phone').text().trim();
+                var validate = $("input[type='number']").val().trim();
+                ajaxHttpRequest('v1/checkCode', {
+                    data: {
+                        phone: phone,
+                        validate: validate
+                    },
+                    success: function (data, status) {
+                        $('#net-loading').hide();
+                        if (status != "success") { // 请求出现异常
+                            showError("请求出现异常！");
+                            return;
+                        }
+                        if (!data.meta.success) { // 服务器出现异常
+                            showError(data.meta.msg);
+                            return;
+                        }
+
+                        if (data.data) {
+                            window.location.href='finishReg.html';
+                        }else {
+                            showInfo('验证码错误');
+                            $("input[type='number']").val('');
+                        }
+
+                    },
+                    error: function (errorType, error) {
+                        showError("ERROR--请求出现异常！");
+                        $('#net-loading').hide();
+                    }
+                });
+            });
+        }else if (!$('#next').hasClass('weui_btn_disabled')){
+            $('#next').addClass('weui_btn_disabled');
+        }
+    });
+
+    $("#send").click(function () {
+        if ($('#send').text() != '重发验证码') {
+            return;
+        }
+        $('#net-loading').show();
+        var phone = $('.phone').text().trim();
+        ajaxHttpRequest('v1/sendMsgCode', {
+            data: {
+                phone: phone
+            },
+            success: function (data, status) {
+                if (status != "success") { // 请求出现异常
+                    showError("请求出现异常！");
+                    $('#net-loading').hide();
+                    return;
+                }
+                if (!data.meta.success) { // 服务器出现异常
+                    showError(data.meta.msg);
+                    $('#net-loading').hide();
+                    return;
+                }
+                $('#net-loading').hide();
+                second();
+                showInfo('发送成功');
+            },
+            error: function (errorType, error) {
+                showError("ERROR--请求出现异常！");
+                $('#net-loading').hide();
+            }
+        });
+    })
+
+    $("#next").click(function () {
+
+    })
+})

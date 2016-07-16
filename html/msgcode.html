@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/msgcode.css">
 </head>
 <body ontouchstart>
@@ -33,10 +34,30 @@
   <div class="weui_btn_area">
     <a id="next" class="weui_btn weui_btn_disabled weui_btn_warn" href="javascript:;">下一步</a>
   </div>
-  <div class="tips">没有收到验证码？<span class="f-red">重发验证码<span id="second">(30s)</span></span> </div>
+  <div class="tips">没有收到验证码？<span id="send" class="f-red">重发验证码(<span id="second"></span>s)</span> </div>
 </article>
+
+<!-- 网络加载 -->
+<div id="net-loading" class="net-loading">
+  <div class="loading-icon"></div>
+  <span class="txt">加载中...</span>
+</div>
+
+<!-- 错误提示 -->
+<div id="error" class="err-hints">
+  <span class="err-txt">错误信息</span>
+</div>
+
+<!-- 错误提示 -->
+<div id="info" class="info-hints">
+  <span class="info-txt">信息提示</span>
+</div>
 
 </body>
 <script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/main.js"></script>
+<script src="js/lib/common.js"></script>
 <script src="js/msgcode.js"></script>
 </html>

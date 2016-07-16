@@ -22,6 +22,9 @@ header .weui-header {
 .main .weui_btn_area {
   margin-top: 40px;
 }
+.main .weui_btn_area a:active{
+  color: rgba(255, 255, 255, 0.6);
+}
 .main .weui_cells_tips {
   height: 30px;
   margin-top: 12px;

@@ -60,3 +60,22 @@
   background: #FFEBBB;
   border: solid 1px #BEA383;
 }
+/* 操作信息提示框 */
+.info-hints {
+  position:fixed;
+  bottom:100px;
+  width: 100%;
+  margin:0 auto;
+  text-align: center;
+  display: none;
+}
+.info-txt{
+  font-family: '黑体', '微软雅黑';
+  padding: 4px 3px;
+  font-size: 16px;
+  color: #6E5336;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  background: #FFEBBB;
+  border: solid 1px #BEA383;
+}
