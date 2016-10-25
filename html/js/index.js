@@ -1,6 +1,3 @@
-/**
- * Created by cheng on 2016/6/15.
- */
 $(function () {
     $('#net-loading').show();
     //jsonp模式：进入该页，请求数据
