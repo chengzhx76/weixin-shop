@@ -1,10 +1,6 @@
-/**
- * Created by 光灿 on 2016/7/3.
- */
-
 function ajaxHttpRequest(url, options) {
     var server_url = 'http://wx.aqd123.com/moblie/';
-    //var server_url = 'http://127.0.0.1/moblie/';
+    //var server_url = 'http://localhost/moblie/';
 
     var opts = $.extend({
         'method': 'get',

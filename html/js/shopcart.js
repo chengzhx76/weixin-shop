@@ -36,6 +36,9 @@ function handler(data) {
         $("#allSelect input[type='checkbox']").prop('checked', true);
         addTotalPrice();
     }
+    // 初始化运费
+    var totalPrice = parseFloat($('#amount').text().trim());
+    addSubtotal(totalPrice);
 
     // 增加事件
     $(".add").click(function () {

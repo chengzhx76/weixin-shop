@@ -45,11 +45,11 @@
 
 
 <script id="main-temp" type="text/template">
+  <% if(data.products) {%>
   <article class="main">
     <div class="deliver-date">
       <span><span class="date"><%=data.deliveryDate%></span>配送</span>
     </div>
-    <% if(data.products) {%>
     <div class="list">
       <%for (var i = 0; i < data.products.length; i++) {%>
       <div class="weui_cells weui_cells_checkbox">
@@ -92,7 +92,6 @@
         <span id="remark" class="remark">运费<%=data.freight%>元</span>
       </div>
     </div>
-    <%}%>
   </article>
   <footer class="footer">
     <div class="f-main">
@@ -115,13 +114,14 @@
       </div>
     </div>
   </footer>
+  <%}%>
 </script>
-
 
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/template-native.js"></script>
 <script src="js/lib/main.js"></script>
 <script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/alloy_lever.js"></script>
 <script src="js/lib/zepto.md5.js"></script>
 <script src="js/lib/common.js"></script>
 

@@ -84,11 +84,13 @@ function handler(data) {
                 if (status != "success") { // 请求出现异常
                     showError("请求出现异常");
                     $('#buy-loading').hide();
+                    $add.attr("working","false");
                     return;
                 }
                 if (!data.meta.success) { // 服务器出现异常
                     showError(data.meta.msg);
                     $('#buy-loading').hide();
+                    $add.attr("working","false");
                     return;
                 }
                 animation($add);
@@ -134,11 +136,13 @@ function handler(data) {
                 if (status != "success") { // 请求出现异常
                     showError("请求出现异常");
                     $('#buy-loading').hide();
+                    $sub.attr("working","false");
                     return;
                 }
                 if (!data.meta.success) { // 服务器出现异常
                     showError(data.meta.msg);
                     $('#buy-loading').hide();
+                    $sub.attr("working","false");
                     return;
                 }
                 subCount($sub, data);
