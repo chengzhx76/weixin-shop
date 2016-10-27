@@ -60,7 +60,7 @@
           </div>
         </label>
         <div class="weui_cell_bd weui_cell_primary">
-          <figure class="item">
+          <figure class="item" data-id="<%=data.products[i].productId%>">
             <div class="item-warp <%if(!data.products[i].stock){%> no-all <%}%>">
               <a class="pic" href="detail.html">
                 <img src="<%=data.products[i].productImg%>" width="110" height="105">
@@ -121,7 +121,7 @@
 <script src="js/lib/template-native.js"></script>
 <script src="js/lib/main.js"></script>
 <script src="js/lib/ajaxHttpRequest.js"></script>
-<script src="js/lib/alloy_lever.js"></script>
+<!--<script src="js/lib/alloy_lever.js"></script>-->
 <script src="js/lib/zepto.md5.js"></script>
 <script src="js/lib/common.js"></script>
 

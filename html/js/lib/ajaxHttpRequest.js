@@ -53,7 +53,6 @@ function ajaxHttpRequest(url, options) {
         jsonpCallback: opts.jsonpCallback,
         success: function(data, status) {
             console.log(data);
-            console.log(status);
             opts.success && opts.success.apply(this, [data, status]);
         },
         error: function(errorType, error) {
@@ -64,6 +63,6 @@ function ajaxHttpRequest(url, options) {
 }
 
 function callback(data) {
-    console.log("===>callback");
+    //console.log("===>callback");
 }
 
