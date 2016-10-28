@@ -237,16 +237,61 @@ function handler(data) {
             return;
         }
         evTimeStamp = now;
-
+        var $obj = $(this);
         if (!$(this).find('.weui_check').prop('checked')) {
-            addTotalPrice();
+            ajaxHttpRequest('cart/v1/chooseAll', {
+                success: function (data, status) {
+                    if (status != "success") {
+                        showError("请求出现异常");
+                        $('#buy-loading').hide();
+                        $obj.attr("working","false");
+                        return;
+                    }
+                    if (!data.meta.success) {
+                        showError(data.meta.msg);
+                        $('#buy-loading').hide();
+                        $obj.attr("working","false");
+                        return;
+                    }
+                    $('#buy-loading').hide();
+                    addTotalPrice(data);
+                    $obj.attr("working","false");
+                },
+                error: function (errorType, error) {
+                    $('#buy-loading').hide();
+                    showError("ERROR--请求出现异常");
+                }
+            });
+
             $(".list input[type='checkbox']").each(function(index, value){
                 if (!$(value).is(':disabled')) {
                     $(value).prop('checked', true);
                 }
             });
         }else {
-            subTotalPrice();
+            ajaxHttpRequest('cart/v1/unChoose', {
+                success: function (data, status) {
+                    if (status != "success") {
+                        showError("请求出现异常");
+                        $('#buy-loading').hide();
+                        $obj.attr("working","false");
+                        return;
+                    }
+                    if (!data.meta.success) {
+                        showError(data.meta.msg);
+                        $('#buy-loading').hide();
+                        $obj.attr("working","false");
+                        return;
+                    }
+                    $('#buy-loading').hide();
+                    subTotalPrice(data);
+                    $obj.attr("working","false");
+                },
+                error: function (errorType, error) {
+                    $('#buy-loading').hide();
+                    showError("ERROR--请求出现异常");
+                }
+            });
             $(".list input[type='checkbox']").prop("checked",false);
         }
     });
@@ -274,22 +319,9 @@ function addTotalPrice(data) {
 };
 
 // 减少金额
-function subTotalPrice() {
-    var products = $(".list input[type='checkbox']").map(function(index, value){
-        if (!$(value).is(':disabled')) {
-            var price = $(value).parents('.weui_cells').find('.detail .price strong').text();
-            var count = $(value).parents('.weui_cells').find('.count').text();
-            var amount = parseFloat(price.trim()) * parseInt(count.trim());
-            var product = {'amount':amount};
-            return product;
-        }
-    }).get();
-    var totalPrice = parseFloat($('#amount').text().trim());
-    $(products).each(function(index, value) {
-        totalPrice -= value.amount;
-    });
-    $('#amount').text(totalPrice.toFixed(1));
-    addSubtotal(totalPrice);
+function subTotalPrice(data) {
+    $('#amount').text(data.data.totalPrice);
+    addSubtotal(data);
 };
 // 减少单个商品的所有价格
 /*function subSingleAllPrice(obj) {
@@ -339,9 +371,9 @@ function addSubtotal(data) {
     var freight =  parseInt(data.data.freight);
     var freeFreightAmount =  parseInt(data.data.freeFreightAmount);
     $('#cost').text(totalPrice.toFixed(1));
-    if (freight == 0) {
+    if (totalPrice == 0) {
         $('#remark').html("运费已免");
-    }else if(totalPrice == 0) {
+    }else if(freight == 0) {
         $('#remark').html("没有选择商品哦");
     }else {
         $('#remark').html("还差"+(freeFreightAmount-totalPrice).toFixed(1)+"可免运费");
