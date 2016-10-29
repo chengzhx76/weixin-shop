@@ -186,8 +186,7 @@ function handler(data) {
         if (now - evTimeStamp < 100) return;
         evTimeStamp = now;
         var $obj = $(this);
-        var productId = $obj.parents('.item').attr("data-id");
-
+        var productId = $obj.parents('.weui_cells').find('.item').attr("data-id");
         // 无货或下架的不可点击
         var isDisabled = $obj.find("input[type='checkbox']").is(':disabled');
         if(isDisabled) return;
@@ -204,7 +203,7 @@ function handler(data) {
         // 总金额的+/-
         ajaxHttpRequest('cart/v1/change', {
             data: {
-                productIds: productId
+                productId: productId
             },
             success: function (data, status) {
                 if (status != "success") { // 请求出现异常
@@ -372,9 +371,9 @@ function addSubtotal(data) {
     var freeFreightAmount =  parseInt(data.data.freeFreightAmount);
     $('#cost').text(totalPrice.toFixed(1));
     if (totalPrice == 0) {
-        $('#remark').html("运费已免");
-    }else if(freight == 0) {
         $('#remark').html("没有选择商品哦");
+    }else if(freight == 0) {
+        $('#remark').html("运费已免");
     }else {
         $('#remark').html("还差"+(freeFreightAmount-totalPrice).toFixed(1)+"可免运费");
     }

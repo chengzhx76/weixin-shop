@@ -11,32 +11,34 @@
   <link rel="stylesheet" href="css/myinfo.css">
 </head>
 <body ontouchstart>
-  <header class="header">
-    <div class="avatar">
-      <img src="images/avatar.jpg">
-    </div>
-    <div class="info">
-      <div class="nickname">Cheng</div>
-      <div class="phone">18600536683</div>
-      <div class="level">
-        <span class="licon level-0">v1</span>
-        <span class="level-txt">小吃</span>
+  <div id="header-warp">
+    <header class="header">
+      <div class="avatar">
+        <img src="images/avatar.jpg">
       </div>
-    </div>
-    <div class="interact">
-      <div class="sett-msg">
-        <span class="setting">设置</span>
+      <div class="info">
+        <div class="nickname">Cheng</div>
+        <div class="phone">18600536683</div>
+        <div class="level">
+          <span class="licon level-0">v1</span>
+          <span class="level-txt">小吃</span>
+        </div>
+      </div>
+      <a href="login.html">去登陆</a>
+      <div class="interact">
+        <div class="sett-msg">
+          <span class="setting">设置</span>
         <span class="msg">
           <i class="activate"></i>
           <i class="icon icon-80"></i>
         </span>
+        </div>
+        <div class="sign">
+          <a href="javascript:;">签到</a>
+        </div>
       </div>
-      <div class="sign">
-        <a href="javascript:;">签到</a>
-      </div>
-    </div>
-
-  </header>
+    </header>
+  </div>
 
   <article class="content">
     <section class="point">
@@ -233,7 +235,19 @@
   </div>
   <span class="total-price">总价：￥<strong>0</strong></span>
 </body>
+
+<script id="header-temp" type="text/template">
+
+</script>
+
+
 <script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/template-native.js"></script>
+<script src="js/lib/main.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/common.js"></script>
+
 <script src="js/myinfo.js"></script>
 <script src="js/example.js"></script>
 </html>
