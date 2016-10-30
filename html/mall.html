@@ -17,7 +17,6 @@
   <div class="product-wrap"></div>
 </div>
 
-
 <footer class="footer weui_tab tab-bottom" style="height:55px;">
   <nav class="weui_tabbar">
     <a href="index.html" class="weui_tabbar_item">
@@ -55,7 +54,7 @@
     <!--<p class="c-txt">购物车</p>-->
   </a>
 </div>
-<span class="total-price">总价：￥<strong>0</strong></span>
+<span class="total-price">总价：&yen;<strong>0</strong></span>
 
 
 <!-- 网络加载 -->
@@ -79,25 +78,25 @@
   <% if(data) {%>
   <aside class="nav">
     <%for (var i = 0; i < data.length; i++) {%>
-    <a class="type" href="javascript:void(0);"><%=data[i].name%></a>
+    <a class="type" data-id="<%=data[i].id%>" href="javascript:void(0);"><%=data[i].name%></a>
     <%}%>
     <a id="btn" class="type" href="javascript:void(0);">手机充值</a>
   </aside>
   <%}%>
 </script>
 <script id="product-temp" type="text/template">
-  <% if(data) {%>
+  <% if(data.products) {%>
   <section id="main" class="content">
     <div class="load">
-      <%for (var i = 0; i < data.length; i++) {%>
-      <figure class="item" data-id="<%=data[i].id%>">
-        <a class="pic" href="javascript:;"><img src="<%=data[i].picLink%>" width="<%=data[i].width%>" height="<%=data[i].height%>"></a>
+      <%for (var i = 0; i < data.products.length; i++) {%>
+      <figure class="item" data-id="<%=data.products[i].id%>">
+        <a class="pic" href="javascript:;"><img src="<%=data.products[i].picLink%>" width="<%=data.products[i].width%>" height="<%=data.products[i].height%>"></a>
         <figcaption class="detail">
-          <strong class="title"><%=data[i].name%></strong>
-          <em class="desc">0.25g/个</em>
+          <strong class="title"><%=data.products[i].name%></strong>
+          <em class="desc"><%=data.products[i].desc%></em>
           <div class="info">
             <span class="price">
-              &yen;<strong><%=data[i].price%></strong>
+              &yen;<strong><%=data.products[i].price%></strong>
             </span>
             <div class="buy">
               <span class="add icon icon-36"></span>
@@ -105,7 +104,7 @@
               <span class="sub icon icon-122"></span>
             </div>
           </div>
-          <div class="tag"><%=data[i].tag%></div>
+          <div class="tag"><%=data.products[i].tag%></div>
         </figcaption>
       </figure>
       <%}%>

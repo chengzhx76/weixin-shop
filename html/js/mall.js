@@ -10,7 +10,6 @@ $(function () {
                 $('#net-loading').hide();
                 return;
             }
-            //$('#net-loading').hide();
         },
         error: function (errorType, error) {
             showError("ERROR--请求出现异常！");
@@ -46,6 +45,35 @@ function typeHandler(data) {
             $('#net-loading').hide();
         }
     });
+
+    // 选择类别
+    $(".nav .type:first").addClass("active");
+    $(".type").click(function() {
+        var $type = $(this);
+        var ac = $type.siblings(".active").removeClass("active");
+        $type.addClass("active");
+
+        $('#net-loading').show();
+        ajaxHttpRequest('mall/v1/products', {
+            jsonpCallback: 'productHandler',
+            data: {
+                id: $type.attr('data-id')
+            },
+            success: function (data, status) {
+                // 请求出现异常
+                if (status != "success") {
+                    showError("请求出现异常！");
+                    $('#net-loading').hide();
+                    return;
+                }
+                $('#net-loading').hide();
+            },
+            error: function (errorType, error) {
+                showError("ERROR--请求出现异常！");
+                $('#net-loading').hide();
+            }
+        });
+    });
 }
 
 function productHandler(data) {
@@ -57,8 +85,9 @@ function productHandler(data) {
     var product = template('product-temp', data);
     $('.product-wrap').html(product);
 
-    var $totalPrice = $(".total-price").children("strong").text();
-    if($totalPrice!="" && $totalPrice!="0") {
+    var totalPrice = data.data.totalPrice;
+    if(totalPrice!="" && totalPrice!="0") {
+        $(".total-price").children("strong").text(totalPrice);
         $(".total-price").show();
     }else {
         $(".total-price").hide();
@@ -78,44 +107,125 @@ function productHandler(data) {
         addObj.css('margin-right','9px').css('font-size','30px');
     });
 
-    // 选择类别
-    $(".nav .type:first").addClass("active");
-    $(".type").click(function() {
-        var $type = $(this);
-        var ac = $type.siblings(".active").removeClass("active");
-        $type.addClass("active");
-
-
-
-
-
-
-    });
-
     // 购买
-    $(".add").click(function (event) {
-        event.preventDefault();
-        var obj = $(this);
-        addCount(obj);
-        if ($(".total-price").hide()) {
-            $(".total-price").show();
+    $(".add").click(function () {
+        var $add = $(this);
+        $('#buy-loading').show();
+        if($add.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $add.attr("working","true");
         }
-        addPrice(obj);
-        putCart(obj);
-    });
+        ajaxHttpRequest('mall/v1/add', {
+            data: {
+                productId: $add.parents('.item').attr("data-id")
+            },
+            success: function (data, status) {
+                if (status != "success") {
+                    showError("请求出现异常");
+                    $('#buy-loading').hide();
+                    $add.attr("working","false");
+                    return;
+                }
+                if (!data.meta.success) {
+                    showError(data.meta.msg);
+                    $('#buy-loading').hide();
+                    $add.attr("working","false");
+                    return;
+                }
+                animation($add);
+                // 数量增加
+                addCount($add, data);
+                // 金额增加
+                if($(".total-price").hide()) {
+                    $(".total-price").show();
+                    totalPriceFn(data)
+                }
+                $('#buy-loading').hide();
 
+                $add.attr("working","false");
+            },
+            error: function (errorType, error) {
+                $('#buy-loading').hide();
+                showError("ERROR--请求出现异常");
+            }
+        });
+    });
 
     // 减少事件
     $(".sub").click(function () {
-        var obj = $(this);
-        subCount(obj);
-        subPrice(obj);
+        var $sub = $(this);
+        $('#buy-loading').show();
+        if($sub.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $sub.attr("working","true");
+        }
+        ajaxHttpRequest('mall/v1/sub', {
+            data: {
+                productId: $sub.parents('.item').attr("data-id")
+            },
+            success: function (data, status) {
+                if (status != "success") {
+                    showError("请求出现异常");
+                    $('#buy-loading').hide();
+                    $sub.attr("working","false");
+                    return;
+                }
+                if (!data.meta.success) {
+                    showError(data.meta.msg);
+                    $('#buy-loading').hide();
+                    $sub.attr("working","false");
+                    return;
+                }
+                // 数量增加
+                subCount($sub, data);
+                totalPriceFn(data);
+                $('#buy-loading').hide();
+
+                $sub.attr("working","false");
+            },
+            error: function (errorType, error) {
+                $('#buy-loading').hide();
+                showError("ERROR--请求出现异常");
+            }
+        });
     });
 }
 
+// 添加数量
+function addCount($add, data) {
+    var count = parseInt(data.data.count);
+    $add.siblings('.count').text(count);
+    if (count > 0) {
+        $add.animate({marginRight:'8px','fontSize':'30px'},'fast');
+        $add.siblings('.count').show();
+        $add.siblings('.sub').show();
+    }
+}
 
+// 减少数量
+function subCount($sub, data) {
+    var count = parseInt(data.data.count);
+    $sub.siblings('.count').text(count);
+    if(count == 0) {
+        $sub.hide();
+        $sub.siblings('.count').hide();
+        $sub.siblings('.add').animate({marginRight:'10px','fontSize':'30px'},'fast');
+    }
+};
+// 总金额
+function totalPriceFn(data) {
+    var totalPrice = parseInt(data.data.totalPrice);
+    $(".total-price").children("strong").text(totalPrice);
+    if (totalPrice == 0) {
+        $(".total-price").hide();
+    }
+}
 // 放入购物车动画效果
-function putCart(obj) {
+function animation(obj) {
     var imgSrc = obj.parents(".item").children('.pic').children('img').attr('src');
     var imgObj = $('<img src="' + imgSrc + '">').appendTo("body").css({
         "width": "30px",
@@ -142,67 +252,6 @@ function putCart(obj) {
     // 开始运动
     bool.start();
 }
-
-// 添加金额
-function addPrice(obj) {
-    var price = obj.parent().prev(".price").children("strong").text();
-    var totalPrice = $(".total-price").children("strong").text();
-    var tp = 0;
-    if (totalPrice == "") {
-        tp = 0 + parseFloat(price);
-    } else {
-        tp = parseFloat(totalPrice) + parseFloat(price);
-    }
-    $(".total-price").children("strong").text(tp.toFixed(1));
-}
-
-// 减少金额
-function subPrice(obj) {
-    var price = parseFloat(obj.parent().prev(".price").children("strong").text());
-    var totalPrice = parseFloat($(".total-price").children("strong").text());
-    var tp = 0;
-    if (totalPrice >= price) {
-        tp = totalPrice - price;
-    }
-    if (tp <= 0) {
-        $(".total-price").hide();
-    }
-    $(".total-price").children("strong").text(tp.toFixed(1));
-}
-
-// 添加数量
-function addCount(obj) {
-    var numObj = obj.siblings('.count');
-    var num = parseInt(numObj.text());
-    num += 1;
-    numObj.text(num);
-    if (num > 0) {
-//        obj.removeAttr("style")
-        obj.animate({marginRight:'8px','fontSize':'30px'},'fast');
-        obj.siblings('.count').show();
-        obj.siblings('.sub').show();
-    }
-}
-
-// 减少数量
-function subCount(obj) {
-    var numObj = obj.siblings('.count');
-    var num = parseInt(numObj.text());
-    if (num != 0) {
-        num -= 1;
-        numObj.text(num);
-        if(num == 0) {
-            obj.hide();
-            obj.siblings('.count').hide();
-//          obj.siblings('.add').css('margin-right','10px').css('font-size','30px');
-            obj.siblings('.add').animate({marginRight:'10px','fontSize':'30px'},'fast');
-        }
-    } else {
-        obj.hide();
-        obj.siblings('.count').hide();
-        obj.siblings('.add').animate({marginRight:'10px','fontSize':'30px'},'fast');
-    }
-};
 
 // 转换成Int类型
 function toInteger(text) {

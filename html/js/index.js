@@ -62,9 +62,8 @@ function handler(data) {
     }
 
     // 购买
-    $(".add").click(function (event) {
+    $(".add").click(function () {
         $('#buy-loading').show();
-        event.preventDefault();
         var $add = $(this);
 
         if($add.attr("working") == "true") {
@@ -191,7 +190,7 @@ function totalPrice(data) {
     if (totalPrice == 0) {
         $(".total-price").hide();
     }
-    $(".total-price").children("strong").text(totalPrice.toFixed(1));
+    $(".total-price").children("strong").text(totalPrice);
 }
 
 // 动画
