@@ -32,7 +32,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   width: 20%;
   float: left;
 }
-.main .nav .product {
+.main .nav .type {
   height: 50px;
   font-size: 14px;
   color: #464546;

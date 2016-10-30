@@ -21,4 +21,15 @@ $(document).ready(function () {
         $(".total-price").hide();
     }
 
+
+
+    $(".type").click(function() {
+        var $type = $(this);
+        var ac = $type.siblings(".active").removeClass("active");
+        $type.addClass("active");
+    });
+
+
+
+
 });
