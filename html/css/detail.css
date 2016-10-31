@@ -225,6 +225,8 @@ body {
 }
 .comment .weui_cell .buyer .avatar img {
   border-radius: 100%;
+  width: 24px;
+  height: 24px;
 }
 .comment .weui_cell .buyer .phone {
   height: 20px;
@@ -244,10 +246,16 @@ body {
   display: block;
   float: left;
   text-indent: -999px;
+  background-size: contain;
 }
 .level-0 {
   background: url('../icon/level-0.png') no-repeat left center;
-  background-size: contain;
+}
+.level-1 {
+  background: url('../icon/level-0.png') no-repeat left center;
+}
+.level-3 {
+  background: url('../icon/level-0.png') no-repeat left center;
 }
 .comment .weui_cell .buyer .date {
   height: 20px;
@@ -310,6 +318,9 @@ body {
   float: left;
   padding-left: 5px;
   padding-right: 5px;
+}
+.footer .f-main .sell span {
+  font-size: 22px;
 }
 .footer .f-main .desc {
   height: 45px;

@@ -21,19 +21,17 @@ $(function () {
         }
     });
 
-
-
-
 });
 
 function handler(data) {
-
-
-
-    console.log("===========> 详情页");
-    console.log(data);
-
-
+    // 服务器出现异常
+    if (!data.meta.success) {
+        showError(data.meta.msg);
+        $('#net-loading').hide();
+        return;
+    }
+    var main = template('main-temp', data);
+    $('.main-wrap').html(main);
 
 
     $('#slideshow').swipeSlide({

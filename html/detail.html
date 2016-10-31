@@ -12,102 +12,8 @@
   <link rel="stylesheet" href="css/detail.css">
 </head>
 <body ontouchstart>
-  <header class="header">
-    <a class="back" href="index.html"></a>
-    <div class="slide" id="slideshow">
-      <ul>
-        <li><a href="#"><img src="images/d-1.jpg" alt=""></a></li>
-        <li><a href="#"><img src="images/d-2.jpg" alt=""></a></li>
-        <li><a href="#"><img src="images/d-3.jpg" alt=""></a></li>
-      </ul>
-      <div class="dot"><span></span><span></span><span></span></div>
-    </div>
-    <div class="arrti">
-      <div class="info">
-        <div class="title">
-          <strong class="name">大蒸馍 —— 无添加剂-绿色</strong>
-          <div class="attach">
-            <em class="sales">月售112个</em>
-            <em class="feedback-rate">好评率97%</em>
-          </div>
-        </div>
-        <div class="detail">
-          <span class="icon icon-93"></span>
-          <span class="d-txt">详情</span>
-        </div>
-      </div>
-
-      <div class="operate">
-        <span class="picon">￥</span><span id="single" class="sell">0.5</span>
-        <span class="price">￥0.5</span>
-        <div class="num">
-          <span class="sub icon icon-122"></span>
-          <span class="count">1</span>
-          <span class="add icon icon-36"></span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <article class="weui_cells comment">
-    <h1 class="title">商品评价</h1>
-    <div class="total">
-      <span class="comm">好评度<em class="f-red">100%</em></span>
-      <span class="count-comm">2人评价</span>
-    </div>
-    <div class="weui_cell">
-      <div class="buyer">
-        <div class="avatar"><img src="images/tx.jpg"></div>
-        <span class="phone">186****6683</span>
-        <span class="level level-0">level</span>
-        <em class="date">2016.6.8 11:28</em>
-      </div>
-      <div class="comm">
-        <div class="comm-buyer">
-          好评，比想象中的好吃！
-        </div>
-      </div>
-    </div>
-    <div class="weui_cell">
-      <div class="buyer">
-        <div class="avatar"><img src="images/tx.jpg"></div>
-        <span class="phone">186****6683</span>
-        <span class="level level-0">level</span>
-        <em class="date">2016.6.8 11:28</em>
-      </div>
-      <div class="comm">
-        <div class="comm-buyer">
-          好评，比想象中的好吃！
-        </div>
-        <div class="comm-reply">
-          <span>回复：</span><span class="main">谢谢支持！</span>
-        </div>
-      </div>
-    </div>
-    <div id="more" class="more">查看全部评论</div>
-  </article>
-
-  <footer class="footer">
-    <div class="f-main">
-      <div class="sell"><span id="amount">0.5</span>元</div>
-      <div class="desc">
-        <div class="note">
-          <span id="count" class="count">1</span><span>个</span>
-          <!--<span class="state">（满5元送一个）</span>-->
-        </div>
-        <!--<em class="leaflet">满5元免运费,支持货到付款</em>-->
-        <em class="leaflet">满5元送一个</em>
-      </div>
-      <div class="btn">
-        <div class="collect">
-          <span class="icon icon-49"></span>
-          <span class="c-txt">收藏</span>
-        </div>
-        <div class="add"><a href="shopcart.html">加入购物车</a></div>
-      </div>
-    </div>
-  </footer>
-
+  <div class="main-wrap">
+  </div>
   <!-- 网络加载 -->
   <div id="net-loading" class="net-loading">
     <div class="loading-icon"></div>
@@ -123,8 +29,100 @@
     <span class="err-txt">错误信息</span>
   </div>
 </body>
-<script>
 
+<script id="main-temp" type="text/template">
+  <% if(data) {%>
+  <header class="header">
+    <a class="back" href="index.html"></a>
+    <% if(data.picList) {%>
+    <div class="slide" id="slideshow">
+      <ul>
+        <%for (var i = 0; i < data.picList.length; i++) {%>
+        <li><a href="#"><img src="<%=data.picList[i].pictureUrl%>" alt=""></a></li>
+        <%}%>
+      </ul>
+      <div class="dot">
+        <%for (var i = 0; i < data.picList.length; i++) {%>
+        <span></span>
+        <%}%>
+      </div>
+    </div>
+    <%}%>
+    <div class="arrti">
+      <div class="info">
+        <div class="title">
+          <strong class="name"><%=data.name%> —— 无添加剂-绿色</strong>
+          <div class="attach">
+            <em class="sales">月售<%=data.sellNum%>个</em>
+            <em class="feedback-rate">好评率<%=data.good%>%</em>
+          </div>
+        </div>
+        <div class="detail">
+          <span class="icon icon-93"></span>
+          <span class="d-txt">详情</span>
+        </div>
+      </div>
+
+      <div class="operate">
+        <span class="picon">&yen;</span><span id="single" class="sell"><%=data.sellPrice%></span>
+        <span class="price">&yen;<%=data.marketPrice%></span>
+        <div class="num">
+          <span class="sub icon icon-122"></span>
+          <span class="count"><%=data.count%></span>
+          <span class="add icon icon-36"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <article class="weui_cells comment">
+    <h1 class="title">商品评价</h1>
+    <% if(data.comments) {%>
+    <div class="total">
+      <span class="comm">好评度<em class="f-red"><%=data.good%>%</em></span>
+      <span class="count-comm"><%=data.comments.length%>人评价</span>
+    </div>
+    <%for (var i = 0; i < data.comments.length; i++) {%>
+    <div class="weui_cell">
+      <div class="buyer">
+        <div class="avatar"><img src="<%=data.comments[i].avatar%>"></div>
+        <span class="phone"><%=data.comments[i].username%></span>
+        <span class="level level-<%=data.comments[i].level%>">level</span>
+        <em class="date"><%=data.comments[i].date%></em>
+      </div>
+      <div class="comm">
+        <div class="comm-buyer">
+          <%=data.comments[i].content%>
+        </div>
+        <div class="comm-reply">
+          <span>回复：</span><span class="main"><%=data.comments[i].reply%></span>
+        </div>
+      </div>
+    </div>
+    <%}%>
+    <div id="more" class="more">查看全部评论</div>
+    <%}%>
+  </article>
+
+  <footer class="footer">
+    <div class="f-main">
+      <div class="sell"><span id="amount">0.5</span>元</div>
+      <div class="desc">
+        <div class="note">
+          <span id="count" class="count">1</span><span>个</span>
+        </div>
+        <em class="leaflet">满<%=data.giveAway%>元送一个</em>
+      </div>
+      <div class="btn">
+        <div class="collect">
+          <span class="icon icon-49"></span>
+          <span class="c-txt">收藏</span>
+        </div>
+        <div class="add"><a href="shopcart.html">加入购物车</a></div>
+      </div>
+    </div>
+  </footer>
+  <%}%>
 </script>
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/template-native.js"></script>
