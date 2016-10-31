@@ -1,7 +1,41 @@
-/**
- * Created by cheng on 2016/6/15.
- */
 $(function () {
+    $('#net-loading').show();
+    //jsonp模式：进入该页，请求数据
+    ajaxHttpRequest('product/v1/detail', {
+        jsonpCallback: 'handler',
+        data: {
+            productId: getQueryparam('id')
+        },
+        success: function (data, status) {
+            // 请求出现异常
+            if (status != "success") {
+                showError("请求出现异常！");
+                $('#net-loading').hide();
+                return;
+            }
+            $('#net-loading').hide();
+        },
+        error: function (errorType, error) {
+            showError("ERROR--请求出现异常！");
+            $('#net-loading').hide();
+        }
+    });
+
+
+
+
+});
+
+function handler(data) {
+
+
+
+    console.log("===========> 详情页");
+    console.log(data);
+
+
+
+
     $('#slideshow').swipeSlide({
         autoSwipe: true,//自动切换默认是
         speed: 3000,//速度默认4000
@@ -29,7 +63,7 @@ $(function () {
 
         addTotalPrice(obj);
     });
-// 减少事件
+    // 减少事件
     $(".sub").click(function () {
         var obj = $(this);
 
@@ -39,60 +73,61 @@ $(function () {
             $.alert("至少得购买一个","提示");
             return;
         }
-
         subCount(obj);
         subTotalCount(obj);
-
         subTotalPrice(obj);
     })
-    // 添加数量
-    function addCount(obj) {
-        var numObj = obj.siblings('.count');
-        var num = parseInt(numObj.text());
-        num += 1;
-        numObj.text(num);
-    };
-    // 增加总个数
-    function addTotalCount(obj) {
-        var totalNum = parseInt($('#count').text().trim());
-        var num  = totalNum % 9;
-        if(!num) {
-            totalNum += 2
-        } else {
-            totalNum += 1;
-        }
-        $('#count').text(totalNum);
+}
+
+
+
+// 添加数量
+function addCount(obj) {
+    var numObj = obj.siblings('.count');
+    var num = parseInt(numObj.text());
+    num += 1;
+    numObj.text(num);
+};
+// 增加总个数
+function addTotalCount(obj) {
+    var totalNum = parseInt($('#count').text().trim());
+    var num  = totalNum % 9;
+    if(!num) {
+        totalNum += 2
+    } else {
+        totalNum += 1;
     }
-    // 添加商品金额
-    function addTotalPrice(obj) {
-        var totalPrice = parseFloat($('#amount').text().trim());
-        var singlePrice = parseFloat($('#single').text().trim());
-        totalPrice += singlePrice;
-        $('#amount').text(totalPrice.toFixed(1));
+    $('#count').text(totalNum);
+}
+// 添加商品金额
+function addTotalPrice(obj) {
+    var totalPrice = parseFloat($('#amount').text().trim());
+    var singlePrice = parseFloat($('#single').text().trim());
+    totalPrice += singlePrice;
+    $('#amount').text(totalPrice.toFixed(1));
+}
+// 减少数量
+function subCount(obj) {
+    var numObj = obj.siblings('.count');
+    var num = parseInt(numObj.text());
+    num -= 1;
+    numObj.text(num);
+};
+// 减少总个数
+function subTotalCount(obj) {
+    var totalNum = parseInt($('#count').text().trim());
+    var num  = totalNum % 9;
+    if(!num) {
+        totalNum -= 2
+    } else {
+        totalNum -= 1;
     }
-    // 减少数量
-    function subCount(obj) {
-        var numObj = obj.siblings('.count');
-        var num = parseInt(numObj.text());
-        num -= 1;
-        numObj.text(num);
-    };
-    // 减少总个数
-    function subTotalCount(obj) {
-        var totalNum = parseInt($('#count').text().trim());
-        var num  = totalNum % 9;
-        if(!num) {
-            totalNum -= 2
-        } else {
-            totalNum -= 1;
-        }
-        $('#count').text(totalNum);
-    }
-    // 添加商品金额
-    function subTotalPrice(obj) {
-        var totalPrice = parseFloat($('#amount').text().trim());
-        var singlePrice = parseFloat($('#single').text().trim());
-        totalPrice -= singlePrice;
-        $('#amount').text(totalPrice.toFixed(1));
-    }
-});
+    $('#count').text(totalNum);
+}
+// 添加商品金额
+function subTotalPrice(obj) {
+    var totalPrice = parseFloat($('#amount').text().trim());
+    var singlePrice = parseFloat($('#single').text().trim());
+    totalPrice -= singlePrice;
+    $('#amount').text(totalPrice.toFixed(1));
+}

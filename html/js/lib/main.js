@@ -32,3 +32,13 @@ function clearLocVal(key){
     if(key) window.localStorage.removeItem(key);
     else window.localStorage.clear();
 }
+/**
+ * 获取地址栏的参数
+ * @param name
+ * @returns {null}
+ */
+function getQueryparam(name) {
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  unescape(r[2]); return null;
+}

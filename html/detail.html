@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/detail.css">
 </head>
 <body ontouchstart>
@@ -106,12 +107,34 @@
       </div>
     </div>
   </footer>
-  <script>
 
-  </script>
+  <!-- 网络加载 -->
+  <div id="net-loading" class="net-loading">
+    <div class="loading-icon"></div>
+    <span class="txt">加载中...</span>
+  </div>
+
+  <!-- 添加减少加载 -->
+  <div id="buy-loading" class="buy-loading">
+  </div>
+
+  <!-- 错误提示 -->
+  <div id="error" class="err-hints">
+    <span class="err-txt">错误信息</span>
+  </div>
 </body>
+<script>
+
+</script>
 <script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/template-native.js"></script>
 <script src="js/lib/swipe.js"></script>
+<script src="js/lib/main.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/alloy_lever.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/common.js"></script>
+
 <script src="js/detail.js"></script>
 <script src="js/example.js"></script>
 </html>

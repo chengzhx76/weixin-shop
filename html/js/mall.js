@@ -50,7 +50,7 @@ function typeHandler(data) {
     $(".nav .type:first").addClass("active");
     $(".type").click(function() {
         var $type = $(this);
-        var ac = $type.siblings(".active").removeClass("active");
+        $type.siblings(".active").removeClass("active");
         $type.addClass("active");
 
         $('#net-loading').show();
