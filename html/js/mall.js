@@ -85,9 +85,9 @@ function productHandler(data) {
     var product = template('product-temp', data);
     $('.product-wrap').html(product);
 
-    var totalPrice = data.data.totalPrice;
+    var totalPrice = parseFloat(data.data.totalPrice);
     if(totalPrice!="" && totalPrice!="0") {
-        $(".total-price").children("strong").text(totalPrice);
+        $(".total-price").children("strong").text(totalPrice.toFixed(1));
         $(".total-price").show();
     }else {
         $(".total-price").hide();
@@ -218,8 +218,8 @@ function subCount($sub, data) {
 };
 // 总金额
 function totalPriceFn(data) {
-    var totalPrice = parseInt(data.data.totalPrice);
-    $(".total-price").children("strong").text(totalPrice);
+    var totalPrice = parseFloat(data.data.totalPrice);
+    $(".total-price").children("strong").text(totalPrice.toFixed(1));
     if (totalPrice == 0) {
         $(".total-price").hide();
     }

@@ -40,22 +40,30 @@ function handler(data) {
 
     // 增加事件
     $(".add").click(function () {
-        var $obj = $(this);
-        var productId = $obj.parents('.item').attr("data-id");
+        var $add = $(this);
+        $('#buy-loading').show();
+        if($add.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $add.attr("working", "true");
+        }
+
+        var productId = $add.parents('.item').attr("data-id");
 
         // 无货或下架的不可点击
-        var isDisabled = $obj.parents('.weui_cells').find("input[type='checkbox']").is(':disabled');
+        var isDisabled = $add.parents('.weui_cells').find("input[type='checkbox']").is(':disabled');
         if(isDisabled) return;
 
-        var num = parseInt($obj.prev('.count').text());
+        var num = parseInt($add.prev('.count').text());
         if (num >= 999) { // 最多支持购买999个
             $.alert("商品不能超过"+num+"个", "提示");
             return;
         }
         // 该商品是否已勾选
-        var isCheckbox = $obj.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
+        var isCheckbox = $add.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
         if (!isCheckbox) {
-            $obj.parents('.weui_cells').find("input[type='checkbox']").prop("checked",true);
+            $add.parents('.weui_cells').find("input[type='checkbox']").prop("checked",true);
         }
         ajaxHttpRequest('cart/v1/add', {
             data: {
@@ -65,18 +73,18 @@ function handler(data) {
                 if (status != "success") { // 请求出现异常
                     showError("请求出现异常");
                     $('#buy-loading').hide();
-                    $obj.attr("working","false");
+                    $add.attr("working","false");
                     return;
                 }
                 if (!data.meta.success) { // 服务器出现异常
                     showError(data.meta.msg);
                     $('#buy-loading').hide();
-                    $obj.attr("working","false");
+                    $add.attr("working","false");
                     return;
                 }
                 $('#buy-loading').hide();
-                addCountAndSinglePrice($obj, data);
-                $obj.attr("working","false");
+                addCountAndSinglePrice($add, data);
+                $add.attr("working","false");
             },
             error: function (errorType, error) {
                 $('#buy-loading').hide();
@@ -87,22 +95,31 @@ function handler(data) {
 
     // 减少事件
     $(".sub").click(function () {
-        var $obj = $(this);
-        var productId = $obj.parents('.item').attr("data-id");
+        var $sub = $(this);
+
+        $('#buy-loading').show();
+        if($sub.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $sub.attr("working", "true");
+        }
+
+        var productId = $sub.parents('.item').attr("data-id");
         // 无货或下架的不可点击
-        var isDisabled = $obj.parents('.weui_cells').find("input[type='checkbox']").is(':disabled');
+        var isDisabled = $sub.parents('.weui_cells').find("input[type='checkbox']").is(':disabled');
         if(isDisabled) return;
 
         // 数量小于0不执行 后面的函数
-        var numObj = $obj.next('.count');
+        var numObj = $sub.next('.count');
         var num = parseInt(numObj.text());
         if (num <= 0) {
             return;
         }
         if (num != 1) {
-            var isCheckbox = $obj.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
+            var isCheckbox = $sub.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
             if (!isCheckbox) {
-                $obj.parents('.weui_cells').find("input[type='checkbox']").prop("checked",true);
+                $sub.parents('.weui_cells').find("input[type='checkbox']").prop("checked",true);
             }
         }
         if (num > 1) {
@@ -114,20 +131,20 @@ function handler(data) {
                     if (status != "success") { // 请求出现异常
                         showError("请求出现异常");
                         $('#buy-loading').hide();
-                        $obj.attr("working","false");
+                        $sub.attr("working","false");
                         return;
                     }
                     if (!data.meta.success) { // 服务器出现异常
                         showError(data.meta.msg);
                         $('#buy-loading').hide();
-                        $obj.attr("working","false");
+                        $sub.attr("working","false");
                         return;
                     }
                     $('#buy-loading').hide();
                     numObj.text(data.data.count);
                     $('#amount').text(data.data.totalPrice);
                     addSubtotal(data);
-                    $obj.attr("working","false");
+                    $sub.attr("working","false");
                 },
                 error: function (errorType, error) {
                     $('#buy-loading').hide();
@@ -144,13 +161,13 @@ function handler(data) {
                         if (status != "success") { // 请求出现异常
                             showError("请求出现异常");
                             $('#buy-loading').hide();
-                            $obj.attr("working","false");
+                            $sub.attr("working","false");
                             return;
                         }
                         if (!data.meta.success) { // 服务器出现异常
                             showError(data.meta.msg);
                             $('#buy-loading').hide();
-                            $obj.attr("working","false");
+                            $sub.attr("working","false");
                             return;
                         }
                         $('#buy-loading').hide();
@@ -160,14 +177,13 @@ function handler(data) {
                         addSubtotal(data);
                         var isCheckbox = $obj.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
                         if (isCheckbox) {
-                            $obj.parents('.weui_cells').find("input[type='checkbox']").prop("checked", false);
+                            $sub.parents('.weui_cells').find("input[type='checkbox']").prop("checked", false);
                         }
 
                         $obj.parents('.weui_cells').fadeOut("200", function () {
                             $(this).remove();
                         });
-
-                        $obj.attr("working","false");
+                        $sub.attr("working","false");
                     },
                     error: function (errorType, error) {
                         $('#buy-loading').hide();
@@ -186,6 +202,15 @@ function handler(data) {
         if (now - evTimeStamp < 100) return;
         evTimeStamp = now;
         var $obj = $(this);
+
+        $('#buy-loading').show();
+        if($obj.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $obj.attr("working", "true");
+        }
+
         var productId = $obj.parents('.weui_cells').find('.item').attr("data-id");
         // 无货或下架的不可点击
         var isDisabled = $obj.find("input[type='checkbox']").is(':disabled');
@@ -237,6 +262,15 @@ function handler(data) {
         }
         evTimeStamp = now;
         var $obj = $(this);
+
+        $('#buy-loading').show();
+        if($obj.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $obj.attr("working", "true");
+        }
+
         if (!$(this).find('.weui_check').prop('checked')) {
             ajaxHttpRequest('cart/v1/chooseAll', {
                 success: function (data, status) {
@@ -322,48 +356,7 @@ function subTotalPrice(data) {
     $('#amount').text(data.data.totalPrice);
     addSubtotal(data);
 };
-// 减少单个商品的所有价格
-/*function subSingleAllPrice(obj) {
-    var price = obj.parents('.weui_cells').find('.detail .price strong').text();
-    var count = obj.parents('.weui_cells').find('.count').text();
-    var amount = parseFloat(price.trim()) * parseInt(count.trim());
-    var totalPrice = parseFloat($('#amount').text().trim());
 
-    totalPrice -= amount;
-    $('#amount').text(totalPrice.toFixed(1));
-    addSubtotal(totalPrice);
-}*/
-
-// 减少数量和单个商品的价格
-/*function subCountAndSinglePrice(obj, data) {
-    var numObj = obj.next('.count');
-    var num = parseInt(numObj.text());
-    if (num > 1) {
-        num -= 1;
-        numObj.text(num);
-        $('#amount').text(data.data.totalPrice);
-        addSubtotal(data);
-    }else if (num == 1) {
-        $.confirm("您确定要删除吗?", "删除确认", function () {
-            $('#amount').text(data.data.totalPrice);
-            addSubtotal(data);
-            obj.parents('.weui_cells').fadeOut("200", function (){
-                $(this).remove();
-            });
-            num -= 1;
-            numObj.text(num);
-            if (num == 1){
-                var isCheckbox = obj.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
-                if (isCheckbox) {
-                    obj.parents('.weui_cells').find("input[type='checkbox']").prop("checked", false);
-                }
-            }
-            //$.toast("删除成功!");
-        }, function () {
-            //取消操作
-        });
-    }
-};*/
 // 小计金额
 function addSubtotal(data) {
     var totalPrice =  parseFloat(data.data.totalPrice);

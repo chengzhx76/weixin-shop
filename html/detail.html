@@ -106,15 +106,15 @@
 
   <footer class="footer">
     <div class="f-main">
-      <div class="sell"><span id="amount">0.5</span>元</div>
+      <div class="sell"><span id="amount"><%=data.totalPrice%></span>元</div>
       <div class="desc">
         <div class="note">
-          <span id="count" class="count">1</span><span>个</span>
+          <span id="count" class="count"><%=data.count%></span><span>个</span>
         </div>
         <em class="leaflet">满<%=data.giveAway%>元送一个</em>
       </div>
       <div class="btn">
-        <div class="collect">
+        <div class="collect" data-id="<%=data.id%>">
           <span class="icon icon-49"></span>
           <span class="c-txt">收藏</span>
         </div>

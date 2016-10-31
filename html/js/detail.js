@@ -75,6 +75,54 @@ function handler(data) {
         subTotalCount(obj);
         subTotalPrice(obj);
     })
+
+    // 收藏
+    $(".collect").click(function () {
+        var $obj = $(this);
+
+        $('#buy-loading').show();
+        if($obj.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $obj.attr("working", "true");
+        }
+        ajaxHttpRequest('mall/v1/focus', {
+            data: {
+                productId: getQueryparam('id')
+            },
+            success: function (data, status) {
+                if (status != "success") {
+                    showError("请求出现异常");
+                    $('#buy-loading').hide();
+                    $obj.attr("working","false");
+                    return;
+                }
+                if (!data.meta.success) {
+                    showError(data.meta.msg);
+                    $('#buy-loading').hide();
+                    $obj.attr("working","false");
+                    return;
+                }
+
+
+
+
+
+
+
+                $('#buy-loading').hide();
+
+                $obj.attr("working","false");
+            },
+            error: function (errorType, error) {
+                $('#buy-loading').hide();
+                showError("ERROR--请求出现异常");
+            }
+        });
+
+    })
+
 }
 
 

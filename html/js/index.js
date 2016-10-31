@@ -190,7 +190,7 @@ function totalPrice(data) {
     if (totalPrice == 0) {
         $(".total-price").hide();
     }
-    $(".total-price").children("strong").text(totalPrice);
+    $(".total-price").children("strong").text(totalPrice.toFixed(1));
 }
 
 // 动画
