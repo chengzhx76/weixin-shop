@@ -53,6 +53,11 @@ function typeHandler(data) {
         $type.siblings(".active").removeClass("active");
         $type.addClass("active");
 
+        if ($type.hasClass("recharge")) {
+            // TODO 处理手机充值页面
+            return;
+        }
+
         $('#net-loading').show();
         ajaxHttpRequest('mall/v1/products', {
             jsonpCallback: 'productHandler',

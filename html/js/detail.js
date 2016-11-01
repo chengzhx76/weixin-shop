@@ -32,7 +32,7 @@ function handler(data) {
     }
     var main = template('main-temp', data);
     $('.main-wrap').html(main);
-
+    var evTimeStamp = 0;
 
     $('#slideshow').swipeSlide({
         autoSwipe: true,//自动切换默认是
@@ -78,6 +78,10 @@ function handler(data) {
 
     // 收藏
     $(".collect").click(function () {
+        var now =+ new Date();
+        if (now - evTimeStamp < 100) return;
+        evTimeStamp = now;
+
         var $obj = $(this);
 
         $('#buy-loading').show();
@@ -87,7 +91,7 @@ function handler(data) {
         } else {
             $obj.attr("working", "true");
         }
-        ajaxHttpRequest('mall/v1/focus', {
+        ajaxHttpRequest('product/v1/focus', {
             data: {
                 productId: getQueryparam('id')
             },
@@ -104,15 +108,12 @@ function handler(data) {
                     $obj.attr("working","false");
                     return;
                 }
-
-
-
-
-
-
-
+                if (data.data) {
+                    $(".collect .icon").removeClass('icon-49').addClass('icon-48');
+                }else {
+                    $(".collect .icon").removeClass('icon-48').addClass('icon-49');
+                }
                 $('#buy-loading').hide();
-
                 $obj.attr("working","false");
             },
             error: function (errorType, error) {
