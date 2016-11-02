@@ -78,7 +78,7 @@
         <div class="weui_cell_bd weui_cell_primary">
           <figure class="item" data-id="<%=data.products[i].productId%>">
             <div class="item-warp <%if(!data.products[i].stock){%> no-all <%}%>">
-              <a class="pic" href="detail.html">
+              <a class="pic" href="detail.html?id=<%=data.products[i].productId%>">
                 <img src="<%=data.products[i].productImg%>" width="110" height="105">
                 <%if(!data.products[i].stock){%>
                 <div class="no">无货</div>

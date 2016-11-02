@@ -23,7 +23,48 @@
 
 <article class="main">
   <div class="home-wrap"></div>
-  <div class="since-wrap"></div>
+
+  <section id="since" class="since">
+    <div class="now-city">
+      <div class="txt">当前城市：</div>
+      <div class="city">
+        <i class="icon icon-69"></i>
+        <span class="c-name">成武县</span>
+      </div>
+    </div>
+    <div class="main-city">
+      <ul class="left city-list">
+        <li class="c-item">
+          <span class="activate"></span>
+          <div class="city">孙寺镇</div>
+        </li>
+      </ul>
+      <ul class="right addr-list">
+        <li class="a-item">
+          <a href="payment.html">
+            <div class="addr-decs">
+              <span class="txt">刘楼村</span>
+              <span class="distance"><span>8.3</span>km</span>
+            </div>
+          </a>
+          <div class="a-icon">
+            <span class="icon icon-40"></span>
+          </div>
+        </li>
+        <li class="a-item">
+          <a href="payment.html">
+            <div class="addr-decs">
+              <span class="txt">刘楼村2</span>
+              <span class="distance"><span>8.3</span>km</span>
+            </div>
+          </a>
+          <div class="a-icon">
+            <span class="icon icon-40"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
 </article>
 
 <footer class="footer">
@@ -83,49 +124,33 @@
   </section>
 </script>
 
-<script id="since-temp" type="text/template">
+<!--<script id="since-temp" type="text/template">
+  <% if(data) {%>
   <section id="since" class="since">
     <div class="now-city">
       <div class="txt">当前城市：</div>
-      <div class="city">
+      <div class="city" data-id="<%=data.cid%>">
         <i class="icon icon-69"></i>
-        <span class="c-name">成武县</span>
+        <span class="c-name"><%=data.city%></span>
       </div>
     </div>
+    <% if(data.countryAddrs) {%>
     <div class="main-city">
       <ul class="left city-list">
-        <li class="c-item">
+        <%for (var i = 0; i < data.countryAddrs.length; i++) {%>
+        <li class="c-item" data-id="<%=data.countryAddrs[i].id%>">
           <span class="activate"></span>
-          <div class="city">孙寺镇</div>
+          <div class="city"><%=data.countryAddrs[i].country%></div>
         </li>
+        <%}%>
       </ul>
-      <ul class="right addr-list">
-        <li class="a-item">
-          <a href="payment.html">
-            <div class="addr-decs">
-              <span class="txt">刘楼村</span>
-              <span class="distance"><span>8.3</span>km</span>
-            </div>
-          </a>
-          <div class="a-icon">
-            <span class="icon icon-40"></span>
-          </div>
-        </li>
-        <li class="a-item">
-          <a href="payment.html">
-            <div class="addr-decs">
-              <span class="txt">刘楼村2</span>
-              <span class="distance"><span>8.3</span>km</span>
-            </div>
-          </a>
-          <div class="a-icon">
-            <span class="icon icon-40"></span>
-          </div>
-        </li>
-      </ul>
+      <div class="addrDetail-wrap"></div>
     </div>
+    <%}%>
   </section>
-</script>
+  <%}%>
+</script>-->
+
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/template-native.js"></script>
 <script src="js/lib/main.js"></script>

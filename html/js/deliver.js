@@ -63,7 +63,7 @@ function handler(data) {
 
             $('.footer').show();
         }else {
-            ajaxHttpRequest('user/v1/all/addr', {
+            /*ajaxHttpRequest('user/v1/all/addr', {
                 jsonpCallback: 'sinceHandler',
                 success: function (data, status) {
                     // 请求出现异常
@@ -78,7 +78,7 @@ function handler(data) {
                     showError("ERROR--请求出现异常！");
                     $('#net-loading').hide();
                 }
-            });
+            });*/
 
             $('.footer').hide();
         }
@@ -97,6 +97,7 @@ function homeHandler(data) {
     $('.home-wrap').html(home);
 }
 
+/*
 function sinceHandler(data) {
     if (!data.meta.success) {
         showError(data.meta.msg);
@@ -105,4 +106,4 @@ function sinceHandler(data) {
     }
     var since = template('since-temp', data);
     $('.since-wrap').html(since);
-}
+}*/
