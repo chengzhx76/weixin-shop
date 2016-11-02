@@ -63,8 +63,8 @@ function handler(data) {
 
             $('.footer').show();
         }else {
-            /*ajaxHttpRequest('user/v1/all/addr', {
-                jsonpCallback: 'sinceHandler',
+            ajaxHttpRequest('user/v1/all/addr', {
+                jsonpCallback: 'townHandler',
                 success: function (data, status) {
                     // 请求出现异常
                     if (status != "success") {
@@ -78,7 +78,7 @@ function handler(data) {
                     showError("ERROR--请求出现异常！");
                     $('#net-loading').hide();
                 }
-            });*/
+            });
 
             $('.footer').hide();
         }
@@ -97,13 +97,38 @@ function homeHandler(data) {
     $('.home-wrap').html(home);
 }
 
-/*
-function sinceHandler(data) {
+function townHandler(data) {
     if (!data.meta.success) {
         showError(data.meta.msg);
         $('#net-loading').hide();
         return;
     }
-    var since = template('since-temp', data);
-    $('.since-wrap').html(since);
-}*/
+    var town = template('town-temp', data);
+    $('.town-wrap').html(town);
+
+    ajaxHttpRequest('user/v1/all/addr', {
+        jsonpCallback: 'vilageHandler',
+        success: function (data, status) {
+            // 请求出现异常
+            if (status != "success") {
+                showError("请求出现异常！");
+                $('#net-loading').hide();
+                return;
+            }
+            $('#net-loading').hide();
+        },
+        error: function (errorType, error) {
+            showError("ERROR--请求出现异常！");
+            $('#net-loading').hide();
+        }
+    });
+}
+function vilageHandler(data) {
+    if (!data.meta.success) {
+        showError(data.meta.msg);
+        $('#net-loading').hide();
+        return;
+    }
+    var vilage = template('vilage-temp', data);
+    $('.vilage-wrap').html(vilage);
+}

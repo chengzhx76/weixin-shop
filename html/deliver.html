@@ -25,44 +25,16 @@
   <div class="home-wrap"></div>
 
   <section id="since" class="since">
-    <div class="now-city">
+    <div class="now-county">
       <div class="txt">当前城市：</div>
-      <div class="city">
+      <div class="county">
         <i class="icon icon-69"></i>
         <span class="c-name">成武县</span>
       </div>
     </div>
-    <div class="main-city">
-      <ul class="left city-list">
-        <li class="c-item">
-          <span class="activate"></span>
-          <div class="city">孙寺镇</div>
-        </li>
-      </ul>
-      <ul class="right addr-list">
-        <li class="a-item">
-          <a href="payment.html">
-            <div class="addr-decs">
-              <span class="txt">刘楼村</span>
-              <span class="distance"><span>8.3</span>km</span>
-            </div>
-          </a>
-          <div class="a-icon">
-            <span class="icon icon-40"></span>
-          </div>
-        </li>
-        <li class="a-item">
-          <a href="payment.html">
-            <div class="addr-decs">
-              <span class="txt">刘楼村2</span>
-              <span class="distance"><span>8.3</span>km</span>
-            </div>
-          </a>
-          <div class="a-icon">
-            <span class="icon icon-40"></span>
-          </div>
-        </li>
-      </ul>
+    <div class="main-addr">
+      <div class="town-wrap"></div>
+      <div class="vilage-wrap"></div>
     </div>
   </section>
 </article>
@@ -86,6 +58,7 @@
   <span class="err-txt">错误信息</span>
 </div>
 </body>
+
 <script id="home-temp" type="text/template">
   <section id="home" class="home">
     <div class="now-location">
@@ -122,6 +95,42 @@
     </ul>
     <%}%>
   </section>
+</script>
+
+<script id="town-temp" type="text/template">
+  <ul class="left town-list">
+    <li class="c-item">
+      <span class="activate"></span>
+      <div class="town">孙寺镇</div>
+    </li>
+  </ul>
+</script>
+
+<script id="vilage-temp" type="text/template">
+  <ul class="right vilage-list">
+    <li class="a-item">
+      <a href="payment.html">
+        <div class="addr-decs">
+          <span class="vilage">刘楼村</span>
+          <span class="distance">8.3km</span>
+        </div>
+      </a>
+      <div class="a-icon">
+        <span class="icon icon-40"></span>
+      </div>
+    </li>
+    <li class="a-item">
+      <a href="payment.html">
+        <div class="addr-decs">
+          <span class="vilage">刘楼村2</span>
+          <span class="distance">8.3km</span>
+        </div>
+      </a>
+      <div class="a-icon">
+        <span class="icon icon-40"></span>
+      </div>
+    </li>
+  </ul>
 </script>
 
 <script src="js/lib/zepto.min.js"></script>
