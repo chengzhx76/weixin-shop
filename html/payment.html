@@ -28,38 +28,27 @@
       <h1 class="title">收货信息</h1>
       <div class="main">
         <div class="weui_panel weui_panel_access detail">
-          <a class="weui_panel_ft m-addr" href="deliver.html">
+          <div class="m-addr">
             <div class="name-phone">
               <div class="name">
-                <i class="icon icon-85"></i>
-                <span>张三</span>
+                <i class="icon icon-85"></i> <span>张三</span>
               </div>
               <div class="phone">
-                <i class="icon icon-104"></i>
-                <span>18600536683</span>
+                <i class="icon icon-104"></i> <span>18600536683</span>
               </div>
             </div>
-            <div class="d-addr">
-              刘楼张三家
+            <div class="d-addr">刘楼张三家</div>
+          </div>
+          <a id='select-data' class="weui_panel_ft m-date" href="javascript:void(0);">
+            <div class="weui_cell_hd">
+              <label>送货时间</label>
             </div>
-          </a>
-          <a id='slect-data' class="weui_panel_ft m-date" href="javascript:void(0);">
-            <!--<div class="desc">
-              收货时间
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" type="text" readonly value="请选择送货时间"/>
             </div>
-            <div class="d-date">
-              请选择时间
-            </div>-->
-              <div class="weui_cell_hd">
-                <label for="" class="">送货时间</label>
-              </div>
-              <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" readonly value="请选择送货时间"/>
-              </div>
           </a>
         </div>
       </div>
-
     </section>
 
     <section class="pay">
@@ -200,7 +189,7 @@
 <script src="js/example.js"></script>
 <script src="js/payment.js"></script>
 <script>
-  $("#slect-data").select({
+  $("#select-data").select({
     title: "送货时间",
     items: [
       {

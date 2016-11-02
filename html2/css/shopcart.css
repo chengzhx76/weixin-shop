@@ -19,6 +19,78 @@ header .weui-header {
   background: #ffffff;
   border-bottom: solid 1px #cccccc;
 }
+
+.addr {
+  background: #ffffff;
+  margin-bottom: 5px;
+}
+.addr .detail {
+  padding: 6px 0 6px 2px;
+  margin: 0 5px 5px 10px;
+}
+.addr .detail .weui_panel_ft:before {
+  left: 0;
+}
+.addr .detail .weui_panel_ft {
+  padding: 2px 10px 2px 0;
+  border-top: none;
+}
+.addr .detail .m-addr {
+  /*min-height: 60px;*/
+  color: #586C94;
+}
+.addr .detail .m-addr .name-phone {
+  height: 30px;
+}
+
+.addr .detail .m-addr .name-phone .name {
+  float: left;
+  height: 30px;
+}
+.addr .detail .m-addr .name-phone .name .icon {
+  font-size: 16px;
+  height: 30px;
+  display: inline-block;
+  color: #FF6600;
+  line-height: 25px;
+}
+.addr .detail .m-addr .name-phone .name span {
+  height: 30px;
+  font-size: 18px;
+  display: inline-block;
+  line-height: 32px;
+}
+
+.addr .detail .m-addr .name-phone .phone {
+  height: 30px;
+  float: right;
+  margin-right: 80px;
+}
+.addr .detail .m-addr .name-phone .phone .icon {
+  font-size: 16px;
+  height: 30px;
+  display: inline-block;
+  color: #FF6600;
+  line-height: 27px;
+}
+.addr .detail .m-addr .name-phone .phone span {
+  height: 30px;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 30px;
+}
+.addr .detail .m-addr .d-addr {
+  height: 30px;
+  font-size: 16px;
+  clear: both;
+  line-height: 38px;
+}
+
+/* 弹框字居中 */
+.weui_cell_bd p {
+  text-align: center;
+}
+
 .main {
   background: #ffffff;
   margin-bottom: 70px;

@@ -1,6 +1,5 @@
 $(function () {
     $('#net-loading').show();
-    //jsonp模式：进入该页，请求数据
     ajaxHttpRequest('product/v1/detail', {
         jsonpCallback: 'handler',
         data: {
@@ -74,7 +73,45 @@ function handler(data) {
         subCount(obj);
         subTotalCount(obj);
         subTotalPrice(obj);
-    })
+    });
+
+    $("#addCart").click(function () {
+        var $addCart = $(this);
+        $('#buy-loading').show();
+        if($addCart.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $addCart.attr("working", "true");
+        }
+        ajaxHttpRequest('product/v1/buy', {
+            data: {
+                productId: getQueryparam('id'),
+                count: $(".count").text()
+            },
+            success: function (data, status) {
+                if (status != "success") { // 请求出现异常
+                    showError("请求出现异常");
+                    $('#buy-loading').hide();
+                    $addCart.attr("working","false");
+                    return;
+                }
+                if (!data.meta.success) { // 服务器出现异常
+                    showError(data.meta.msg);
+                    $('#buy-loading').hide();
+                    $addCart.attr("working","false");
+                    return;
+                }
+                $('#buy-loading').hide();
+                window.location.href="shopcart.html";
+                $addCart.attr("working","false");
+            },
+            error: function (errorType, error) {
+                $('#buy-loading').hide();
+                showError("ERROR--请求出现异常");
+            }
+        });
+    });
 
     // 收藏
     $(".collect").click(function () {
@@ -125,8 +162,6 @@ function handler(data) {
     })
 
 }
-
-
 
 // 添加数量
 function addCount(obj) {

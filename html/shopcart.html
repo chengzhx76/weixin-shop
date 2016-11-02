@@ -43,8 +43,24 @@
 </div>
 </body>
 
-
 <script id="main-temp" type="text/template">
+  <% if(data.consignee) {%>
+  <section class="addr">
+    <div class="weui_panel weui_panel_access detail">
+      <a class="weui_panel_ft m-addr" href="deliver.html">
+        <div class="name-phone">
+          <div class="name">
+            <i class="icon icon-85"></i> <span><%=data.consignee%></span>
+          </div>
+          <div class="phone">
+            <i class="icon icon-104"></i> <span><%=data.mobile%></span>
+          </div>
+        </div>
+        <div class="d-addr"><%=data.address%></div>
+      </a>
+    </div>
+  </section>
+  <%}%>
   <% if(data.products) {%>
   <article class="main">
     <div class="deliver-date">
