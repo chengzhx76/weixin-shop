@@ -21,33 +21,11 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   color: #ef4f4f;
 }
 .main {
-  height: 100%;
+  /*height: 50%;*/
+  margin-top: 3px;
 }
 .main .home {
   /*height: 100px;*/
-}
-.main .home .now-location {
-  height: 50px;
-  border-bottom: solid 1px #cccccc;
-  background: #ffffff;
-}
-.main .home .now-location .txt {
-  height: 50px;
-  line-height: 50px;
-  text-indent: 10px;
-  font-size: 18px;
-  color: #333;
-  display: block;
-  float: left;
-}
-.main .home .now-location .icon {
-  height: 50px;
-  display: block;
-  line-height: 50px;
-  font-size: 22px;
-  margin-right: 25px;
-  float: right;
-  color: #FF6600;
 }
 .main .home .address-list {
   background: #ffffff;
@@ -142,20 +120,20 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   height: 100%;
 }
 .main .since .now-county {
-  height: 50px;
+  height: 45px;
   border-bottom: solid 1px #cccccc;
   background: #ffffff;
 }
 .main .since .now-county .txt {
-  height: 50px;
-  line-height: 50px;
+  height: 45px;
+  line-height: 45px;
   text-indent: 10px;
   float: left;
   font-size: 18px;
 }
 .main .since .now-county .county {
-  height: 50px;
-  line-height: 50px;
+  height: 45px;
+  line-height: 45px;
   text-indent: 10px;
   float: left;
   font-size: 18px;
@@ -165,13 +143,13 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 .main .since .now-county .county .icon {
   font-size: 26px;
   display: block;
-  height: 50px;
+  height: 45px;
   float: left;
 }
 .main .since .now-county .county .c-name {
   display: block;
-  height: 50px;
-  line-height: 52px;
+  height: 45px;
+  line-height: 47px;
   float: left;
 }
 .main .since .main-addr {

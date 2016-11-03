@@ -31,9 +31,11 @@ function handler(data) {
     $('.main-wrap').html(main);
 
     var evTimeStamp = 0;
-    if ($(".list input[type='checkbox']").prop('checked')) {
-        $("#allSelect input[type='checkbox']").prop('checked', true);
-        addTotalPrice(data);
+    if (data.data.hasNum) {
+        if ($(".list input[type='checkbox']:checked").length==data.data.hasNum) {
+            $("#allSelect input[type='checkbox']").prop('checked', true);
+            addTotalPrice(data);
+        }
     }
     // 初始化运费
     addSubtotal(data);
@@ -53,10 +55,16 @@ function handler(data) {
 
         // 无货或下架的不可点击
         var isDisabled = $add.parents('.weui_cells').find("input[type='checkbox']").is(':disabled');
-        if(isDisabled) return;
+        if(isDisabled) {
+            $('#buy-loading').hide();
+            $add.attr("working","false");
+            return;
+        }
 
         var num = parseInt($add.prev('.count').text());
         if (num >= 999) { // 最多支持购买999个
+            $('#buy-loading').hide();
+            $add.attr("working","false");
             $.alert("商品不能超过"+num+"个", "提示");
             return;
         }
@@ -108,12 +116,18 @@ function handler(data) {
         var productId = $sub.parents('.item').attr("data-id");
         // 无货或下架的不可点击
         var isDisabled = $sub.parents('.weui_cells').find("input[type='checkbox']").is(':disabled');
-        if(isDisabled) return;
+        if(isDisabled) {
+            $('#buy-loading').hide();
+            $sub.attr("working","false");
+            return;
+        }
 
         // 数量小于0不执行 后面的函数
         var numObj = $sub.next('.count');
         var num = parseInt(numObj.text());
         if (num <= 0) {
+            $('#buy-loading').hide();
+            $sub.attr("working","false");
             return;
         }
         if (num != 1) {
@@ -214,7 +228,11 @@ function handler(data) {
         var productId = $obj.parents('.weui_cells').find('.item').attr("data-id");
         // 无货或下架的不可点击
         var isDisabled = $obj.find("input[type='checkbox']").is(':disabled');
-        if(isDisabled) return;
+        if(isDisabled) {
+            $('#buy-loading').hide();
+            $obj.attr("working","false");
+            return;
+        }
 
         // 全选是否勾选
         var isSelfCheckbox = $obj.find("input[type='checkbox']").prop('checked');
