@@ -48,7 +48,7 @@ function handler(data) {
     });
 
     // 增加事件
-    $(".add").click(function () {
+    $("#add").click(function () {
         var obj = $(this);
         var num = parseInt(obj.prev('.count').text());
         if (num >= 999) { // 最多支持购买999个
@@ -61,7 +61,7 @@ function handler(data) {
         addTotalPrice(obj);
     });
     // 减少事件
-    $(".sub").click(function () {
+    $("#sub").click(function () {
         var obj = $(this);
 
         var numObj = obj.siblings('.count');
@@ -96,7 +96,7 @@ function handler(data) {
                     $addCart.attr("working","false");
                     return;
                 }
-                if (!data.meta.success) { // 服务器出现异常
+                if (!data.meta.success) {
                     showError(data.meta.msg);
                     $('#buy-loading').hide();
                     $addCart.attr("working","false");

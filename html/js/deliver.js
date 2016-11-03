@@ -3,10 +3,6 @@
  * http://www.freejs.net/article_tabbiaoqian_29.html
  */
 $(function () {
-    $('section').hide();
-    $(".weui_navbar .weui_navbar_item:first").addClass("tab-red").show();
-    $("section:first").show();
-
     $('#net-loading').show();
     //jsonp模式：进入该页，请求数据
     ajaxHttpRequest('user/v1/all/addr', {
@@ -35,6 +31,10 @@ function handler(data) {
     }
     var home = template('home-temp', data);
     $('.home-wrap').html(home);
+
+    $('section').hide();
+    $(".weui_navbar .weui_navbar_item:first").addClass("tab-red").show();
+    $("section:first").show();
 
     $(".weui_navbar_item").click(function() {
         $(".weui_navbar_item").removeClass("tab-red");
@@ -133,7 +133,7 @@ function townHandler(data) {
         ajaxHttpRequest('order/v1/ara/village', {
             jsonpCallback: 'villageHandler',
             data: {
-                id : $(".c-item:first").attr('data-id')
+                id : $town.attr('data-id')
             },
             success: function (data, status) {
                 // 请求出现异常

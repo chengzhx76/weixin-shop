@@ -1,18 +1,18 @@
 $(function () {
-
     var since = false;
     var id = "";
-    var addrId = getQueryparam("addrId");
-    var sinceId = getQueryparam("sinceId");
-    if (addrId != "" && addrId != null) {
-        id = addrId;
-    }else if (sinceId != "" && sinceId != null){
-        id = sinceId;
-        since = true;
+    try {
+        var addrId = getQueryparam("addrId");
+        var sinceId = getQueryparam("sinceId");
+        if (addrId != "" && addrId != null) {
+            id = addrId;
+        }else if (sinceId != "" && sinceId != null){
+            id = sinceId;
+            since = true;
+        }
+    }catch(e) {
+        console.error(e);
     }
-
-    console.log(since);
-    console.log(id);
 
     $('#net-loading').show();
     //jsonp模式：进入该页，请求数据
