@@ -34,7 +34,7 @@
     </div>
     <div class="main-addr">
       <div class="town-wrap"></div>
-      <div class="vilage-wrap"></div>
+      <div class="village-wrap"></div>
     </div>
   </section>
 </article>
@@ -69,7 +69,7 @@
         <span class="activate"></span>
         <%}%>
         <div class="a-main">
-          <a href="shopcart.html">
+          <a href="shopcart.html?addrId=<%=data[i].addrId%>">
             <div class="a-left">
               <div class="a-top">
                 <span class="name"><%=data[i].consignee%></span>
@@ -94,46 +94,42 @@
 </script>
 
 <script id="town-temp" type="text/template">
+  <% if(data) {%>
   <ul class="left town-list">
-    <li class="c-item">
-      <span class="activate"></span>
-      <div class="town">孙寺镇</div>
+    <%for (var i = 0; i < data.length; i++) {%>
+    <li class="c-item" data-id="<%=data[i].townId%>">
+      <div class="town"><%=data[i].town%></div>
     </li>
+    <%}%>
   </ul>
+  <%}%>
 </script>
 
-<script id="vilage-temp" type="text/template">
-  <ul class="right vilage-list">
+<script id="village-temp" type="text/template">
+  <% if(data) {%>
+  <ul class="right village-list">
+    <%for (var i = 0; i < data.length; i++) {%>
     <li class="a-item">
-      <a href="payment.html">
+      <a href="shopcart.html?sinceId=<%=data[i].addrId%>">
         <div class="addr-decs">
-          <span class="vilage">刘楼村</span>
-          <span class="distance">8.3km</span>
+          <span class="village"><%=data[i].address%></span>
+          <span class="distance"><%=data[i].distance%>km</span>
         </div>
       </a>
       <div class="a-icon">
         <span class="icon icon-40"></span>
       </div>
     </li>
-    <li class="a-item">
-      <a href="payment.html">
-        <div class="addr-decs">
-          <span class="vilage">刘楼村2</span>
-          <span class="distance">8.3km</span>
-        </div>
-      </a>
-      <div class="a-icon">
-        <span class="icon icon-40"></span>
-      </div>
-    </li>
+    <%}%>
   </ul>
+  <%}%>
 </script>
 
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/template-native.js"></script>
 <script src="js/lib/main.js"></script>
 <script src="js/lib/ajaxHttpRequest.js"></script>
-<script src="js/lib/alloy_lever.js"></script>
+<!--<script src="js/lib/alloy_lever.js"></script>-->
 <script src="js/lib/zepto.md5.js"></script>
 <script src="js/lib/common.js"></script>
 

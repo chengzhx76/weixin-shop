@@ -44,14 +44,16 @@
 </body>
 
 <script id="main-temp" type="text/template">
-  <% if(data.consignee) {%>
+  <% if(data.address) {%>
   <section class="addr">
     <div class="weui_panel weui_panel_access detail">
       <a class="weui_panel_ft m-addr" href="deliver.html">
         <div class="name-phone">
+          <% if(!data.since) {%>
           <div class="name">
             <i class="icon icon-85"></i> <span><%=data.consignee%></span>
           </div>
+          <%}%>
           <div class="phone">
             <i class="icon icon-104"></i> <span><%=data.mobile%></span>
           </div>

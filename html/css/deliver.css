@@ -169,16 +169,12 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   font-size: 18px;
   color: #FF6600;
   border-bottom: solid 1px #cccccc;
+  border-left: solid 5px #cccccc;
   position: relative;
-  background: #ffffff;
 }
-.main .since .main-addr .left .c-item .activate {
-  height: 55px;
-  width: 5px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #FF6600;
+.main .since .main-addr .left .bkg {
+  border-left: solid 5px #FF6600;;
+  background: #ffffff;
 }
 .main .since .main-addr .right {
   height: 100%;
@@ -199,7 +195,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   width: 70%;
   float: left;
 }
-.main .since .main-addr .right .a-item .addr-decs .vilage {
+.main .since .main-addr .right .a-item .addr-decs .village {
   height: 32px;
   line-height: 40px;
   display: block;

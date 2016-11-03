@@ -45,6 +45,7 @@ header .weui-header {
 .addr .detail .m-addr .name-phone .name {
   float: left;
   height: 30px;
+  margin-right: 60px;
 }
 .addr .detail .m-addr .name-phone .name .icon {
   font-size: 18px;
@@ -62,7 +63,7 @@ header .weui-header {
 
 .addr .detail .m-addr .name-phone .phone {
   height: 30px;
-  float: right;
+  float: left;
   margin-right: 80px;
 }
 .addr .detail .m-addr .name-phone .phone .icon {
