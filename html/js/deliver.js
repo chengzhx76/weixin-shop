@@ -63,7 +63,7 @@ function handler(data) {
 
             $('.footer').show();
         }else {
-            ajaxHttpRequest('user/v1/all/addr', {
+            ajaxHttpRequest('order/v1/ara/town', {
                 jsonpCallback: 'townHandler',
                 success: function (data, status) {
                     // 请求出现异常
@@ -106,8 +106,13 @@ function townHandler(data) {
     var town = template('town-temp', data);
     $('.town-wrap').html(town);
 
-    ajaxHttpRequest('user/v1/all/addr', {
-        jsonpCallback: 'vilageHandler',
+    $(".c-item:first").addClass("bkg");
+
+    ajaxHttpRequest('order/v1/ara/village', {
+        jsonpCallback: 'villageHandler',
+        data : {
+            id : $(".c-item:first").attr('data-id')
+        },
         success: function (data, status) {
             // 请求出现异常
             if (status != "success") {
@@ -122,13 +127,40 @@ function townHandler(data) {
             $('#net-loading').hide();
         }
     });
+
+    $(".c-item").click(function () {
+        var $town = $(this);
+        ajaxHttpRequest('order/v1/ara/village', {
+            jsonpCallback: 'villageHandler',
+            data: {
+                id : $(".c-item:first").attr('data-id')
+            },
+            success: function (data, status) {
+                // 请求出现异常
+                if (status != "success") {
+                    showError("请求出现异常！");
+                    $('#net-loading').hide();
+                    return;
+                }
+
+                $town.siblings(".c-item").removeClass("bkg");
+                $town.addClass("bkg");
+
+                $('#net-loading').hide();
+            },
+            error: function (errorType, error) {
+                showError("ERROR--请求出现异常！");
+                $('#net-loading').hide();
+            }
+        });
+    });
 }
-function vilageHandler(data) {
+function villageHandler(data) {
     if (!data.meta.success) {
         showError(data.meta.msg);
         $('#net-loading').hide();
         return;
     }
-    var vilage = template('vilage-temp', data);
-    $('.vilage-wrap').html(vilage);
+    var village = template('village-temp', data);
+    $('.village-wrap').html(village);
 }

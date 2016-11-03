@@ -36,6 +36,7 @@ function ajaxHttpRequest(url, options) {
         $.each(opts.data, function(key, val) {
             paramObj[key] = val;
         });
+        console.log(JSON.stringify(paramObj));
         var param = encodeURI(JSON.stringify(paramObj));
         signStr += param;
         postData.param = param;
