@@ -157,8 +157,14 @@
         <div class="item-list weui_panel weui_panel_access">
           <a id="product-list" class="weui_panel_ft" href="list.html">
             <div class="imgs">
-              <%for (var i = 0; i < 2; i++) {%>
-              <img src="<%=data.productImgs[i]%>">
+              <% if(data.productImgs.length>2) {%>
+                <%for (var i = 0; i < 2; i++) {%>
+                <img src="<%=data.productImgs[i]%>">
+                <%}%>
+              <%}else {%>
+                <%for (var i = 0; i < data.productImgs.length; i++) {%>
+                <img src="<%=data.productImgs[i]%>">
+                <%}%>
               <%}%>
             </div>
             <% if(data.productImgs.length>2) {%>

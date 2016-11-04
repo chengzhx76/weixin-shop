@@ -64,14 +64,18 @@ function handler(data) {
         $("#pay input[type='radio']").each(function(index, element) {
             if ($(element).attr("data-id")==data.data.payId) {
                 $(element).prop('checked', true);
+                if ($(element).parents(".weui_cells").hasClass("recommend")) {
+                    $(".more-pay").hide();
+                }
             }
         });
     }else {
+        $(".more-pay").hide();
         $("#pay .recommend input[type='radio']").prop('checked', true);
     }
 
     if (data.data.balance) {
-        balance = $("#money input[type='checkbox']").prop('checked', true);
+        $("#money input[type='checkbox']").prop('checked', true);
     }
     if (data.data.remark != "") {
         $("#remark").val(data.data.remark);
@@ -97,7 +101,7 @@ function handler(data) {
             $("#textarea_num").css("color","#999999");
         }
     });
-    $(".more-pay").hide();
+
     $("#more").click(function(){
         $(".more-pay").fadeToggle('fast');
         var isHas = $(this).hasClass('more');
