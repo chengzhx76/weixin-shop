@@ -62,7 +62,6 @@ function handler(data) {
 
     if (data.data.payId) {
         $("#pay input[type='radio']").each(function(index, element) {
-            console.log(element);
             if ($(element).attr("data-id")==data.data.payId) {
                 $(element).prop('checked', true);
             }
@@ -116,9 +115,6 @@ function handler(data) {
         balance = $("#money input[type='checkbox']").prop('checked');
         ticketId = $("#ticket").attr("data-id");
         remark = $("#remark").val();
-
-        console.log("addrId="+addrId+"&since="+since+"&time="+timeId+"&payId="+payId+"&ticketId="+ticketId+"&balance="+balance+"&remark="+remark);
-
         var param = {
             addrId: addrId,
             since: since,
@@ -129,9 +125,7 @@ function handler(data) {
             remark: remark
         }
         setLocVal(PATAM, encodeURIComponent(JSON.stringify(param)));
-
         return true;
-        //window.location.href="list.html;
     });
 
 
