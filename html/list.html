@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
   <link rel="stylesheet" href="style/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/list.css"/>
 </head>
 <body ontouchstart>
@@ -21,54 +22,38 @@
   </div>
 </header>
 <article class="main">
-  <div class="list">
-    <figure class="item">
-      <div class="pic">
-        <img src="images/zm.jpg" width="110" height="105">
-      </div>
-      <figcaption class="detail">
-        <strong class="title">蒸馍</strong>
-        <em class="desc">0.25g/个</em>
-        <div class="price">
-          ￥<strong>0.5</strong>
-        </div>
-      </figcaption>
-      <span class="num">x1</span>
-    </figure>
-  </div>
-  <div class="list">
-    <figure class="item">
-      <div class="pic">
-        <img src="images/zm.jpg" width="110" height="105">
-      </div>
-      <figcaption class="detail">
-        <strong class="title">蒸馍</strong>
-        <em class="desc">0.25g/个</em>
-        <div class="price">
-          ￥<strong>0.5</strong>
-        </div>
-      </figcaption>
-      <span class="num">x1</span>
-    </figure>
-  </div>
-  <div class="list">
-    <figure class="item">
-      <div class="pic">
-        <img src="images/zm.jpg" width="110" height="105">
-      </div>
-      <figcaption class="detail">
-        <strong class="title">蒸馍</strong>
-        <em class="desc">0.25g/个</em>
-        <div class="price">
-          ￥<strong>0.5</strong>
-        </div>
-      </figcaption>
-      <span class="num">x1</span>
-    </figure>
-  </div>
+  <div class="main-wrap"></div>
 </article>
-
 </body>
+
+<script id="main-temp" type="text/template">
+  <% if(data.length>0) {%>
+  <div class="list">
+    <%for (var i = 0; i < data.length; i++) {%>
+    <figure class="item">
+      <div class="pic">
+        <img src="<%=data[i].imgUrl%>" width="110" height="105">
+      </div>
+      <figcaption class="detail">
+        <strong class="title"><%=data[i].name%></strong>
+        <em class="desc"><%=data[i].desc%></em>
+        <div class="price">
+          &yen;<strong><%=data[i].sellPrice%></strong>
+        </div>
+      </figcaption>
+      <span class="num">x<%=data[i].count%></span>
+    </figure>
+    <%}%>
+  </div>
+  <%}%>
+</script>
 <script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/template-native.js"></script>
+<script src="js/lib/main.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/alloy_lever.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/common.js"></script>
+
 <script src="js/list.js"></script>
 </html>

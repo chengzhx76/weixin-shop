@@ -73,6 +73,7 @@ header .weui-header {
 .content .addr .main .detail .m-addr .name-phone .name {
   float: left;
   height: 30px;
+  margin-right: 25px;
 }
 .content .addr .main .detail .m-addr .name-phone .name .icon {
   font-size: 18px;
@@ -90,7 +91,7 @@ header .weui-header {
 
 .content .addr .main .detail .m-addr .name-phone .phone {
   height: 30px;
-  float: right;
+  float: left;
   margin-right: 80px;
 }
 .content .addr .main .detail .m-addr .name-phone .phone .icon {
@@ -185,7 +186,7 @@ header .weui-header {
 .content .pay .main .detail {
   margin-right: 5px;
 }
-.content .pay .main .weixin {
+.content .pay .main .recommend {
   margin-left: 12px;
   margin-right: 5px;
   font-size: 16px;
@@ -204,14 +205,22 @@ header .weui-header {
 .content .pay .main .weui_panel .weui_panel_ft:before {
   border-top: none;
 }
-.content .pay .main .weixin .icon {
+.content .pay .main .recommend .icon {
   float: left;
-  color: #04BE02;
   font-size: 20px;
   display: inline-block;
   height: 30px;
   line-height: 30px;
   margin-right: 5px;
+}
+.content .pay .main .icon-14 {
+  color: #04BE02;
+}
+.content .pay .main .icon-11 {
+   color: #00AAEF;
+ }
+.content .pay .main .icon-5 {
+  color: #FF6600;
 }
 .content .pay .main .detail .more:after {
   border-width: 0 2px 2px 0;
@@ -233,12 +242,6 @@ header .weui-header {
   height: 30px;
   line-height: 30px;
   margin-right: 5px;
-}
-.content .pay .main .more-pay .ali .icon {
-  color: #00AAEF;
-}
-.content .pay .main .more-pay .hdfk .icon {
-  color: #FF6600;
 }
 .content .assets:before {
   border-top: none;

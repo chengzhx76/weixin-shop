@@ -40,5 +40,16 @@ function clearLocVal(key){
 function getQueryparam(name) {
     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
-    if(r!=null)return  unescape(r[2]); return null;
+    if(r != null) return  unescape(r[2]); return "";
+}
+/**
+ * 判断是否是空对象
+ * @param e
+ * @returns {boolean}
+ */
+function isEmptyObject(e) {
+    var t;
+    for (t in e)
+        return !1;
+    return !0
 }
