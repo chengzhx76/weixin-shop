@@ -128,7 +128,6 @@ function handler(data) {
         return true;
     });
 
-
     $('#back').click(function(){
         $.modal({
             text: "你真的不要下单尝尝吗？",
