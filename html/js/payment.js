@@ -95,7 +95,6 @@ function handler(data) {
         var param = getParam(data);
         $('#order-loading').show();
         ajaxHttpRequest('order/v1/buy', {
-            jsonpCallback: 'handler',
             data: param,
             success: function (data, status) {
                 if (status != "success") {
@@ -107,13 +106,13 @@ function handler(data) {
                 setTimeout(function() {
                     $('#order-loading').fadeOut();
                 }, 1000);
+                window.location.href="success.html"
             },
             error: function (errorType, error) {
                 showError("ERROR--请求出现异常！");
                 $('#net-loading').hide();
             }
         });
-        return false;
     });
 
 
