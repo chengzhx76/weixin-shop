@@ -91,6 +91,32 @@ function handler(data) {
         }
     });
 
+    $("#buy").click(function () {
+        var param = getParam(data);
+        $('#order-loading').show();
+        ajaxHttpRequest('order/v1/buy', {
+            jsonpCallback: 'handler',
+            data: param,
+            success: function (data, status) {
+                if (status != "success") {
+                    showError("请求出现异常！");
+                    $('#order-loading').hide();
+                    return;
+                }
+                $('#order-loading .txt').text("订单生成成功.");
+                setTimeout(function() {
+                    $('#order-loading').fadeOut();
+                }, 1000);
+            },
+            error: function (errorType, error) {
+                showError("ERROR--请求出现异常！");
+                $('#net-loading').hide();
+            }
+        });
+        return false;
+    });
+
+
     $(".weui_textarea").on("input paste" , function(){
         var num_left=60-$(this).val().length;
         if(num_left<0){
@@ -113,22 +139,7 @@ function handler(data) {
     });
 
     $("#product-list").click(function () {
-        addrId = data.data.addrId;
-        since = data.data.since;
-        payId = $("#pay input[type='radio']:checked").attr("data-id");
-        balance = $("#money input[type='checkbox']").prop('checked');
-        ticketId = $("#ticket").attr("data-id");
-        remark = $("#remark").val();
-        var param = {
-            addrId: addrId,
-            since: since,
-            timeId: timeId,
-            payId: payId,
-            ticketId: ticketId,
-            balance: balance,
-            remark: remark
-        }
-        setLocVal(PATAM, encodeURIComponent(JSON.stringify(param)));
+        setLocVal(PATAM, encodeURIComponent(JSON.stringify(getParam(data))));
         return true;
     });
 
@@ -143,4 +154,23 @@ function handler(data) {
             ]
         });
     });
+}
+
+function getParam(data) {
+    addrId = data.data.addrId;
+    since = data.data.since;
+    payId = $("#pay input[type='radio']:checked").attr("data-id");
+    balance = $("#money input[type='checkbox']").prop('checked');
+    ticketId = $("#ticket").attr("data-id");
+    remark = $("#remark").val();
+    var param = {
+        addrId: addrId,
+        since: since,
+        timeId: timeId,
+        payId: payId,
+        ticketId: ticketId,
+        balance: balance,
+        remark: remark
+    };
+    return param;
 }

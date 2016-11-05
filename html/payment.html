@@ -26,6 +26,12 @@
   <div class="main-wrap">
   </div>
 
+  <!-- 生成订单-->
+  <div id="order-loading" class="order-loading">
+    <div class="loading-icon"></div>
+    <span class="txt">正在生成订单...</span>
+  </div>
+
   <!-- 网络加载 -->
   <div id="net-loading" class="net-loading">
     <div class="loading-icon"></div>
@@ -203,7 +209,7 @@
       <div class="price">
         应付金额:<span class="total">&yen;<%=data.totalPrice%>元</span>
       </div>
-      <div class="pay"><a href="javascript:;">去付款</a></div>
+      <div id="buy" class="buy"><a href="success.html">付款</a></div>
     </div>
   </footer>
   <%}%>

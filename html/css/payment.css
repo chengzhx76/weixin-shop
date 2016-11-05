@@ -441,10 +441,10 @@ header .weui-header {
   color: #FF6600;
   margin-left: 5px;
 }
-.footer .f-main .pay {
+.footer .f-main .buy {
   height: 45px;
 }
-.footer .f-main .pay a {
+.footer .f-main .buy a {
   height: 45px;
   font-size: 18px;
   color: #ffffff;
@@ -454,6 +454,36 @@ header .weui-header {
   padding-left: 15px;
   padding-right: 15px;
   background: #FF5A1E;
+}
+
+.order-loading {
+  height: 85px;
+  width: 140px;
+  border-radius: 4px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -42px;
+  margin-left: -70px;
+  background: #3F3F3F;
+  display: none;
+}
+.order-loading .loading-icon {
+  height: 40px;
+  width: 40px;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: url('../icon/net-loading.gif') no-repeat top center;
+  background-size: contain;
+}
+.order-loading .txt {
+  height: 20px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 20px;
+  color: #ffffff;
+  margin-top: 10px;
+  display: block;
 }
 
 
