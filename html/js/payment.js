@@ -87,7 +87,7 @@ function handler(data) {
         onChange: function (d) {
             $('.weui_input').val(d.titles);
             timeId = d.values;
-            $.alert("你选择了" + d.values + d.titles);
+            //$.alert("你选择了" + d.values + d.titles);
         }
     });
 
