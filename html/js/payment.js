@@ -7,11 +7,15 @@ var payId = "";
 var ticketId = "";
 var balance = false;
 var remark = "";
+var couponId = "";
+var amount = "";
 $(function(){
     var param = {};
     var locParam = {};
     try {
         addrId = getQueryparam("addrId");
+        couponId = getQueryparam("couponId");
+        amount = getQueryparam("amount");
         since = getQueryparam("since") == "true";
         locParam = JSON.parse(decodeURIComponent(getLocVal(PATAM)));
         clearLocVal(PATAM);
@@ -142,6 +146,11 @@ function handler(data) {
         return true;
     });
 
+    $("#ticket").click(function () {
+        setLocVal(PATAM, encodeURIComponent(JSON.stringify(getParam(data))));
+        return true;
+    });
+
     $('#back').click(function(){
         $.modal({
             text: "你真的不要下单尝尝吗？",
@@ -160,7 +169,7 @@ function getParam(data) {
     since = data.data.since;
     payId = $("#pay input[type='radio']:checked").attr("data-id");
     balance = $("#money input[type='checkbox']").prop('checked');
-    ticketId = $("#ticket").attr("data-id");
+    ticketId = $("#ticket .msg").attr("data-id");
     remark = $("#remark").val();
     var param = {
         addrId: addrId,

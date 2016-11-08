@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
   <link rel="stylesheet" href="style/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/ticket.css"/>
 </head>
 <body ontouchstart>
@@ -16,73 +17,67 @@
     </div>
     <h1 class="weui-header-title f-orange">选择优惠券</h1>
     <div class="weui-header-right">
-      <a href="payment.html" class="edit f-orange">确认</a>
+      <a href="javaScript:void(0)" id="sure" class="edit f-orange">确认</a>
     </div>
   </div>
 </header>
+<div class="main-wrap"></div>
 
-<article class="main">
-  <ul class="list weui_cells weui_cells_radio">
-    <li class="item">
-      <label class="weui_cell weui_check_label" for="x11">
-        <div class="title normal">
-          <span class="txt">代金券</span>
-        </div>
-        <div class="radio">
-          <input type="radio" class="weui_check" name="radio1" id="x11">
-          <span class="weui_icon_checked"></span>
-        </div>
-        <div class="price p-normal">
-          <span class="p-icon">￥</span>
-          <span class="anmout">100.00</span>
-        </div>
-        <div class="rule">满69元使用</div>
-        <div class="validity">
-          <span>有效期<span class="start">2016-06-01 12:10:26</span> 到 <span class="end">2016-06-31 12:10:26</span></span>
-        </div>
-      </label>
-    </li>
-    <li class="item">
-      <label class="weui_cell weui_check_label" for="x12">
-        <div class="title normal">
-          <span class="txt">代金券</span>
-        </div>
-        <div class="radio">
-          <input type="radio" class="weui_check" name="radio1" id="x12">
-          <span class="weui_icon_checked"></span>
-        </div>
-        <div class="price p-normal">
-          <span class="p-icon">￥</span>
-          <span class="anmout">10.00</span>
-        </div>
-        <div class="rule">满0.1元使用</div>
-        <div class="validity">
-          <span>有效期<span class="start">2016-06-01 12:10:26</span> 到 <span class="end">2016-06-31 12:10:26</span></span>
-        </div>
-      </label>
-    </li>
-    <li class="item">
-      <label class="weui_cell weui_check_label" for="x13">
-        <div class="title invalid">
-          <span class="txt">代金券</span>
-        </div>
-        <div class="radio">
-          <!--<input type="radio" class="weui_check" name="radio1" id="x13">-->
-          <!--<span class="weui_icon_checked"></span>-->
-        </div>
-        <div class="price p-invalid">
-          <span class="p-icon">￥</span>
-          <span class="anmout">10.00</span>
-        </div>
-        <div class="rule p-invalid">满0.1元使用</div>
-        <div class="validity">
-          <span>有效期<span class="start">2016-06-01 12:10:26</span> 到 <span class="end">2016-06-31 12:10:26</span></span>
-        </div>
-      </label>
-    </li>
-  </ul>
-</article>
+<!-- 网络加载 -->
+<div id="net-loading" class="net-loading">
+  <div class="loading-icon"></div>
+  <span class="txt">加载中...</span>
+</div>
+
+<!-- 添加减少加载 -->
+<div id="buy-loading" class="buy-loading">
+</div>
+
+<!-- 错误提示 -->
+<div id="error" class="err-hints">
+  <span class="err-txt">错误信息</span>
+</div>
 </body>
+
+<script id="main-temp" type="text/template">
+  <% if(data) {%>
+  <article class="main">
+    <ul class="list weui_cells weui_cells_radio">
+      <%for (var i = 0; i < data.length; i++) {%>
+      <li class="item" data-id="<%=data[i].couponId%>">
+        <label class="weui_cell weui_check_label" for="x<%=i%>">
+          <div class="title <%if(data[i].usable){%>normal<%}else{%>invalid<%}%>">
+            <span class="txt"><%=data[i].title%></span>
+          </div>
+          <div class="radio">
+            <%if(data[i].usable){%>
+            <input type="radio" class="weui_check" name="radio" id="x<%=i%>">
+            <span class="weui_icon_checked"></span>
+            <%}%>
+          </div>
+          <div class="price <%if(data[i].usable){%>p-normal<%}else{%>p-invalid<%}%>">
+            <span class="p-icon">&yen;</span>
+            <span class="amount"><%=data[i].faceValue%></span>
+          </div>
+          <div class="rule <%if(data[i].usable){%>p-normal<%}else{%>p-invalid<%}%>">满<%=data[i].enoughMoney%>元使用</div>
+          <div class="validity">
+            <span>有效期<span class="start"><%=data[i].beginTime%></span> 到 <span class="end"><%=data[i].endTime%></span></span>
+          </div>
+        </label>
+      </li>
+      <%}%>
+    </ul>
+  </article>
+  <%}%>
+</script>
+
 <script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/template-native.js"></script>
+<script src="js/lib/main.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/common.js"></script>
+
+<script src="js/ticket.js"></script>
 <script src="js/example.js"></script>
 </html>

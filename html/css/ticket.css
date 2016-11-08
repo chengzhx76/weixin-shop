@@ -80,12 +80,12 @@ header .weui-header {
 }
 .main .list .item .price .p-icon {
   height: 55px;
-  line-height: 90px;
+  line-height: 80px;
   font-size: 18px;
   display: block;
   float: left;
 }
-.main .list .item .price .anmout {
+.main .list .item .price .amount {
   height: 55px;
   font-size: 40px;
   line-height: 65px;

@@ -124,12 +124,12 @@
     <section id="money" class="assets">
       <div class="weui_cells weui_cells_form">
         <div class="weui_panel weui_panel_access">
-          <a class="weui_panel_ft" href="ticket.html">
+          <a id="ticket" class="weui_panel_ft" href="ticket.html">
             <div class="menu">
               <span class="title">优惠券</span>
               <span class="note"><%=data.availableCoupon%>张可用</span>
             </div>
-            <div id="ticket" data-id="<%=data.conuponId%>" class="msg">未使用</div>
+            <div data-id="<%=data.couponId%>" class="msg">未使用</div>
           </a>
         </div>
         <div class="weui_cell weui_cell_switch">

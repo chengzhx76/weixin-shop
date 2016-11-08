@@ -310,6 +310,9 @@ header .weui-header {
   margin-right: 30px;
   color: #CDCDCD;
 }
+.content .assets .weui_panel .weui_panel_ft .red {
+  color: darkred;
+}
 .content .remark {
   background: #ffffff;
   margin-top: 20px;
