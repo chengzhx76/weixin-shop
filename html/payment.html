@@ -129,7 +129,7 @@
               <span class="title">优惠券</span>
               <span class="note"><%=data.availableCoupon%>张可用</span>
             </div>
-            <div data-id="<%=data.couponId%>" class="msg">未使用</div>
+            <div data-id="<%=data.ticketId%>" class="msg <%if(data.amount != ''){%>red<%}%>"><%if(data.amount != ''){%>-&yen;<%=data.amount%><%}else{%>未使用<%}%></div>
           </a>
         </div>
         <div class="weui_cell weui_cell_switch">

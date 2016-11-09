@@ -7,15 +7,14 @@ var payId = "";
 var ticketId = "";
 var balance = false;
 var remark = "";
-var couponId = "";
 var amount = "";
-$(function(){
+$(function() {
     var param = {};
     var locParam = {};
     try {
-        addrId = getQueryparam("addrId");
-        couponId = getQueryparam("couponId");
+        ticketId = getQueryparam("couponId");
         amount = getQueryparam("amount");
+        addrId = getQueryparam("addrId");
         since = getQueryparam("since") == "true";
         locParam = JSON.parse(decodeURIComponent(getLocVal(PATAM)));
         clearLocVal(PATAM);
@@ -29,6 +28,10 @@ $(function(){
             since: since
         };
     }else if (!isEmptyObject(locParam)) {
+        if (ticketId != "") {
+            locParam.ticketId = ticketId,
+            locParam.amount = amount
+        }
         param = locParam;
     }
     $('#net-loading').show();
@@ -119,7 +122,6 @@ function handler(data) {
         });
     });
 
-
     $(".weui_textarea").on("input paste" , function(){
         var num_left=60-$(this).val().length;
         if(num_left<0){
@@ -178,7 +180,9 @@ function getParam(data) {
         payId: payId,
         ticketId: ticketId,
         balance: balance,
-        remark: remark
+        remark: remark,
+        amount: amount
+
     };
     return param;
 }
