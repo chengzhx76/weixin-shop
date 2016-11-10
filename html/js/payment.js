@@ -8,6 +8,7 @@ $(function() {
         addrId = getQueryparam("addrId");
         since = getQueryparam("since") == "true";
         ticketId = getQueryparam("couponId");
+        amount = getQueryparam("amount");
         locParam = JSON.parse(decodeURIComponent(getLocVal(PATAM)));
         clearLocVal(PATAM);
         addrId = addrId == "" ? locParam.addrId : "";
@@ -23,13 +24,14 @@ $(function() {
         };
     }
     if (ticketId) {
-        param.ticketId = ticketId
+        locParam.ticketId = ticketId,
+        locParam.amount = amount
     }
 
     $('#net-loading').show();
     ajaxHttpRequest('order/v1/payment', {
         jsonpCallback: 'handler',
-        data: addr,
+        data: param,
         success: function (data, status) {
             if (status != "success") {
                 showError("请求出现异常！");
@@ -51,14 +53,13 @@ function handler(data) {
         $('#net-loading').hide();
         return;
     }
+
+    console.log(ticketId);
     $.each(locParam, function(key, val) {
         if (key != "addrId" && key != "since") {
             data.data[key] = val;
         }
     });
-
-    console.log(data);
-
     var main = template('main-temp', data);
     $('.main-wrap').html(main);
 
@@ -104,8 +105,9 @@ function handler(data) {
             $.alert("请填写送货时间");
             return;
         }
-
         var param = getParam(data);
+        console.log(param);
+        //return;
         $('#order-loading').show();
         ajaxHttpRequest('order/v1/buy', {
             data: param,
@@ -116,10 +118,11 @@ function handler(data) {
                     return;
                 }
                 $('#order-loading .txt').text("订单生成成功.");
+                $('#order-loading').fadeOut();
                 setTimeout(function() {
-                    $('#order-loading').fadeOut();
+                    window.location.href="success.html"
                 }, 1000);
-                window.location.href="success.html"
+
             },
             error: function (errorType, error) {
                 showError("ERROR--请求出现异常！");
@@ -175,7 +178,7 @@ function handler(data) {
 function getParam(data) {
     addrId = data.data.addrId;
     since = data.data.since;
-    amount = data.data.amount;
+    //amount = data.data.amount;
     payId = $("#pay input[type='radio']:checked").attr("data-id");
     balance = $("#money input[type='checkbox']").prop('checked');
     ticketId = $("#ticket .msg").attr("data-id");
