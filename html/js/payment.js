@@ -1,43 +1,35 @@
 const PATAM = "param";
 
-var addrId = "";
-var since = false;
-var timeId = "";
-var payId = "";
-var ticketId = "";
-var balance = false;
-var remark = "";
-var amount = "";
+var addrId = "", since = false;
+var timeId = "", payId = "", ticketId = "", balance = false, remark = "", amount = "";
+var locParam = {}, param = {};
 $(function() {
-    var param = {};
-    var locParam = {};
     try {
-        ticketId = getQueryparam("couponId");
-        amount = getQueryparam("amount");
         addrId = getQueryparam("addrId");
         since = getQueryparam("since") == "true";
+        ticketId = getQueryparam("couponId");
         locParam = JSON.parse(decodeURIComponent(getLocVal(PATAM)));
         clearLocVal(PATAM);
+        addrId = addrId == "" ? locParam.addrId : "";
+        since = locParam.since == undefined ? since : locParam.since;
     }catch(e) {
         console.error(e);
     }
 
-    if (addrId != "") {
+    if (addrId) {
         param = {
             addrId: addrId,
             since: since
         };
-    }else if (!isEmptyObject(locParam)) {
-        if (ticketId != "") {
-            locParam.ticketId = ticketId,
-            locParam.amount = amount
-        }
-        param = locParam;
     }
+    if (ticketId) {
+        param.ticketId = ticketId
+    }
+
     $('#net-loading').show();
     ajaxHttpRequest('order/v1/payment', {
         jsonpCallback: 'handler',
-        data: param,
+        data: addr,
         success: function (data, status) {
             if (status != "success") {
                 showError("请求出现异常！");
@@ -59,14 +51,25 @@ function handler(data) {
         $('#net-loading').hide();
         return;
     }
+    $.each(locParam, function(key, val) {
+        if (key != "addrId" && key != "since") {
+            data.data[key] = val;
+        }
+    });
+
+    console.log(data);
+
     var main = template('main-temp', data);
     $('.main-wrap').html(main);
 
-    if (data.data.deliveryTime != "") {
-        $('.weui_input').val(data.data.deliveryTime.title);
-        timeId = data.data.deliveryTime.value;
+    if (locParam.timeId) {
+        $.each(data.data.deliveryTimes, function(key, val) {
+            if (val.value == locParam.timeId) {
+                $('.weui_input').val(val.title);
+                timeId = val.value;
+            }
+        });
     }
-
     if (data.data.payId) {
         $("#pay input[type='radio']").each(function(index, element) {
             if ($(element).attr("data-id")==data.data.payId) {
@@ -84,9 +87,6 @@ function handler(data) {
     if (data.data.balance) {
         $("#money input[type='checkbox']").prop('checked', true);
     }
-    if (data.data.remark != "") {
-        $("#remark").val(data.data.remark);
-    }
 
     $("#select-data").select({
         title: "送货时间",
@@ -99,6 +99,12 @@ function handler(data) {
     });
 
     $("#buy").click(function () {
+
+        if (!timeId) {
+            $.alert("请填写送货时间");
+            return;
+        }
+
         var param = getParam(data);
         $('#order-loading').show();
         ajaxHttpRequest('order/v1/buy', {
@@ -169,6 +175,7 @@ function handler(data) {
 function getParam(data) {
     addrId = data.data.addrId;
     since = data.data.since;
+    amount = data.data.amount;
     payId = $("#pay input[type='radio']:checked").attr("data-id");
     balance = $("#money input[type='checkbox']").prop('checked');
     ticketId = $("#ticket .msg").attr("data-id");
@@ -182,7 +189,6 @@ function getParam(data) {
         balance: balance,
         remark: remark,
         amount: amount
-
     };
     return param;
 }
