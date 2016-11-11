@@ -160,13 +160,13 @@ function handler(data) {
                     productId: productId
                 },
                 success: function (data, status) {
-                    if (status != "success") { // 请求出现异常
+                    if (status != "success") {
                         showError("请求出现异常");
                         $('#buy-loading').hide();
                         $sub.attr("working","false");
                         return;
                     }
-                    if (!data.meta.success) { // 服务器出现异常
+                    if (!data.meta.success) {
                         showError(data.meta.msg);
                         $('#buy-loading').hide();
                         $sub.attr("working","false");
@@ -190,13 +190,13 @@ function handler(data) {
                         productId: productId
                     },
                     success: function (data, status) {
-                        if (status != "success") { // 请求出现异常
+                        if (status != "success") {
                             showError("请求出现异常");
                             $('#buy-loading').hide();
                             $sub.attr("working","false");
                             return;
                         }
-                        if (!data.meta.success) { // 服务器出现异常
+                        if (!data.meta.success) {
                             showError(data.meta.msg);
                             $('#buy-loading').hide();
                             $sub.attr("working","false");
@@ -212,7 +212,7 @@ function handler(data) {
                             $sub.parents('.weui_cells').find("input[type='checkbox']").prop("checked", false);
                         }
 
-                        $obj.parents('.weui_cells').fadeOut("200", function () {
+                        $sub.parents('.weui_cells').fadeOut("200", function () {
                             $(this).remove();
                         });
                         $sub.attr("working","false");
@@ -364,6 +364,22 @@ function handler(data) {
             $(".list input[type='checkbox']").prop("checked",false);
         }
     });
+
+
+    $('.submit').click(function(){
+        var flag = false;
+        $(".list input[type='checkbox']").each(function(index, value){
+            if ($(value).prop('checked')) {
+                flag = true;
+            }
+        });
+        if (flag) {
+            window.location.href="payment.html?since="+data.data.since+"&addrId="+data.data.addrId;
+        }else {
+            $.alert("请选择商品");
+        }
+    });
+
 }
 
 // 计算总价价格

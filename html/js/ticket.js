@@ -29,7 +29,11 @@ function handler(data) {
     $("#sure").click(function () {
         var amount = $(".list input[type='radio']:checked").parents('.item').find('.amount').text();
         var couponId = $(".list input[type='radio']:checked").parents('.item').attr('data-id');
-        window.location.href="payment.html?amount="+amount+"&couponId="+couponId;
+        var param = "";
+        if (amount && couponId) {
+            param = "?amount="+amount+"&couponId="+couponId;
+        }
+        window.location.href="payment.html"+param;
     });
 
 }
