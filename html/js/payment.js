@@ -24,6 +24,7 @@ $(function() {
         };
     }
     if (ticketId) {
+        param.ticketId = ticketId,
         locParam.ticketId = ticketId,
         locParam.amount = amount
     }
