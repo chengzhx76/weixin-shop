@@ -19,6 +19,7 @@ header .weui-header {
   background: #ffffff;
   border-bottom: solid 1px #cccccc;
 }
+
 .addr {
   background: #ffffff;
   margin-bottom: 5px;
@@ -45,10 +46,9 @@ header .weui-header {
 .addr .detail .m-addr .name-phone .name {
   float: left;
   height: 30px;
-  margin-right: 25px;
 }
 .addr .detail .m-addr .name-phone .name .icon {
-  font-size: 18px;
+  font-size: 16px;
   height: 30px;
   display: inline-block;
   color: #FF6600;
@@ -63,7 +63,7 @@ header .weui-header {
 
 .addr .detail .m-addr .name-phone .phone {
   height: 30px;
-  float: left;
+  float: right;
   margin-right: 80px;
 }
 .addr .detail .m-addr .name-phone .phone .icon {
@@ -90,6 +90,7 @@ header .weui-header {
 .weui_cell_bd p {
   text-align: center;
 }
+
 .main {
   background: #ffffff;
   margin-bottom: 70px;
@@ -137,7 +138,7 @@ header .weui-header {
 }
 .main .list .no-all {
   height: 110px;
-  width: 100%;
+  width: 80%;
   position: absolute;
   top: 0;
   left: 0;
@@ -209,7 +210,6 @@ header .weui-header {
   height: 30px;
   line-height: 30px;
   font-size: 16px;
-  color: #FF5E23;
 }
 .main .list .item .detail .info .price strong {
   font-weight: normal;
@@ -220,6 +220,16 @@ header .weui-header {
   position: absolute;
   bottom: 0;
   right: 5px;
+}
+.main .list .item .deleted {
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+}
+.main .list .item .deleted .icon {
+  color: #8c8c8c;
+  font-size: 25px;
 }
 .main .list .item .buy .icon {
   height: 40px;
@@ -232,10 +242,10 @@ header .weui-header {
 .main .list .item .buy .sub {
   color: #CDCDCD;
 }
-.main .list .item .buy .normal{
+.main .list .item .normal{
   color: #FF5A1E;
 }
-.main .list .item .buy .invalid{
+.main .list .item .invalid{
   color: #CDCDCD;
 }
 .main .list .item .buy .count {

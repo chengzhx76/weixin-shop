@@ -210,7 +210,6 @@ header .weui-header {
   height: 30px;
   line-height: 30px;
   font-size: 16px;
-  color: #FF5E23;
 }
 .main .list .item .detail .info .price strong {
   font-weight: normal;
@@ -221,6 +220,16 @@ header .weui-header {
   position: absolute;
   bottom: 0;
   right: 5px;
+}
+.main .list .item .deleted {
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+}
+.main .list .item .deleted .icon {
+  color: #8c8c8c;
+  font-size: 25px;
 }
 .main .list .item .buy .icon {
   height: 40px;
@@ -233,10 +242,10 @@ header .weui-header {
 .main .list .item .buy .sub {
   color: #CDCDCD;
 }
-.main .list .item .buy .normal{
+.main .list .item .normal{
   color: #FF5A1E;
 }
-.main .list .item .buy .invalid{
+.main .list .item .invalid{
   color: #CDCDCD;
 }
 .main .list .item .buy .count {
