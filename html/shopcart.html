@@ -90,7 +90,7 @@
                 <div class="info">
                   <strong class="title"><%=data.products[i].name%></strong>
                   <em class="desc"><%=data.products[i].desc%></em>
-                  <div class="price">
+                  <div class="price <%if(data.products[i].stock){%>normal<%}else{%>invalid<%}%>">
                     &yen;<strong><%=data.products[i].salePrice%></strong>
                   </div>
                 </div>
