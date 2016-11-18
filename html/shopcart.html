@@ -19,9 +19,9 @@
       <a href="mall.html" class="icon icon-95 f-orange"></a>
     </div>
     <h1 class="weui-header-title f-orange">购物车</h1>
-    <div class="weui-header-right">
+<!--    <div class="weui-header-right">
       <a class="edit f-orange">编辑</a>
-    </div>
+    </div>-->
   </div>
 </header>
 <div class="main-wrap">
@@ -79,7 +79,7 @@
         </label>
         <div class="weui_cell_bd weui_cell_primary">
           <figure class="item" data-id="<%=data.products[i].productId%>">
-            <div class="item-warp <%if(!data.products[i].stock){%> no-all <%}%>">
+            <div class="item-warp <%if(!data.products[i].stock){%>no-all<%}%>">
               <a class="pic" href="detail.html?id=<%=data.products[i].productId%>">
                 <img src="<%=data.products[i].productImg%>" width="110" height="105">
                 <%if(!data.products[i].stock){%>
@@ -90,17 +90,23 @@
                 <div class="info">
                   <strong class="title"><%=data.products[i].name%></strong>
                   <em class="desc"><%=data.products[i].desc%></em>
-                  <div class="price">
+                  <div class="price <%if(data.products[i].stock){%>normal<%}else{%>invalid<%}%>">
                     &yen;<strong><%=data.products[i].salePrice%></strong>
                   </div>
                 </div>
               </figcaption>
-              <div class="buy">
-                <span class="sub icon icon-122"></span>
-                <span class="count"><%=data.products[i].nums%></span>
-                <span class="add <%if(data.products[i].stock){%>normal<%}else{%>invalid<%}%> icon icon-36"></span>
-              </div>
             </div>
+            <%if(data.products[i].stock){%>
+            <div class="buy">
+              <span class="sub icon icon-122"></span>
+              <span class="count"><%=data.products[i].nums%></span>
+              <span class="add <%if(data.products[i].stock){%>normal<%}else{%>invalid<%}%> icon icon-36"></span>
+            </div>
+            <%}else{%>
+            <div class="deleted">
+              <span class="icon icon-26"></span>
+            </div>
+            <%}%>
           </figure>
         </div>
       </div>

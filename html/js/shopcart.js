@@ -184,7 +184,9 @@ function handler(data) {
                 }
             });
         }else if (num == 1) {
+            $('#buy-loading').hide();
             $.confirm("您确定要删除吗?", "删除确认", function () {
+                $('#buy-loading').show();
                 ajaxHttpRequest('cart/v1/delete', {
                     data: {
                         productId: productId
@@ -207,7 +209,7 @@ function handler(data) {
                         numObj.text(data.data.count);
                         $('#amount').text(data.data.totalPrice);
                         addSubtotal(data);
-                        var isCheckbox = $obj.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
+                        var isCheckbox = $sub.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
                         if (isCheckbox) {
                             $sub.parents('.weui_cells').find("input[type='checkbox']").prop("checked", false);
                         }
@@ -224,6 +226,7 @@ function handler(data) {
                 });
             }, function () {
                 //取消操作
+                $sub.attr("working","false");
             });
         }
     });
@@ -378,6 +381,62 @@ function handler(data) {
         }else {
             $.alert("请选择商品");
         }
+    });
+
+    $('.deleted').click(function(){
+        var $del = $(this);
+        if($del.attr("working") == "true") {
+            showError("操作太快了，休息一下吧！");
+            return;
+        } else {
+            $del.attr("working", "true");
+        }
+        // 数量小于0不执行 后面的函数
+        var numObj = $del.next('.count');
+        var productId = $del.parents('.item').attr("data-id");
+        $.confirm("您确定要删除吗?", "删除确认", function () {
+            $('#buy-loading').show();
+            ajaxHttpRequest('cart/v1/delete', {
+                data: {
+                    productId: productId
+                },
+                success: function (data, status) {
+                    if (status != "success") {
+                        showError("请求出现异常");
+                        $('#buy-loading').hide();
+                        $del.attr("working","false");
+                        return;
+                    }
+                    if (!data.meta.success) {
+                        showError(data.meta.msg);
+                        $('#buy-loading').hide();
+                        $del.attr("working","false");
+                        return;
+                    }
+                    $('#buy-loading').hide();
+
+                    numObj.text(data.data.count);
+                    $('#amount').text(data.data.totalPrice);
+                    addSubtotal(data);
+                    var isCheckbox = $del.parents('.weui_cells').find("input[type='checkbox']").is(':checked');
+                    if (isCheckbox) {
+                        $del.parents('.weui_cells').find("input[type='checkbox']").prop("checked", false);
+                    }
+
+                    $del.parents('.weui_cells').fadeOut("200", function () {
+                        $(this).remove();
+                    });
+                    $del.attr("working","false");
+                },
+                error: function (errorType, error) {
+                    $('#buy-loading').hide();
+                    showError("ERROR--请求出现异常");
+                }
+            });
+        }, function () {
+            //取消操作
+            $del.attr("working","false");
+        });
     });
 
 }
