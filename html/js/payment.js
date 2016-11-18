@@ -121,9 +121,8 @@ function handler(data) {
                 $('#order-loading .txt').text("订单生成成功.");
                 $('#order-loading').fadeOut();
                 setTimeout(function() {
-                    window.location.href="success.html"
+                    window.location.href="buy-success.html"
                 }, 1000);
-
             },
             error: function (errorType, error) {
                 showError("ERROR--请求出现异常！");

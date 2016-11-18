@@ -204,3 +204,6 @@ var defaultConfig = {
 	// 运动过程中执行的回调函数，this指向该对象，接受x，y参数，分别表示X，Y轴的偏移位置。
 	stepCallback: null
 };
+
+
+window.location.href="su"
