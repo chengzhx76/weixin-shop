@@ -16,8 +16,12 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 }
 
 .header {
-  height: 120px;
+  /*height: 120px;*/
+  height: 184px;
   background: #FF5A1E;
+}
+.header .main {
+  height: 100px;
 }
 .header .avatar {
   height: 82px;
@@ -83,33 +87,20 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 }
 
 .header .interact {
-  height: 120px;
+  height: 100px;
   width: 100px;
   float: right;
 }
-.header .interact .sett-msg {
-  height: 30px;
-  margin-top: 10px;
-
-}
-.header .interact .sett-msg .setting {
-  height: 30px;
-  width: 50px;
-  font-size: 18px;
-  line-height: 30px;
-  display: block;
-  float: left;
-  color: #ffffff;
-}
-.header .interact .sett-msg .msg {
+.header .interact .msg {
   height: 30px;
   width: 40px;
   padding-left: 10px;
+  margin-top: 10px;
   position: relative;
   display: block;
   float: right;
 }
-.header .interact .sett-msg .msg .activate {
+.header .interact .msg .activate {
   height: 7px;
   width: 7px;
   border-radius: 50%;
@@ -121,7 +112,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   border: solid 1px #ffffff;
   z-index: 999;
 }
-.header .interact .sett-msg .msg .icon {
+.header .interact .msg .icon {
   height: 30px;
   line-height: 30px;
   font-size: 26px;
@@ -151,7 +142,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 
 .content .point {
   height: 115px;
-  margin-top: 5px;
+  margin-top: 7px;
   background: #ffffff;
 }
 .content .point .info {
@@ -259,64 +250,54 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   height: 20px;
   line-height: 16px;
 }
-.content .asset {
-  height: 85px;
-  background: #ffffff;
+
+
+.asset {
+  height: 78px;
+  /*background: #ffffff;*/
 }
-.content .asset, .action, .set, .feedback {
+.asset, .action, .set, .feedback {
   margin-top: 7px;
 }
-.content .asset .lr-border {
-  border-left: solid 1px #cccccc;
-  border-right: solid 1px #cccccc;
+.asset .money, .ticket, .w-point {
+  height: 72px;
+  margin-top: 6px;
 }
-.content .asset .col-33 {
-  height: 85px;
-}
-.content .asset .money, .ticket, .w-point {
-  height: 85px;
-  margin-top: 10px;
-}
-.content .asset .money {
+.asset .money {
   display: block; /* 兼容Weui框架 */
 }
-.content .asset .ui-reddot:after {
+.asset .ui-reddot:after {
   position: absolute;
   right: 10px;
   top: 3px;
+  border: 1px solid #ffffff;
+  background: red;
 }
-.content .asset .surplus {
+.asset .surplus {
   height: 30px;
   width: 100%;
   line-height: 40px;
-  color: #FF6E6E;
   text-align: center;
+  color: #F5F5F5;
 }
-.content .asset .surplus .usable {
+.asset .surplus .usable {
   height: 100%;
-  font-size: 26px;
+  font-size: 22px;
   display: inline-block;
 }
-.content .asset .surplus .unit {
+.asset .surplus .unit {
   height: 100%;
-  font-size: 18px;
+  font-size: 16px;
   display: inline-block;
 }
-.content .asset .desc {
+.asset .desc {
   height: 26px;
   line-height: 35px;
   width: 100%;
   font-size: 18px;
-  /*background: salmon;*/
   text-align: center;
+  color: #5B5B5B ;
 }
-.content .asset .ticket .surplus {
-  color: #9AC85A;
-}
-.content .asset .w-point .surplus {
-  color: #FBCE29;
-}
-
 .content .action .weui_cell_hd {
   height: 20px;
   width: 20px;

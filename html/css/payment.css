@@ -32,7 +32,7 @@ header .weui-header {
   border-bottom: solid 1px #cccccc;
 }
 .content {
-  margin-bottom: 35px;
+  margin-bottom: 45px;
 }
 .content .addr {
 
@@ -386,21 +386,19 @@ header .weui-header {
   text-align: center;
 }
 .content .cost .main .amount {
-  height: 100px;
+  height: 125px;
   margin-top: 5px;
 }
-.content .cost .main .amount .m-wrap {
+.content .cost .main .amount .detail {
   margin-left: 10px;
-}
-.content .cost .main .amount .a-product {
   height: 25px;
   line-height: 25px;
 }
-.content .cost .main .amount .a-transport {
+.content .cost .main .amount .detail {
   height: 25px;
   line-height: 25px;
 }
-.content .cost .main .amount .a-point {
+.content .cost .main .amount .detail {
   height: 25px;
   line-height: 25px;
 }

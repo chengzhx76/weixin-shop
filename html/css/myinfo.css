@@ -65,6 +65,8 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
 .header .info .level {
   height: 25px;
   line-height: 25px;
+  border-radius: 50%;
+  background-size: contain;
 }
 .header .info .level .licon {
   height: 25px;
@@ -72,11 +74,33 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   display: block;
   float: left;
   text-indent: -999px;
-}
-.level-0 {
   border-radius: 50%;
-  background: #ffffff url('../icon/level-0.png') no-repeat left center;
   background-size: contain;
+}
+/*.level-n {*/
+  /*border-radius: 50%;*/
+  /*background-size: contain;*/
+/*}*/
+.level-0 {
+  background: #ffffff url('../icon/level-0.png') no-repeat left center;
+
+}
+.level-1 {
+  background: #ffffff url('../icon/level-1.png') no-repeat left center;
+}
+.level-2 {
+  background: #ffffff url('../icon/level-2.png') no-repeat left center;
+  border-radius: 50%;
+  background-size: contain;
+}
+.level-3 {
+  background: #ffffff url('../icon/level-3.png') no-repeat left center;
+}
+.level-4 {
+  background: #ffffff url('../icon/level-4.png') no-repeat left center;
+}
+.level-5 {
+  background: #ffffff url('../icon/level-5.png') no-repeat left center;
 }
 .header .info .level .level-txt {
   height: 25px;
@@ -180,7 +204,6 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   margin-left: 12px;
   margin-right: 12px;
   height: 22px;
-
 }
 .content .point .cpoint .acc-point {
   height: 22px;
@@ -210,6 +233,8 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   margin-top: 2px;
   margin-right: 5px;
   text-indent: -999px;
+  border-radius: 50%;
+  background-size: contain;
 }
 .content .point .spoint {
 }
@@ -236,6 +261,8 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   margin-top: 2px;
   margin-left: 10px;
   text-indent: -999px;
+  border-radius: 50%;
+  background-size: contain;
 }
 .content .point .npoint .need {
   float: right;

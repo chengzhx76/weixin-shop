@@ -55,7 +55,8 @@ function handler(data) {
         return;
     }
 
-    console.log(ticketId);
+
+
     $.each(locParam, function(key, val) {
         if (key != "addrId" && key != "since") {
             data.data[key] = val;
@@ -72,6 +73,7 @@ function handler(data) {
             }
         });
     }
+
     if (data.data.payId) {
         $("#pay input[type='radio']").each(function(index, element) {
             if ($(element).attr("data-id")==data.data.payId) {
@@ -88,6 +90,7 @@ function handler(data) {
 
     if (data.data.balance) {
         $("#money input[type='checkbox']").prop('checked', true);
+        balanceOffset(data.data.availableBalance, data.data.totalPrice, data, data.data.balance);
     }
 
     $("#select-data").select({
@@ -101,7 +104,6 @@ function handler(data) {
     });
 
     $("#buy").click(function () {
-
         if (!timeId) {
             $.alert("请填写送货时间");
             return;
@@ -179,6 +181,12 @@ function handler(data) {
             ]
         });
     });
+
+    $("#money input[type='checkbox']").click(function() {
+        var isPick = $("#money input[type='checkbox']").prop('checked');
+        balanceOffset(data.data.availableBalance, data.data.totalPrice, isPick);
+    });
+
 }
 
 function getParam(data) {
@@ -200,4 +208,23 @@ function getParam(data) {
         amount: amount
     };
     return param;
+}
+
+function balanceOffset(currentBalance, payPrice, isPick) {
+    var payTotalPrice = 0;
+    var offset = 0;
+    currentBalance = parseFloat(currentBalance);
+    payPrice = parseFloat(payPrice);
+    if (isPick) {
+        if (currentBalance < payPrice) {
+            payTotalPrice = payPrice - currentBalance;
+            offset = currentBalance;
+        }else {
+            offset = payPrice;
+        }
+        $("#pay-total-price").text(payTotalPrice.toFixed(1));
+    }else {
+        $("#pay-total-price").text(payPrice.toFixed(1));
+    }
+    $("#balance-offset").text(offset.toFixed(1));
 }

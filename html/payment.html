@@ -185,19 +185,21 @@
         </div>
         <%}%>
         <div class="amount">
-          <div class="m-wrap">
-            <div class="a-product">
-              <span class="txt">商品金额</span>
-              <em class="price">&yen;<%=data.totalProductPrice%></em>
-            </div>
-            <div class="a-transport">
-              <span class="txt">运费</span>
-              <em class="price">&yen;<%=data.freight%></em>
-            </div>
-            <div class="a-point">
-              <span class="txt">优惠券抵销</span>
-              <em class="price">-&yen;<%=data.couponRecord%></em>
-            </div>
+          <div class="detail">
+            <span class="txt">商品金额</span>
+            <em class="price">&yen;<%=data.totalProductPrice%></em>
+          </div>
+          <div class="detail">
+            <span class="txt">运费</span>
+            <em class="price">&yen;<%=data.freight%></em>
+          </div>
+          <div class="detail">
+            <span class="txt">优惠券抵销</span>
+            <em class="price">-&yen;<%=data.couponRecord%></em>
+          </div>
+          <div class="detail">
+            <span class="txt">余额抵销</span>
+            <em class="price">-&yen;<span id="balance-offset">0.0</span></em>
           </div>
         </div>
       </div>
@@ -207,7 +209,7 @@
   <footer class="footer">
     <div class="f-main">
       <div class="price">
-        应付金额:<span class="total">&yen;<%=data.totalPrice%>元</span>
+        应付金额:<span class="total">&yen;<span id="pay-total-price"><%=data.totalPrice%>元</span></span>
       </div>
       <div id="buy" class="buy"><a href="javascript:void(0)">付款</a></div>
     </div>

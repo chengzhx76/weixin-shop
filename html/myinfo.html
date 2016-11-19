@@ -8,124 +8,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="style/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/myinfo.css">
 </head>
 <body ontouchstart>
-    <header class="header">
-      <div class="main">
-        <div class="avatar">
-          <img src="images/avatar.jpg">
-        </div>
-        <div class="info">
-          <div class="nickname">Cheng</div>
-          <div class="phone">18600536683</div>
-          <div class="level">
-            <span class="licon level-0">v1</span>
-            <span class="level-txt">小吃</span>
-          </div>
-        </div>
-        <div class="interact">
-          <span class="msg">
-            <i class="activate"></i>
-            <i class="icon icon-80"></i>
-          </span>
-          <div class="sign">
-            <a href="javascript:;">签到</a>
-          </div>
-        </div>
-      </div>
-      <section class="asset">
-        <div class="row no-gutter">
-          <div class="col-33">
-            <div class="money ui-reddot">
-              <div class="surplus">
-                <span class="usable">0.00</span>
-                <span class="unit">元</span>
-              </div>
-              <div class="desc">帐户余额</div>
-            </div>
-          </div>
-          <div class="col-33">
-            <div class="ticket">
-              <div class="surplus">
-                <span class="usable">0</span>
-                <span class="unit">张</span>
-              </div>
-              <div class="desc">我的优惠券</div>
-            </div>
-          </div>
-          <div class="col-33">
-            <div class="w-point">
-              <div class="surplus">
-                <span class="usable">0</span>
-                <span class="unit">积分</span>
-              </div>
-              <div class="desc">我的积分</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </header>
+
+  <div class="header-wrap"></div>
 
   <article class="content">
-    <section class="point">
-      <div class="info">
-        <span class="plan">您的本月会员进度</span>
-        <span class="rule">
-          <i class="icon icon-39"></i>
-          <em class="txt">会员规则</em>
-        </span>
-      </div>
-      <div class="cpoint">
-        <span class="acc-point">
-          <i class="icon icon-2"></i>
-          <span class="p-text">本月累计积分</span>
-          <span class="current">0</span>
-        </span>
-        <i class="level level-0">v2</i>
-      </div>
-      <div class="spoint">
-        <span class="schedule">进度</span>
-      </div>
-      <div class="npoint">
-        <i class="level level-0">0</i>
-        <span class="need">
-          <i class="icon icon-1"></i>
-          <span class="gpfd">升级还需<span>100</span>分</span>
-        </span>
-      </div>
-    </section>
-    <!--<section class="asset">
-      <div class="row no-gutter">
-        <div class="col-33">
-          <div class="money ui-reddot">
-            <div class="surplus">
-              <span class="usable">0.00</span>
-              <span class="unit">元</span>
-            </div>
-            <div class="desc">帐户余额</div>
-          </div>
-        </div>
-        <div class="col-33 lr-border">
-          <div class="ticket">
-            <div class="surplus">
-              <span class="usable">0</span>
-              <span class="unit">张</span>
-            </div>
-            <div class="desc">我的优惠券</div>
-          </div>
-        </div>
-        <div class="col-33">
-          <div class="w-point">
-            <div class="surplus">
-              <span class="usable">0</span>
-              <span class="unit">积分</span>
-            </div>
-            <div class="desc">我的积分</div>
-          </div>
-        </div>
-      </div>
-    </section>-->
+
+    <div class="point-wrap"></div>
+
     <section class="action">
       <div class="weui_panel">
         <div class="weui_panel_bd">
@@ -262,12 +155,115 @@
     </a>
   </div>
   <span class="total-price">总价：￥<strong>0</strong></span>
+
+
+  <!-- 网络加载 -->
+  <div id="net-loading" class="net-loading">
+    <div class="loading-icon"></div>
+    <span class="txt">加载中...</span>
+  </div>
+
+  <!-- 添加减少加载 -->
+  <div id="buy-loading" class="buy-loading">
+  </div>
+
+  <!-- 错误提示 -->
+  <div id="error" class="err-hints">
+    <span class="err-txt">错误信息</span>
+  </div>
 </body>
 
 <script id="header-temp" type="text/template">
-
+  <% if(data) {%>
+  <header class="header">
+    <div class="main">
+      <div class="avatar">
+        <img src="<%=data.avatar%>">
+      </div>
+      <div class="info">
+        <div class="nickname"><%=data.nickname%></div>
+        <div class="phone"><%=data.username%></div>
+        <div class="level">
+          <span class="licon level-<%=data.accountLevel%>">v<%=data.accountLevel%></span>
+          <span class="level-txt">小吃</span>
+        </div>
+      </div>
+      <div class="interact">
+        <span class="msg">
+          <i class="activate"></i>
+          <i class="icon icon-80"></i>
+        </span>
+        <div class="sign">
+          <a href="javascript:;">签到</a>
+        </div>
+      </div>
+    </div>
+    <section class="asset">
+      <div class="row no-gutter">
+        <div class="col-33">
+          <div class="money ui-reddot">
+            <div class="surplus">
+              <span class="usable"><%=data.balance%></span>
+              <span class="unit">元</span>
+            </div>
+            <div class="desc">帐户余额</div>
+          </div>
+        </div>
+        <div class="col-33">
+          <div class="ticket">
+            <div class="surplus">
+              <span class="usable"><%=data.couponRecord%></span>
+              <span class="unit">张</span>
+            </div>
+            <div class="desc">我的优惠券</div>
+          </div>
+        </div>
+        <div class="col-33">
+          <div class="w-point">
+            <div class="surplus">
+              <span class="usable"><%=data.bonusPointRecord%></span>
+              <span class="unit">积分</span>
+            </div>
+            <div class="desc">我的积分</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+  <%}%>
 </script>
 
+<script id="point-temp" type="text/template">
+  <% if(data) {%>
+  <section class="point">
+    <div class="info">
+      <span class="plan">您的本月会员进度</span>
+        <span class="rule">
+          <i class="icon icon-39"></i>
+          <em class="txt">会员规则</em>
+        </span>
+    </div>
+    <div class="cpoint">
+      <span class="acc-point">
+        <i class="icon icon-2"></i>
+        <span class="p-text">本月累计积分</span>
+        <span class="current"><%=data.currentMonthBonusPoint%></span>
+      </span>
+      <i class="level level-<%=data.accountLevel+1%>">v<%=data.accountLevel+1%></i>
+    </div>
+    <div class="spoint">
+      <span class="schedule">进度</span>
+    </div>
+    <div class="npoint">
+      <i class="level level-<%=data.accountLevel%>"><%=data.accountLevel%></i>
+        <span class="need">
+          <i class="icon icon-1"></i>
+          <span class="gpfd">升级还需<%=data.bonusPointUpgrade%>分</span>
+        </span>
+    </div>
+  </section>
+  <%}%>
+</script>
 
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/template-native.js"></script>
