@@ -1,10 +1,5 @@
 $(function () {
-
-
     var addrId = getQueryparam("addrId");
-
-
-
     $('#net-loading').show();
     ajaxHttpRequest('order/v1/product/list', {
         jsonpCallback: 'handler',

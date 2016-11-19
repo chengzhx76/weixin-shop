@@ -118,11 +118,17 @@ function handler(data) {
                     $('#order-loading').hide();
                     return;
                 }
-                $('#order-loading .txt').text("订单生成成功.");
-                $('#order-loading').fadeOut();
+                if (!data.meta.success) {
+                    showError(data.meta.msg);
+                    $('#order-loading').hide();
+                    return;
+                }
+                $('#order-loading .txt').text("订单生成成功");
+                $('#order-loading').fadeIn();
                 setTimeout(function() {
-                    window.location.href="buy-success.html"
-                }, 1000);
+                    $('#order-loading').fadeOut();
+                    window.location.href="buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
+                }, 1200);
             },
             error: function (errorType, error) {
                 showError("ERROR--请求出现异常！");

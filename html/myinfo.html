@@ -11,34 +11,61 @@
   <link rel="stylesheet" href="css/myinfo.css">
 </head>
 <body ontouchstart>
-  <div id="header-warp">
     <header class="header">
-      <div class="avatar">
-        <img src="images/avatar.jpg">
-      </div>
-      <div class="info">
-        <div class="nickname">Cheng</div>
-        <div class="phone">18600536683</div>
-        <div class="level">
-          <span class="licon level-0">v1</span>
-          <span class="level-txt">小吃</span>
+      <div class="main">
+        <div class="avatar">
+          <img src="images/avatar.jpg">
+        </div>
+        <div class="info">
+          <div class="nickname">Cheng</div>
+          <div class="phone">18600536683</div>
+          <div class="level">
+            <span class="licon level-0">v1</span>
+            <span class="level-txt">小吃</span>
+          </div>
+        </div>
+        <div class="interact">
+          <span class="msg">
+            <i class="activate"></i>
+            <i class="icon icon-80"></i>
+          </span>
+          <div class="sign">
+            <a href="javascript:;">签到</a>
+          </div>
         </div>
       </div>
-      <a href="login.html">去登陆</a>
-      <div class="interact">
-        <div class="sett-msg">
-          <span class="setting">设置</span>
-        <span class="msg">
-          <i class="activate"></i>
-          <i class="icon icon-80"></i>
-        </span>
+      <section class="asset">
+        <div class="row no-gutter">
+          <div class="col-33">
+            <div class="money ui-reddot">
+              <div class="surplus">
+                <span class="usable">0.00</span>
+                <span class="unit">元</span>
+              </div>
+              <div class="desc">帐户余额</div>
+            </div>
+          </div>
+          <div class="col-33">
+            <div class="ticket">
+              <div class="surplus">
+                <span class="usable">0</span>
+                <span class="unit">张</span>
+              </div>
+              <div class="desc">我的优惠券</div>
+            </div>
+          </div>
+          <div class="col-33">
+            <div class="w-point">
+              <div class="surplus">
+                <span class="usable">0</span>
+                <span class="unit">积分</span>
+              </div>
+              <div class="desc">我的积分</div>
+            </div>
+          </div>
         </div>
-        <div class="sign">
-          <a href="javascript:;">签到</a>
-        </div>
-      </div>
+      </section>
     </header>
-  </div>
 
   <article class="content">
     <section class="point">
@@ -68,7 +95,7 @@
         </span>
       </div>
     </section>
-    <section class="asset">
+    <!--<section class="asset">
       <div class="row no-gutter">
         <div class="col-33">
           <div class="money ui-reddot">
@@ -98,7 +125,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section>-->
     <section class="action">
       <div class="weui_panel">
         <div class="weui_panel_bd">
@@ -158,6 +185,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                   <p>设置</p>
+                  <!--<a href="login.html">去登陆</a>-->
                 </div>
                 <span class="weui_cell_ft"></span>
               </a>
