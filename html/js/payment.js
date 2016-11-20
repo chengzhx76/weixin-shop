@@ -126,11 +126,24 @@ function handler(data) {
                     return;
                 }
                 $('#order-loading .txt').text("订单生成成功");
-                $('#order-loading').fadeIn();
-                setTimeout(function() {
-                    $('#order-loading').fadeOut();
-                    window.location.href="buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
-                }, 1200);
+                $('#order-loading').fadeIn().fadeOut(1500);;
+
+                if (data.data.pay) {
+                    $.modal({
+                        text: "还需支付"+data.data.surplusAmount+"元",
+                        buttons: [
+                            {text: "支付", onClick: function() {
+                                $.toast(data.data.payName+"支付成功");
+                                buySuccess(data);
+                            }},
+                            {text: "取消", onClick: function() {
+                                window.location.href="order.html";
+                            }}
+                        ]
+                    });
+                } else {
+                    buySuccess(data);
+                }
             },
             error: function (errorType, error) {
                 showError("ERROR--请求出现异常！");
@@ -227,4 +240,10 @@ function balanceOffset(currentBalance, payPrice, isPick) {
         $("#pay-total-price").text(payPrice.toFixed(1));
     }
     $("#balance-offset").text(offset.toFixed(1));
+}
+
+function buySuccess(data) {
+    setTimeout(function() {
+        window.location.href="buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
+    }, 1200);
 }
