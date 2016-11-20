@@ -1,11 +1,7 @@
-/**
- * Created by 光灿 on 2016/7/3.
- */
+const TOKEN = "userToken";
+const APPSECRET = "appSecret";
 
-
-setLocVal("userToken", "2337540A28944475AA9E52ABC5184D19");
-setLocVal("appSecret", "wxclient");
-
+setLocVal(APPSECRET, "wxclient");
 /**
  * localStorage保存数据
  * @param String key  保存数据的key值

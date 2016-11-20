@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body ontouchstart>
@@ -25,20 +26,20 @@
     <div class="weui_cell">
       <div class="weui_cell_hd"><label class="weui_label">账号</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入手机号"/>
+        <input id="username" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入手机号"/>
       </div>
     </div>
     <div class="weui_cell">
       <div class="weui_cell_hd"><label class="weui_label">密码</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="password" placeholder="请输入密码"/>
+        <input id="password" class="weui_input" type="password" placeholder="请输入密码"/>
       </div>
     </div>
   </div>
 
   <div class="weui_btn_area">
-    <!--<a class="weui_btn weui_btn_warn" href="javascript:;">登陆</a>-->
-    <a class="weui_btn weui_btn_disabled weui_btn_warn" href="javascript:;">登陆</a>
+    <a id="login" class="weui_btn weui_btn_warn" href="javascript:;">登陆</a>
+    <!--<a id="login" class="weui_btn weui_btn_disabled weui_btn_warn" href="javascript:;">登陆</a>-->
   </div>
 
   <div class="weui_cells_tips"><a href="register.html" class="reg">注册</a><a class="forget-pwd">忘记密码</a></div>
@@ -46,8 +47,21 @@
   <div class="divider-span"><span class="spot">其他方式</span></div>
 
 </article>
-
+<!-- 网络加载 -->
+<div id="net-loading" class="net-loading">
+  <div class="loading-icon"></div>
+  <span class="txt">加载中...</span>
+</div>
+<!-- 错误提示 -->
+<div id="error" class="err-hints">
+  <span class="err-txt">错误信息</span>
+</div>
 </body>
 <script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/main.js"></script>
+<script src="js/lib/ajaxHttpRequest.js"></script>
+<script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/common.js"></script>
+
 <script src="js/login.js"></script>
 </html>

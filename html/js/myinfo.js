@@ -34,21 +34,12 @@ function headerHandler(data) {
     $('.point-wrap').html(point);
 
     setProductTotalPrice();
-}
 
-function setProductTotalPrice() {
-    ajaxHttpRequest('cart/v1/price/total', {
-        jsonpCallback: 'totalPrice',
-        success: function (data, status) {
-            if (status == "success" && data.meta.success) {
-                $(".total-price").children("strong").text(parseFloat(data.data).toFixed(1));
-                var $totalPrice = $(".total-price").children("strong").text();
-                if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
-                    $(".total-price").show();
-                }else {
-                    $(".total-price").hide();
-                }
-            }
-        }
+    $('#logout').click(function() {
+        $.confirm("您确定退出", function() {
+            $.toast("退出成功!");
+            clearLocVal(TOKEN);
+            window.location.href="login.html"
+        });
     });
 }

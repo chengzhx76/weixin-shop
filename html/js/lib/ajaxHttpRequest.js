@@ -17,9 +17,9 @@ function ajaxHttpRequest(url, options) {
     var allUrl = server_url + url;
 
     try{
-        var appSecret = getLocVal('appSecret');
+        var appSecret = getLocVal(APPSECRET);
         var timestamp = new Date().getTime();
-        var userToken = getLocVal('userToken');
+        var userToken = getLocVal(TOKEN);
     }catch(e) {
         console.log(e)
     }
@@ -54,6 +54,11 @@ function ajaxHttpRequest(url, options) {
         jsonpCallback: opts.jsonpCallback,
         success: function(data, status) {
             console.log(data);
+            if (data.meta.code == 401){
+                setTimeout(function (){
+                    window.location.href="login.html";
+                }, 500);
+            }
             opts.success && opts.success.apply(this, [data, status]);
         },
         error: function(errorType, error) {

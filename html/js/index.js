@@ -170,32 +170,6 @@ function subCount($sub, data) {
     $sub.next().text(count);
 }
 
-// 总金额操作
-/*function totalPrice(data) {
-    var totalPrice = parseFloat(data.data.price);
-    if (totalPrice == 0) {
-        $(".total-price").hide();
-    }
-    $(".total-price").children("strong").text(totalPrice.toFixed(1));
-}*/
-// 设置总金额
-function setProductTotalPrice() {
-    ajaxHttpRequest('cart/v1/price/total', {
-        jsonpCallback: 'totalPrice',
-        success: function (data, status) {
-            if (status == "success" && data.meta.success) {
-                $(".total-price").children("strong").text(parseFloat(data.data).toFixed(1));
-                var $totalPrice = $(".total-price").children("strong").text();
-                if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
-                    $(".total-price").show();
-                }else {
-                    $(".total-price").hide();
-                }
-            }
-        }
-    });
-}
-
 // 动画
 function animation($add) {
     // 动画效果
