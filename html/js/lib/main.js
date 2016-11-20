@@ -3,7 +3,7 @@
  */
 
 
-setLocVal("userToken", "122");
+setLocVal("userToken", "2337540A28944475AA9E52ABC5184D19");
 setLocVal("appSecret", "wxclient");
 
 /**

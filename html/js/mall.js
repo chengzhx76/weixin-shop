@@ -90,13 +90,14 @@ function productHandler(data) {
     var product = template('product-temp', data);
     $('.product-wrap').html(product);
 
-    var totalPrice = parseFloat(data.data.totalPrice);
-    if(totalPrice!="" && totalPrice!="0") {
-        $(".total-price").children("strong").text(totalPrice.toFixed(1));
-        $(".total-price").show();
-    }else {
-        $(".total-price").hide();
-    }
+    //var totalPrice = parseFloat(data.data.totalPrice);
+    //if(totalPrice!="" && totalPrice!="0") {
+    //    $(".total-price").children("strong").text(totalPrice.toFixed(1));
+    //    $(".total-price").show();
+    //}else {
+    //    $(".total-price").hide();
+    //}
+    setProductTotalPrice();
 
     $.each($('.count'), function(key,val) {
         var countObj = $(val);
@@ -143,10 +144,7 @@ function productHandler(data) {
                 // 数量增加
                 addCount($add, data);
                 // 金额增加
-                if($(".total-price").hide()) {
-                    $(".total-price").show();
-                    totalPriceFn(data)
-                }
+                setProductTotalPrice();
                 $('#buy-loading').hide();
 
                 $add.attr("working","false");
@@ -187,7 +185,7 @@ function productHandler(data) {
                 }
                 // 数量增加
                 subCount($sub, data);
-                totalPriceFn(data);
+                setProductTotalPrice();
                 $('#buy-loading').hide();
 
                 $sub.attr("working","false");
@@ -202,7 +200,7 @@ function productHandler(data) {
 
 // 添加数量
 function addCount($add, data) {
-    var count = parseInt(data.data.count);
+    var count = parseInt(data.data);
     $add.siblings('.count').text(count);
     if (count > 0) {
         $add.animate({marginRight:'8px','fontSize':'30px'},'fast');
@@ -213,7 +211,7 @@ function addCount($add, data) {
 
 // 减少数量
 function subCount($sub, data) {
-    var count = parseInt(data.data.count);
+    var count = parseInt(data.data);
     $sub.siblings('.count').text(count);
     if(count == 0) {
         $sub.hide();
@@ -222,13 +220,31 @@ function subCount($sub, data) {
     }
 };
 // 总金额
-function totalPriceFn(data) {
-    var totalPrice = parseFloat(data.data.totalPrice);
-    $(".total-price").children("strong").text(totalPrice.toFixed(1));
-    if (totalPrice == 0) {
-        $(".total-price").hide();
-    }
+//function totalPriceFn(data) {
+//    var totalPrice = parseFloat(data.data.totalPrice);
+//    $(".total-price").children("strong").text(totalPrice.toFixed(1));
+//    if (totalPrice == 0) {
+//        $(".total-price").hide();
+//    }
+//}
+
+function setProductTotalPrice() {
+    ajaxHttpRequest('cart/v1/price/total', {
+        jsonpCallback: 'totalPrice',
+        success: function (data, status) {
+            if (status == "success" && data.meta.success) {
+                $(".total-price").children("strong").text(parseFloat(data.data).toFixed(1));
+                var $totalPrice = $(".total-price").children("strong").text();
+                if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
+                    $(".total-price").show();
+                }else {
+                    $(".total-price").hide();
+                }
+            }
+        }
+    });
 }
+
 // 放入购物车动画效果
 function animation(obj) {
     var imgSrc = obj.parents(".item").children('.pic').children('img').attr('src');

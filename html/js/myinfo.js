@@ -33,10 +33,22 @@ function headerHandler(data) {
     var point = template('point-temp', data);
     $('.point-wrap').html(point);
 
-    var $totalPrice = $(".total-price").children("strong").text();
-    if($totalPrice!="" && $totalPrice!="0") {
-        $(".total-price").show();
-    }else {
-        $(".total-price").hide();
-    }
+    setProductTotalPrice();
+}
+
+function setProductTotalPrice() {
+    ajaxHttpRequest('cart/v1/price/total', {
+        jsonpCallback: 'totalPrice',
+        success: function (data, status) {
+            if (status == "success" && data.meta.success) {
+                $(".total-price").children("strong").text(parseFloat(data.data).toFixed(1));
+                var $totalPrice = $(".total-price").children("strong").text();
+                if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
+                    $(".total-price").show();
+                }else {
+                    $(".total-price").hide();
+                }
+            }
+        }
+    });
 }

@@ -29,10 +29,6 @@ function handler(data) {
     var main = template('main-temp', data);
     $('.main-wrap').html(main);
 
-    // 购物车商品总价格价格
-    var totalPirce = parseFloat(data.data.totalPirce);
-    $(".total-price").children("strong").text(totalPirce.toFixed(1));
-
     $('#slideshow').swipeSlide({
         autoSwipe: true,//自动切换默认是
         speed: 3000,//速度默认4000
@@ -56,10 +52,8 @@ function handler(data) {
     $('.sub').hide();
     $('.count').hide();
 
-    var $totalPrice = $(".total-price").children("strong").text();
-    if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
-        $(".total-price").show();
-    }
+    // 购物车商品总价格价格
+    setProductTotalPrice();
 
     // 购买
     $(".add").click(function () {
@@ -73,20 +67,18 @@ function handler(data) {
             $add.attr("working","true");
         }
 
-        var productId = $add.parents('.item').attr("data-id");
-
         ajaxHttpRequest('v1/add', {
             data: {
-                productId: productId
+                productId: $add.parents('.item').attr("data-id")
             },
             success: function (data, status) {
-                if (status != "success") { // 请求出现异常
+                if (status != "success") {
                     showError("请求出现异常");
                     $('#buy-loading').hide();
                     $add.attr("working","false");
                     return;
                 }
-                if (!data.meta.success) { // 服务器出现异常
+                if (!data.meta.success) {
                     showError(data.meta.msg);
                     $('#buy-loading').hide();
                     $add.attr("working","false");
@@ -96,12 +88,7 @@ function handler(data) {
                 // 数量增加
                 addCount($add, data);
                 // 金额增加
-                if($(".total-price").hide()) {
-                    $(".total-price").show();
-                    totalPrice(data)
-                }else {
-                    totalPrice(data)
-                }
+                setProductTotalPrice();
                 $('#buy-loading').hide();
 
                 $add.attr("working","false");
@@ -126,10 +113,9 @@ function handler(data) {
             $sub.attr("working","true");
         }
 
-        var productId = $sub.parents('.item').attr("data-id");
         ajaxHttpRequest('v1/sub', {
             data: {
-                productId: productId
+                productId: $sub.parents('.item').attr("data-id")
             },
             success: function (data, status) {
                 if (status != "success") { // 请求出现异常
@@ -145,7 +131,7 @@ function handler(data) {
                     return;
                 }
                 subCount($sub, data);
-                totalPrice(data);
+                setProductTotalPrice();
                 $('#buy-loading').hide();
                 $sub.attr("working","false");
             },
@@ -161,7 +147,7 @@ function handler(data) {
 function addCount($add, data) {
     $add.siblings('.sub').show();
     $add.prev('.count').show();
-    $add.prev().text(data.data.count);
+    $add.prev().text(data.data);
     $add.parent().siblings(".price").css({
         "font-size":"14px",
         "color":"white",
@@ -175,7 +161,7 @@ function addCount($add, data) {
 
 // 减少数量
 function subCount($sub, data) {
-    var count = parseInt(data.data.count);
+    var count = parseInt(data.data);
     if(count == 0) {
         $sub.hide();
         $sub.siblings('.count').hide();
@@ -185,12 +171,29 @@ function subCount($sub, data) {
 }
 
 // 总金额操作
-function totalPrice(data) {
+/*function totalPrice(data) {
     var totalPrice = parseFloat(data.data.price);
     if (totalPrice == 0) {
         $(".total-price").hide();
     }
     $(".total-price").children("strong").text(totalPrice.toFixed(1));
+}*/
+// 设置总金额
+function setProductTotalPrice() {
+    ajaxHttpRequest('cart/v1/price/total', {
+        jsonpCallback: 'totalPrice',
+        success: function (data, status) {
+            if (status == "success" && data.meta.success) {
+                $(".total-price").children("strong").text(parseFloat(data.data).toFixed(1));
+                var $totalPrice = $(".total-price").children("strong").text();
+                if($totalPrice!="" && $totalPrice!="0" && $totalPrice!="0.0") {
+                    $(".total-price").show();
+                }else {
+                    $(".total-price").hide();
+                }
+            }
+        }
+    });
 }
 
 // 动画

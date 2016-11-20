@@ -84,19 +84,20 @@
   </aside>
   <%}%>
 </script>
+
 <script id="product-temp" type="text/template">
-  <% if(data.products) {%>
+  <% if(data) {%>
   <section id="main" class="content">
     <div class="load">
-      <%for (var i = 0; i < data.products.length; i++) {%>
-      <figure class="item" data-id="<%=data.products[i].id%>">
-        <a class="pic" href="javascript:;"><img src="<%=data.products[i].picLink%>" width="<%=data.products[i].width%>" height="<%=data.products[i].height%>"></a>
+      <%for (var i = 0; i < data.length; i++) {%>
+      <figure class="item" data-id="<%=data[i].id%>">
+        <a class="pic" href="javascript:;"><img src="<%=data[i].picLink%>" width="<%=data[i].width%>" height="<%=data[i].height%>"></a>
         <figcaption class="detail">
-          <strong class="title"><%=data.products[i].name%></strong>
-          <em class="desc"><%=data.products[i].desc%></em>
+          <strong class="title"><%=data[i].name%></strong>
+          <em class="desc"><%=data[i].desc%></em>
           <div class="info">
             <span class="price">
-              &yen;<strong><%=data.products[i].price%></strong>
+              &yen;<strong><%=data[i].price%></strong>
             </span>
             <div class="buy">
               <span class="add icon icon-36"></span>
@@ -104,7 +105,7 @@
               <span class="sub icon icon-122"></span>
             </div>
           </div>
-          <div class="tag"><%=data.products[i].tag%></div>
+          <div class="tag"><%=data[i].tag%></div>
         </figcaption>
       </figure>
       <%}%>
