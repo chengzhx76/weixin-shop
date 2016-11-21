@@ -9,8 +9,7 @@ $(function () {
     if (deliveryDate) {
         $('#date').text(deliveryDate);
     }
-    // 得还判断是线下支付么
-    //if (surplusAmount) {
-    //    $('#surplusAmount').text(surplusAmount);
-    //}
+    if (surplusAmount) {
+        $('#surplusAmount').text(surplusAmount);
+    }
 });

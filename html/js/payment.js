@@ -126,21 +126,30 @@ function handler(data) {
                     return;
                 }
                 $('#order-loading .txt').text("订单生成成功");
-                $('#order-loading').fadeIn().fadeOut(1500);;
+                $('#order-loading').show().fadeOut('slow');
 
                 if (data.data.pay) {
                     $.modal({
                         text: "还需支付"+data.data.surplusAmount+"元",
                         buttons: [
+                            {text: "取消", onClick: function() {
+                                window.location.href="order.html";
+                            }},
                             {text: "支付", onClick: function() {
                                 $.toast(data.data.payName+"支付成功");
                                 buySuccess(data);
-                            }},
-                            {text: "取消", onClick: function() {
-                                window.location.href="order.html";
                             }}
                         ]
                     });
+                    /*$.confirm(
+                        "还需支付"+data.data.surplusAmount+"元",
+                        function () {
+                            $.toast(data.data.payName+"支付成功");
+                            buySuccess(data);
+                        }, function () {
+                            window.location.href="order.html";
+                        }
+                    );*/
                 } else {
                     buySuccess(data);
                 }
@@ -243,7 +252,14 @@ function balanceOffset(currentBalance, payPrice, isPick) {
 }
 
 function buySuccess(data) {
+
+    var success = "buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
+
+    if (data.data.offline) {
+        success += "&amount="+ data.data.surplusAmount
+    }
+
     setTimeout(function() {
-        window.location.href="buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
+        window.location.href=success;
     }, 1200);
 }

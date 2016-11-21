@@ -10,7 +10,7 @@
 
   <script type="text/javascript">
     $(function () {
-      $("#btn").click(function () {
+      $("#btn1").click(function () {
         $.modal({
 //          title: "支付方式",
           text: "选择你的支付方式",
@@ -25,13 +25,22 @@
           ]
         });
       });
+      $("#btn2").click(function () {
+        $.confirm("还需支付1.0元", "支付确认", function () {
+          $.toast("支付成功");
+        }, function () {
+          $.toast("取消支付");
+        });
+      });
     });
   </script>
 </head>
 
 <body ontouchstart>
 <div class="main">
-  <div id="btn">btn</div>
+  <div id="btn1">btn1</div>
+  <br/>
+  <div id="btn2">btn2</div>
 </div>
 </body>
 
