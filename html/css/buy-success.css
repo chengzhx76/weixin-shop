@@ -26,7 +26,6 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   color: #FF6303;
 }
 .weui_msg .weui_msg_title {
-  margin-bottom: 16px;
   font-size: 26px;
   color: #D54C25;
   text-indent: 15px;
@@ -35,5 +34,5 @@ body, h1, h2, h3, h4, h5, h6, p, div, ul, li, a, button, section, figure, figcap
   font-size: 18px;
 }
 .weui_msg .weui_text_area .order {
-  margin-bottom: 14px;
+  margin-bottom: 5px;
 }

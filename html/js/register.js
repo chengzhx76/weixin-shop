@@ -25,7 +25,7 @@ $(function () {
                             return;
                         }
                         $('#net-loading').hide();
-                        window.location.href='msgcode.html';
+                        window.location.href='msgcode.html?phone='+phone;
                     },
                     error: function (errorType, error) {
                         showError("ERROR--请求出现异常！");

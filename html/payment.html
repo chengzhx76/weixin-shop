@@ -129,7 +129,7 @@
               <span class="title">优惠券</span>
               <span class="note"><%=data.availableCoupon%>张可用</span>
             </div>
-            <div data-id="<%=data.ticketId%>" class="msg <%if(data.amount){%>red<%}%>"><%if(data.amount){%>-&yen;<%=data.amount%><%}else{%>未使用<%}%></div>
+            <div data-id="<%=data.ticketId%>" class="msg <%if(data.couponAmount!='0.0'){%>red<%}%>"><%if(data.couponAmount!='0.0'){%>-&yen;<%=data.couponAmount%><%}else{%>未使用<%}%></div>
           </a>
         </div>
         <div class="weui_cell weui_cell_switch">
@@ -195,7 +195,7 @@
           </div>
           <div class="detail">
             <span class="txt">优惠券抵销</span>
-            <em class="price">-&yen;<%=data.couponRecord%></em>
+            <em class="price">-&yen;<%=data.couponAmount%></em>
           </div>
           <div class="detail">
             <span class="txt">余额抵销</span>

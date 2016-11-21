@@ -27,13 +27,8 @@ function handler(data) {
     $('.main-wrap').html(main);
 
     $("#sure").click(function () {
-        var amount = $(".list input[type='radio']:checked").parents('.item').find('.amount').text();
         var couponId = $(".list input[type='radio']:checked").parents('.item').attr('data-id');
-        var param = "";
-        if (amount && couponId) {
-            param = "?amount="+amount+"&couponId="+couponId;
-        }
-        window.location.href="payment.html"+param;
+        window.location.href="payment.html?couponId="+couponId;
     });
 
 }

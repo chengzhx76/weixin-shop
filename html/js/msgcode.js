@@ -1,40 +1,25 @@
-/**
- * Created by 光灿 on 2016/7/7.
- */
-
-var timer = 6;
-function second(){
-    if(timer != 1){
-        timer--;
-        $('#second').html(timer);
-        setTimeout("second()", 1000);
-    }else {
-        $('#send').text('重发验证码')
-    }
-}
-
 $(function(){
-    second();
+    var phone = getQueryparam("phone");
+    $('.phone').text(phone);
 
+    second();
     $("input[type='number']").on("input paste" , function(){
         var $msg_code = $(this);
         if(/^\d{4,}$/.test($msg_code.val())) {
             $('#next').removeClass('weui_btn_disabled').click(function() {
                 $('#net-loading').show();
-                var phone = $('.phone').text().trim();
-                var validate = $("input[type='number']").val().trim();
                 ajaxHttpRequest('v1/checkCode', {
                     data: {
                         phone: phone,
-                        validate: validate
+                        validate: $("input[type='number']").val().trim()
                     },
                     success: function (data, status) {
                         $('#net-loading').hide();
-                        if (status != "success") { // 请求出现异常
+                        if (status != "success") {
                             showError("请求出现异常！");
                             return;
                         }
-                        if (!data.meta.success) { // 服务器出现异常
+                        if (!data.meta.success) {
                             showError(data.meta.msg);
                             return;
                         }
@@ -63,10 +48,9 @@ $(function(){
             return;
         }
         $('#net-loading').show();
-        var phone = $('.phone').text().trim();
         ajaxHttpRequest('v1/sendMsgCode', {
             data: {
-                phone: phone
+                phone: $('.phone').text().trim()
             },
             success: function (data, status) {
                 if (status != "success") { // 请求出现异常
@@ -93,4 +77,15 @@ $(function(){
     $("#next").click(function () {
 
     })
-})
+});
+
+var timer = 60;
+function second(){
+    if(timer != 1){
+        timer--;
+        $('#second').html(timer);
+        setTimeout("second()", 1000);
+    }else {
+        $('#send').text('重发验证码')
+    }
+}

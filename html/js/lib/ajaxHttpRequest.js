@@ -54,10 +54,8 @@ function ajaxHttpRequest(url, options) {
         jsonpCallback: opts.jsonpCallback,
         success: function(data, status) {
             console.log(data);
-            if (data.meta.code == 401){
-                setTimeout(function (){
-                    window.location.href="login.html";
-                }, 500);
+            if (data.meta.code == 401) {
+                window.location.href="login.html";
             }
             opts.success && opts.success.apply(this, [data, status]);
         },

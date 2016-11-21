@@ -8,7 +8,7 @@ $(function() {
         addrId = getQueryparam("addrId");
         since = getQueryparam("since") == "true";
         ticketId = getQueryparam("couponId");
-        amount = getQueryparam("amount");
+        //amount = getQueryparam("amount");
         locParam = JSON.parse(decodeURIComponent(getLocVal(PATAM)));
         clearLocVal(PATAM);
         addrId = addrId == "" ? locParam.addrId : "";
@@ -25,9 +25,11 @@ $(function() {
     }
     if (ticketId) {
         param.ticketId = ticketId,
-        locParam.ticketId = ticketId,
-        locParam.amount = amount
+        locParam.ticketId = ticketId
+    }else if (locParam.ticketId) {
+        param.ticketId = locParam.ticketId
     }
+    console.log(locParam.ticketId);
 
     $('#net-loading').show();
     ajaxHttpRequest('order/v1/payment', {
@@ -54,8 +56,6 @@ function handler(data) {
         $('#net-loading').hide();
         return;
     }
-
-
 
     $.each(locParam, function(key, val) {
         if (key != "addrId" && key != "since") {
@@ -126,7 +126,7 @@ function handler(data) {
                     return;
                 }
                 $('#order-loading .txt').text("订单生成成功");
-                $('#order-loading').show().fadeOut('slow');
+                $('#order-loading').show().fadeOut(1500);
 
                 if (data.data.pay) {
                     $.modal({
@@ -136,6 +136,7 @@ function handler(data) {
                                 window.location.href="order.html";
                             }},
                             {text: "支付", onClick: function() {
+                                // TODO 这里应该调用后台接口 更新为支付成功
                                 $.toast(data.data.payName+"支付成功");
                                 buySuccess(data);
                             }}
@@ -226,8 +227,7 @@ function getParam(data) {
         payId: payId,
         ticketId: ticketId,
         balance: balance,
-        remark: remark,
-        amount: amount
+        remark: remark
     };
     return param;
 }

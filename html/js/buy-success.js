@@ -1,7 +1,9 @@
 $(function () {
     var orderNum = getQueryparam("oid").trim();
     var deliveryDate = decodeURIComponent(getQueryparam("date").trim());
-    var surplusAmount = decodeURIComponent(getQueryparam("Amount").trim());
+    var surplusAmount = decodeURIComponent(getQueryparam("amount").trim());
+
+    console.log(surplusAmount);
 
     if (orderNum) {
         $('#no').text(orderNum);
@@ -10,6 +12,8 @@ $(function () {
         $('#date').text(deliveryDate);
     }
     if (surplusAmount) {
-        $('#surplusAmount').text(surplusAmount);
+        $('#amount').text(surplusAmount);
+    }else {
+        $('#amount').parent().remove();
     }
 });
