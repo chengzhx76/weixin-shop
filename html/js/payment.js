@@ -256,7 +256,7 @@ function buySuccess(data) {
     var success = "buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
 
     if (data.data.offline) {
-        success += "&amount="+ data.data.surplusAmount
+        success += "&amount="+ escape(data.data.surplusAmount);
     }
 
     setTimeout(function() {
