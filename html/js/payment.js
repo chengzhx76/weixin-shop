@@ -252,13 +252,10 @@ function balanceOffset(currentBalance, payPrice, isPick) {
 }
 
 function buySuccess(data) {
-
     var success = "buy-success.html?oid="+data.data.orderNum+"&date="+escape(data.data.deliveryDate);
-
     if (data.data.offline) {
         success += "&amount="+ escape(data.data.surplusAmount);
     }
-
     setTimeout(function() {
         window.location.href=success;
     }, 1200);
