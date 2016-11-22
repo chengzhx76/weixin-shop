@@ -29,8 +29,6 @@ $(function() {
     }else if (locParam.ticketId) {
         param.ticketId = locParam.ticketId
     }
-    console.log(locParam.ticketId);
-
     $('#net-loading').show();
     ajaxHttpRequest('order/v1/payment', {
         jsonpCallback: 'handler',
