@@ -8,74 +8,39 @@
   <script src="js/lib/main.js"></script>
   <script src="js/lib/ajaxHttpRequest.js"></script>
   <script src="js/lib/zepto.md5.js"></script>
+  <script src="js/lib/webDb.js"></script>
 
   <script type="text/javascript">
     $(function () {
+      var p = "ff";
       $("#btn").click(function () {
-        /*$.ajax({
-          type: 'get',
-          async: false,
-          url: server_url + 'v1/index',
-          contentType: "application/json",
-          data: {
-            token: '122'
-          },
-          dataType: "jsonp",
-          jsonp: "callback",
-          jsonpCallback: "handler",
-
-          success: function (xhr, status, data) {
-            console.log('success==> xhr：' + xhr + ' | status：' + status + ' | data：' + data);
-          },
-          error: function (xhr, errorType, error) {
-            console.log('error==> xhr：' + xhr + ' | errorType：' + errorType + ' | error：' + error);
-          },
-          complete: function (xhr, status) {
-            console.log('complete==> xhr：' + xhr + ' | status：' + status);
-          }
-        });
-         */
-
-//        var param = {
-//          productId: '1',
-//          userId: "123"
-//        };
-//
-//        ajaxHttpRequest('v1/index', {
-//          data: {
-//            param : JSON.stringify(param)
-//          },
-//          success: function (data, status) {
-//            console.log(data);
-//            console.log(status);
-//            console.log("========success========");
-//          },
-//          error: function (errorType, error) {
-//            console.log(errorType);
-//            console.log(error);
-//            console.log("========error========");
-//          }
-//        });
-
-        handler($.md5("wxclient1467618513289"));
-
-//        console.log("======>");
-
+        var count = addProductCount(p, 0.5);
+        console.log(count);
+      });
+      $("#btn2").click(function () {
+        var count = subProductCount(p, 0.5);
+        console.log(count);
+      });
+      $("#btn3").click(function () {
+        clearDb();
+      });
+      $("#btn4").click(function () {
+        clearLocalStorage(p);
       });
     });
-
-    function handler(data) {
-      console.log(data);
-//      alert("===》handler");
-//      alert(data);
-    }
 
   </script>
 </head>
 
 <body ontouchstart>
 <div class="main">
-  <div id="btn">ajax</div>
+  <div id="btn">add</div>
+  <br/>
+  <div id="btn2">sub</div>
+  <br/>
+  <div id="btn3">clear</div>
+  <br/>
+  <div id="btn4">clearLocal</div>
 </div>
 </body>
 

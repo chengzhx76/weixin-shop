@@ -30,7 +30,6 @@ $(function(){
                             showInfo('验证码错误');
                             $("input[type='number']").val('');
                         }
-
                     },
                     error: function (errorType, error) {
                         showError("ERROR--请求出现异常！");
