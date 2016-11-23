@@ -80,7 +80,8 @@ function handler(data) {
                 if (!data.data) {
                     animation($add);
                     // 数量增加
-                    var counts = addProductCount(productId);
+                    var price = $add.parent().siblings(".price").children("strong").text();
+                    var counts = addProductCount(productId, price);
                     var localData = {
                         data : counts
                     };

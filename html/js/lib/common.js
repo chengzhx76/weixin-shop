@@ -22,6 +22,7 @@ function showInfo(msg) {
 // 设置总金额
 function setProductTotalPrice() {
     ajaxHttpRequest('v1/token', {
+        jsonpCallback: 'checkToke',
         success: function (data, status) {
             if (status != "success") {
                 showError("请求出现异常！");
@@ -38,6 +39,7 @@ function setProductTotalPrice() {
                 var localData = {
                     data : totalPrice
                 };
+                console.log(localData);
                 setTotalPrice(localData);
             } else {
                 ajaxHttpRequest('cart/v1/price/total', {
@@ -53,7 +55,7 @@ function setProductTotalPrice() {
             }
         },
         error: function (errorType, error) {
-            showError("ERROR--请求出现异常！");
+            showError("ERROR--请求出现异常");
             $('#net-loading').hide();
         }
     });

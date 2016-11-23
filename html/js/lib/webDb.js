@@ -43,7 +43,7 @@ function clearDb() {
 }
 
 function clearLocalStorage(product) {
-    localStorage.removeItem(product);
+    clearLocVal(product);
 }
 <!-- ------------------------------------------------------------------------------------------------------- -->
 function initDatabase() {
@@ -98,28 +98,37 @@ function loadCurrentProductCount(isAdd, db, productId, price) {
             }
         )
     });
+
+    var totalPrice = 0;
     var count = getLocVal(productId);
+    var localPrice = getLocVal("totalPrice");
+    if (localPrice!="" && !isNaN(localPrice)) {
+        totalPrice = parseFloat(localPrice);
+    }
     if (isAdd) {
         if (count) {
             count = parseInt(count) + 1
         } else {
             count = 1;
         }
+        totalPrice = totalPrice + price;
     } else {
         if (count > 1) {
             count = parseInt(count) - 1
+            totalPrice = totalPrice - price;
         } else if (count == 1) {
             db.transaction(function (trans) {
                 trans.executeSql("DELETE FROM cart WHERE product_id = ?",[productId])
             });
             count = 0;
+            totalPrice = 0;
         } else {
             count = 0;
+            totalPrice = 0;
         }
     }
     clearLocVal(productId);
-    var totalPrice = parseFloat(setLocVal("totalPrice"));
-    setLocVal("totalPrice", totalPrice + price);
+    setLocVal("totalPrice", totalPrice);
     return count;
 }
 

@@ -12,20 +12,23 @@
 
   <script type="text/javascript">
     $(function () {
-      var p = "ff";
+      var p = "ffff";
       $("#btn").click(function () {
         var count = addProductCount(p, 0.5);
         console.log(count);
+        console.log(getLocVal("totalPrice"));
       });
       $("#btn2").click(function () {
         var count = subProductCount(p, 0.5);
         console.log(count);
+        console.log(getLocVal("totalPrice"));
       });
       $("#btn3").click(function () {
         clearDb();
       });
       $("#btn4").click(function () {
         clearLocalStorage(p);
+        clearLocalStorage("totalPrice");
       });
     });
 

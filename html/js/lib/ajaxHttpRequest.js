@@ -61,6 +61,7 @@ function ajaxHttpRequest(url, options) {
         },
         error: function(errorType, error) {
             console.log(error);
+            console.log(postData.param);
             opts.error && opts.error.apply(this, [errorType, error]);
         }
     });
