@@ -82,6 +82,7 @@ function handler(data) {
                     // 数量增加
                     var price = $add.parent().siblings(".price").children("strong").text();
                     var counts = addProductCount(productId, price);
+                    console.log("======> " + counts);
                     var localData = {
                         data : counts
                     };
@@ -132,7 +133,6 @@ function handler(data) {
         });
     });
 
-
     // 减少操作
     $(".sub").click(function () {
         $('#buy-loading').show();
@@ -144,32 +144,62 @@ function handler(data) {
         } else {
             $sub.attr("working","true");
         }
-
-        ajaxHttpRequest('v1/sub', {
-            data: {
-                productId: $sub.parents('.item').attr("data-id")
-            },
+        var productId = $sub.parents('.item').attr("data-id");
+        ajaxHttpRequest('v1/token', {
             success: function (data, status) {
-                if (status != "success") { // 请求出现异常
-                    showError("请求出现异常");
-                    $('#buy-loading').hide();
-                    $sub.attr("working","false");
+                if (status != "success") {
+                    showError("请求出现异常！");
+                    $('#net-loading').hide();
                     return;
                 }
-                if (!data.meta.success) { // 服务器出现异常
+                if (!data.meta.success) {
                     showError(data.meta.msg);
-                    $('#buy-loading').hide();
-                    $sub.attr("working","false");
+                    $('#net-loading').hide();
                     return;
                 }
-                subCount($sub, data);
-                setProductTotalPrice();
-                $('#buy-loading').hide();
-                $sub.attr("working","false");
+                if (!data.data) {
+                    var price = $sub.parent().siblings(".price").children("strong").text();
+                    var counts = subProductCount(productId, price);
+                    var localData = {
+                        data : counts
+                    };
+                    subCount($sub, localData);
+                    setProductTotalPrice();
+                    $('#buy-loading').hide();
+                    $sub.attr("working", "false");
+                } else {
+                    ajaxHttpRequest('v1/sub', {
+                        data: {
+                            productId: productId
+                        },
+                        success: function (data, status) {
+                            if (status != "success") {
+                                showError("请求出现异常");
+                                $('#buy-loading').hide();
+                                $sub.attr("working","false");
+                                return;
+                            }
+                            if (!data.meta.success) {
+                                showError(data.meta.msg);
+                                $('#buy-loading').hide();
+                                $sub.attr("working","false");
+                                return;
+                            }
+                            subCount($sub, data);
+                            setProductTotalPrice();
+                            $('#buy-loading').hide();
+                            $sub.attr("working","false");
+                        },
+                        error: function (errorType, error) {
+                            showError("ERROR--请求出现异常");
+                            $('#buy-loading').hide();
+                        }
+                    });
+                }
             },
             error: function (errorType, error) {
-                showError("ERROR--请求出现异常");
-                $('#buy-loading').hide();
+                showError("ERROR--请求出现异常！");
+                $('#net-loading').hide();
             }
         });
     });
