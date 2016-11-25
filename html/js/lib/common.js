@@ -35,11 +35,16 @@ function setProductTotalPrice() {
                 return;
             }
             if (!data.data) {
-                var totalPrice = getLocVal("totalPrice");
+                var totalPrice = 0;
+                totalPrice = getLocVal("totalPrice");
+                if (totalPrice!="" && !isNaN(totalPrice)) {
+                    totalPrice = parseFloat(totalPrice);
+                } else if (totalPrice == "") {
+                    totalPrice = 0;
+                }
                 var localData = {
                     data : totalPrice
                 };
-                console.log(localData);
                 setTotalPrice(localData);
             } else {
                 ajaxHttpRequest('cart/v1/price/total', {

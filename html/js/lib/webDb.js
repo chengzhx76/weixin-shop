@@ -111,10 +111,11 @@ function loadCurrentProductCount(isAdd, db, productId, price) {
         } else {
             count = 1;
         }
+        price = parseFloat(price);
         totalPrice = totalPrice + price;
     } else {
         if (count > 1) {
-            count = parseInt(count) - 1
+            count = parseInt(count) - 1;
             totalPrice = totalPrice - price;
         } else if (count == 1) {
             db.transaction(function (trans) {

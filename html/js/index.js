@@ -82,7 +82,6 @@ function handler(data) {
                     // 数量增加
                     var price = $add.parent().siblings(".price").children("strong").text();
                     var counts = addProductCount(productId, price);
-                    console.log("======> " + counts);
                     var localData = {
                         data : counts
                     };
