@@ -8,6 +8,9 @@ function addProductCount(productId, price) {
             function (trans, result) {
                 if(result.rows.length > 0) {
                     var count = parseInt(result.rows.item(0).count);
+
+                    console.log("数据库的数量为===》" + count);
+
                     addProduct(productId, count, trans);
                 }else {
                     insetProduct(productId, trans);
@@ -35,10 +38,36 @@ function subProductCount(productId, price) {
     return loadCurrentProductCount(false, db, productId, price);
 }
 
+function getAllProduct() {
+    var db = initDatabase();
+    db.transaction(function (trans) {
+        trans.executeSql(
+            "SELECT * FROM cart",
+            [],
+            function (trans, result) {
+                if (result.rows.length > 0) {
+                    var products = [];
+                    for (var i = 0; i < result.rows.length; i++) {
+                        var data = result.rows.item(i);
+                        var product = {
+                            productId: data.product_id,
+                            count: data.count
+                        };
+                        products.push(product);
+                    }
+                    console.log(JSON.stringify(products));
+                    setLocVal("products", JSON.stringify(products));
+                }
+            }
+        )
+    });
+}
+
+
 function clearDb() {
     var db = initDatabase();
     db.transaction(function (trans) {
-        trans.executeSql("drop table cart")
+        trans.executeSql("drop table cart");
     });
 }
 

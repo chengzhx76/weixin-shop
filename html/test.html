@@ -30,6 +30,12 @@
         clearLocalStorage(p);
         clearLocalStorage("totalPrice");
       });
+      $("#btn5").click(function () {
+        getAllProduct();
+        var products = getLocVal("products");
+        console.log(products);
+        console.log(JSON.parse(products));
+      });
     });
 
   </script>
@@ -44,6 +50,8 @@
   <div id="btn3">clear</div>
   <br/>
   <div id="btn4">clearLocal</div>
+  <br/>
+  <div id="btn5">getAll</div>
 </div>
 </body>
 

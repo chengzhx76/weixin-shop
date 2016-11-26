@@ -33,9 +33,13 @@ function ajaxHttpRequest(url, options) {
     var signStr = appSecret+timestamp+userToken;
     if(opts.data) {
         var paramObj = {};
-        $.each(opts.data, function(key, val) {
-            paramObj[key] = val;
-        });
+        if (!opts.data instanceof Array) {
+            $.each(opts.data, function(key, val) {
+                paramObj[key] = val;
+            });
+        } else {
+            paramObj = opts.data;
+        }
         console.log(JSON.stringify(paramObj));
         var param = encodeURI(JSON.stringify(paramObj));
         signStr += param;
@@ -61,7 +65,6 @@ function ajaxHttpRequest(url, options) {
         },
         error: function(errorType, error) {
             console.log(error);
-            console.log(postData.param);
             opts.error && opts.error.apply(this, [errorType, error]);
         }
     });
