@@ -44,10 +44,11 @@
 </body>
 
 <script id="main-temp" type="text/template">
-  <% if(data.address) {%>
+  <% if(data.products) {%>
   <section class="addr">
     <div class="weui_panel weui_panel_access detail">
       <a class="weui_panel_ft m-addr" href="deliver.html">
+        <% if(data.address) {%>
         <div class="name-phone">
           <% if(!data.since) {%>
           <div class="name">
@@ -59,11 +60,12 @@
           </div>
         </div>
         <div class="d-addr"><%=data.address%></div>
+        <%}else {%>
+        <div class="choose-address">需要知道您的收货地址</div>
+        <%}%>
       </a>
     </div>
   </section>
-  <%}%>
-  <% if(data.products) {%>
   <article class="main">
     <div class="deliver-date">
       <span><span class="date"><%=data.deliveryDate%></span>配送</span>
@@ -138,6 +140,12 @@
       </div>
     </div>
   </footer>
+  <%}else {%>
+  <div class="weui_msg">
+    <div class='notice '>
+      <p>暂无商品</p>
+    </div>
+  </div>
   <%}%>
 </script>
 

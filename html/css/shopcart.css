@@ -43,6 +43,9 @@ header .weui-header {
   /*min-height: 60px;*/
   color: #586C94;
 }
+.addr .detail .m-addr .choose-address {
+  color: #CC0000;
+}
 .addr .detail .m-addr .name-phone {
   height: 30px;
 }
