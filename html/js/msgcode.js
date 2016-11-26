@@ -74,7 +74,10 @@ $(function(){
     })
 
     $("#next").click(function () {
-
+        var code = $("input[type='number']").val().trim();
+        if (code) {
+            window.location.href="reg-finish.html?phone="+phone+"&code="+code;
+        }
     })
 });
 

@@ -1,25 +1,25 @@
-/**
- * Created by 光灿 on 2016/7/7.
- */
-
 $(function () {
+    var evTimeStamp = 0;
     $("input[type='number']").on("input paste" , function(){
         var $phone = $(this);
         if(/^1[3458]\d{9}$/.test($phone.val())) {
             $('#next').removeClass('weui_btn_disabled').click(function() {
-                $('#net-loading').show();
+                var now =+ new Date();
+                if (now - evTimeStamp < 200) return;
+                evTimeStamp = now;
                 var phone = $phone.val();
+                $('#net-loading').show();
                 ajaxHttpRequest('v1/sendMsgCode', {
                     data: {
                         phone: phone
                     },
                     success: function (data, status) {
-                        if (status != "success") { // 请求出现异常
+                        if (status != "success") {
                             showError("请求出现异常！");
                             $('#net-loading').hide();
                             return;
                         }
-                        if (!data.meta.success) { // 服务器出现异常
+                        if (!data.meta.success) {
                             showError(data.meta.msg);
                             $('#net-loading').hide();
                             return;
