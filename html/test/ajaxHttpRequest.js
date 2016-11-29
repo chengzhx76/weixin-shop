@@ -20,7 +20,7 @@ function ajaxHttpRequest(url, options) {
     try{
         var appSecret = 'appSecret';
         var timestamp = new Date().getTime();
-        var userToken = 'A6ADD21E43B74CC6ACBAC0234EBB6E14';
+        var userToken = 'C81B80819A744F508E7257135427AC7F';
     }catch(e) {
         console.log(e)
     }

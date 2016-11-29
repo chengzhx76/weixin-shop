@@ -74,57 +74,81 @@ $(function () {
         },
         loadDownFn: function (me) {
             console.log("===========>加载更多");
-            ajaxHttpRequest('order/v1/orders', {
+            /*ajaxHttpRequest('order/v1/orders', {
                 jsonpCallback: 'callback',
                 data :{
                     pageNum: page,
                     pageSize: 10
                 },
                 success: function (data, status) {
-                    if (status != "success") {
-                        console.log("Fail");
-                        return;
-                    }
                     console.log(data);
-
-
                 },
                 error: function (errorType, error) {
-                    me.resetload();
+                    console.log("eeeeeeeeeee");
                 }
             });
 
-
-            /*$.ajax({
-                type: 'GET',
-                url: 'more.json',
-                dataType: 'json',
-                data: {page: page},
-                success: function (data) {
+            $.ajax({
+                type: 'get',
+                async: false,
+                url: 'http://localhost/moblie/order/v1/orders',
+                data: {
+                    pageNum: page,
+                    pageSize: 10
+                },
+                contentType: 'application/json',
+                dataType: 'jsonp',
+                jsonp: 'callback',
+                jsonpCallback: 'callback',
+                success: function(data, status) {
                     console.log(data);
+                },
+                error: function(errorType, error) {
+                    console.log(error);
+                }
+            });
+             */
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost/moblie/order/v1/orders',
+                dataType: 'jsonp',
+                data: {
+                    pageNum: page,
+                    pageSize: 10
+                },
+                success: function (data) {
+                    console.log(data.data);
+                    console.log("=============");
                     var result = '';
-                    counter++;
-                    pageEnd = num * counter;
-                    pageStart = pageEnd - num;
+                    //counter++;
+                    //pageEnd = num * counter;
+                    //pageStart = pageEnd - num;
                     page++;
-                    for (var i = pageStart; i < pageEnd; i++) {
-                        result += '<div class="weui_media_box weui_media_text weui-updown"><p class="weui_media_desc">' + data.lists[i].link + data.lists[i].title + '</p></div>';
-                        if ((i + 1) >= data.lists.length) {
-                            me.lock();
-                            me.noData();
-                            break;
+                    //for (var i = pageStart; i < pageEnd; i++) {
+                        for (var i=0; i<data.data.list.length; i++) {
+                            result += '<div class="weui_media_box weui_media_text weui-updown">' + data.data.list[i] + '</div>';
+                            console.log("tttttttttt");
+                            if (data.data.total >= data.data.list.length) {
+                                console.log("------");
+                                //me.lock();
+                                //me.noData();
+                                //break;
+                            }
                         }
-                    }
+
+                    //}
                     setTimeout(function () {
                         $('.weui_panel_bd').append(result);
                         me.resetload();
                     }, 1000);
+
+                    console.log(page);
                 },
                 error: function (xhr, type) {
                     alert('Ajax error!');
                     me.resetload();
                 }
-            });*/
+            });
         }
     });
 });
