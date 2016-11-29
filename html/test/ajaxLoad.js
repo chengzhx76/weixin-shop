@@ -74,7 +74,28 @@ $(function () {
         },
         loadDownFn: function (me) {
             console.log("===========>加载更多");
-            $.ajax({
+            ajaxHttpRequest('order/v1/orders', {
+                jsonpCallback: 'callback',
+                data :{
+                    pageNum: page,
+                    pageSize: 10
+                },
+                success: function (data, status) {
+                    if (status != "success") {
+                        console.log("Fail");
+                        return;
+                    }
+                    console.log(data);
+
+
+                },
+                error: function (errorType, error) {
+                    me.resetload();
+                }
+            });
+
+
+            /*$.ajax({
                 type: 'GET',
                 url: 'more.json',
                 dataType: 'json',
@@ -86,14 +107,14 @@ $(function () {
                     pageEnd = num * counter;
                     pageStart = pageEnd - num;
                     page++;
-                    //for (var i = pageStart; i < pageEnd; i++) {
-                        //result += '<div class="weui_media_box weui_media_text weui-updown"><p class="weui_media_desc">' + data.lists[i].link + data.lists[i].title + '</p></div>';
-                        //if ((i + 1) >= data.lists.length) {
+                    for (var i = pageStart; i < pageEnd; i++) {
+                        result += '<div class="weui_media_box weui_media_text weui-updown"><p class="weui_media_desc">' + data.lists[i].link + data.lists[i].title + '</p></div>';
+                        if ((i + 1) >= data.lists.length) {
                             me.lock();
                             me.noData();
-                            //break;
-                        //}
-                    //}
+                            break;
+                        }
+                    }
                     setTimeout(function () {
                         $('.weui_panel_bd').append(result);
                         me.resetload();
@@ -103,7 +124,7 @@ $(function () {
                     alert('Ajax error!');
                     me.resetload();
                 }
-            });
+            });*/
         }
     });
 });

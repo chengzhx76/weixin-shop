@@ -1,6 +1,7 @@
 function ajaxHttpRequest(url, options) {
     var server_url = 'http://wx.aqd123.com/moblie/';
     //var server_url = 'http://localhost/moblie/';
+    //var server_url = 'http://localhost:63342/weixin-shop/html/test/';
 
     var opts = $.extend({
         'method': 'get',
@@ -17,9 +18,9 @@ function ajaxHttpRequest(url, options) {
     var allUrl = server_url + url;
 
     try{
-        var appSecret = getLocVal(APPSECRET);
+        var appSecret = 'appSecret';
         var timestamp = new Date().getTime();
-        var userToken = getLocVal(TOKEN);
+        var userToken = 'A6ADD21E43B74CC6ACBAC0234EBB6E14';
     }catch(e) {
         console.log(e)
     }
@@ -58,9 +59,6 @@ function ajaxHttpRequest(url, options) {
         jsonpCallback: opts.jsonpCallback,
         success: function(data, status) {
             console.log(data);
-            if (data.meta.code == 401) {
-                window.location.href="login.html";
-            }
             opts.success && opts.success.apply(this, [data, status]);
         },
         error: function(errorType, error) {
