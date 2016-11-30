@@ -61,7 +61,7 @@ $(function() {
 $(function () {
     var counter = 0;
     var num = 10;
-    var pageStart = 0, pageEnd = 0;
+    //var pageStart = 0, pageEnd = 0;
     var page = 1;
     $('.weui_panel').dropload({
         scrollArea: window,
@@ -118,29 +118,23 @@ $(function () {
                 },
                 success: function (data) {
                     console.log(data.data);
-                    console.log("=============");
-                    var result = '';
-                    //counter++;
-                    //pageEnd = num * counter;
-                    //pageStart = pageEnd - num;
+                    //var result = '';
                     page++;
-                    //for (var i = pageStart; i < pageEnd; i++) {
-                        for (var i=0; i<data.data.list.length; i++) {
-                            result += '<div class="weui_media_box weui_media_text weui-updown">' + data.data.list[i] + '</div>';
-                            console.log("tttttttttt");
-                            if (data.data.total >= data.data.list.length) {
-                                console.log("------");
-                                //me.lock();
-                                //me.noData();
-                                //break;
-                            }
-                        }
-
-                    //}
-                    setTimeout(function () {
-                        $('.weui_panel_bd').append(result);
+                    for (var i=0; i<data.data.list.length; i++) {
+                        //result += '<div class="weui_media_box weui_media_text weui-updown">' + data.data.list[i].orderNum + '</div>';
+                        var main = template('main-temp', data);
+                        $('.weui_panel_bd').append(main);
                         me.resetload();
-                    }, 1000);
+                    }
+                    if (!data.data.hasNextPage) {
+                        console.log("------");
+                        me.lock();
+                        me.noData();
+                    }
+                    //setTimeout(function () {
+                    //    $('.weui_panel_bd').append(result);
+                    //    me.resetload();
+                    //}, 1000);
 
                     console.log(page);
                 },
