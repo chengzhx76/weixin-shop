@@ -58,7 +58,7 @@ function ajaxHttpRequest(url, options) {
         jsonp: opts.jsonp,
         jsonpCallback: opts.jsonpCallback,
         success: function(data, status) {
-            console.log(data);
+            //console.log(data);
             opts.success && opts.success.apply(this, [data, status]);
         },
         error: function(errorType, error) {

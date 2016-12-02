@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/weui.css"/>
   <link rel="stylesheet" href="css/weui2.css"/>
+  <!--<link rel="stylesheet" href="css/weuix.min.css"/>-->
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/order.css">
 </head>
@@ -23,7 +24,7 @@
     </div>
   </div>
 </header>
-  <article class="main">
+  <article class="main weui_panel">
     <div class="main-wrap"></div>
   </article>
 
@@ -70,39 +71,39 @@
 
 
 <script id="main-temp" type="text/template">
-  <% if(data.length>0) {%>
-  <%for (var i = 0; i < data.length; i++) {%>
-  <section class="order <%if(data.orderStatus=='INVALID'){%>invalid<%}else{%>normal<%}%>">
+  <% if(data.list.length>0) {%>
+  <%for (var i = 0; i < data.list.length; i++) {%>
+  <section class="order <%if(data.list[i].orderStatus=='INVALID'){%>invalid<%}else{%>normal<%}%>">
     <div class="order-warp">
       <div class="info">
           <span class="date">
             <i class="icon icon-51"></i>
-            <span class="detail"><%=data[i].date%></span>
+            <span class="detail"><%=data.list[i].date%></span>
           </span>
-        <span class="num <%if(data.orderStatus=='INVALID' || data.orderStatus=='FINISHED'){%>num-normal<%}%>">订单号：<em><%=data[i].orderNum%></em></span>
+        <span class="num <%if(data.list[i].orderStatus=='INVALID' || data.list[i].orderStatus=='FINISHED'){%>num-normal<%}%>">订单号：<em><%=data.list[i].orderNum%></em></span>
       </div>
       <a class="weui_panel_access" href="javascript:void(0);">
-        <div class="weui_panel_ft <%if(data.orderStatus=='INVALID'){%>invalid<%}%>">共<%=data[i].number%>件</div>
-        <% if(data[i].statuses.length>0) {%>
+        <div class="weui_panel_ft <%if(data.list[i].orderStatus=='INVALID'){%>invalid<%}%>">共<%=data.list[i].number%>件</div>
+        <% if(data.list[i].statuses.length>0) {%>
         <div class="schedule">
-          <%for (var j = 0; j < data[i].statuses.length; j++) {%>
-          <div class="flow <%if(j==0){%>start<%}else if(j==data[i].statuses.length-1){%>end<%}%>">
+          <%for (var j = 0; j < data.list[i].statuses.length; j++) {%>
+          <div class="flow <%if(j==0){%>start<%}else if(j==data.list[i].statuses.length-1){%>end<%}%>">
             <div class="icons">
               <%if(j!=0){%><span class="s-icon s-icon-l">...</span><%}%>
-              <span class="bg-icon <%if(data[i].statuses[j].active){%>bg-icon-normal<%}else{%>bg-icon-invalid<%}%>"></span>
-              <%if(j!=data[i].statuses.length-1){%><span class="s-icon s-icon-r">...</span><%}%>
+              <span class="bg-icon <%if(data.list[i].statuses[j].active){%>bg-icon-normal<%}else{%>bg-icon-invalid<%}%>"></span>
+              <%if(j!=data.list[i].statuses.length-1){%><span class="s-icon s-icon-r">...</span><%}%>
             </div>
-            <span class="status <%if(data.orderStatus=='INVALID'){%>invalid<%}%>"><%=data[i].statuses[j].name%></span>
+            <span class="status <%if(data.list[i].orderStatus=='INVALID'){%>invalid<%}%>"><%=data.list[i].statuses[j].name%></span>
           </div>
           <%}%>
         </div>
         <%}%>
       </a>
       <div class="buy-info">
-        <span class="price">&yen;<%=data[i].totalPrice%></span>
-        <%if(data.orderStatus=='INVALID'){%>
+        <span class="price">&yen;<%=data.list[i].totalPrice%></span>
+        <%if(data.list[i].orderStatus=='INVALID'){%>
           <a class="comment comment-invalid">无效订单</a>
-        <%}else if(data.orderStatus=='COMMENT'){%>
+        <%}else if(data.list[i].orderStatus=='COMMENT'){%>
           <a href="javascript:void(0);" class="comment comment-normal">评价订单</a>
         <%}%>
       </div>
@@ -110,83 +111,14 @@
   </section>
   <%}%>
   <%}%>
-
-  <section class="order normal">
-    <div class="order-warp">
-      <div class="info">
-          <span class="date">
-            <i class="icon icon-51"></i>
-            <span class="detail">2016-05-24 21:11:59</span>
-          </span>
-        <span class="num num-normal">订单号：<em>16716687</em></span>
-      </div>
-      <a class="weui_panel_access" href="javascript:void(0);">
-        <div class="weui_panel_ft">共1件</div>
-        <div class="schedule">
-          <div class="flow start">
-            <div class="icons">
-              <!--<span class="s-icon s-icon-l">…</span>-->
-              <span class="bg-icon bg-icon-normal"></span>
-              <span class="s-icon s-icon-r">...</span>
-            </div>
-            <span class="status">待支付</span>
-          </div>
-          <div class="flow one">
-            <div class="icons">
-              <span class="s-icon s-icon-l">...</span>
-              <span class="bg-icon bg-icon-normal"></span>
-              <span class="s-icon s-icon-r">...</span>
-            </div>
-            <div class="status">已支付</div>
-          </div>
-          <div class="flow two">
-            <div class="icons">
-              <span class="s-icon s-icon-l">...</span>
-              <span class="bg-icon bg-icon-normal"></span>
-              <span class="s-icon s-icon-r">...</span>
-            </div>
-            <div class="status">拣货中</div>
-          </div>
-          <div class="flow three">
-            <div class="icons">
-              <span class="s-icon s-icon-l">...</span>
-              <span class="bg-icon bg-icon-normal"></span>
-              <span class="s-icon s-icon-r">...</span>
-            </div>
-            <div class="status">配送中</div>
-          </div>
-          <div class="flow four">
-            <div class="icons">
-              <span class="s-icon s-icon-l">...</span>
-              <span class="bg-icon bg-icon-normal"></span>
-              <span class="s-icon s-icon-r">...</span>
-            </div>
-            <div class="status">派件中</div>
-          </div>
-          <div class="flow end">
-            <div class="icons">
-              <span class="s-icon s-icon-l">...</span>
-              <span class="bg-icon bg-icon-normal"></span>
-              <!--<span class="s-icon s-icon-r">...</span>-->
-            </div>
-            <div class="status">已送达</div>
-          </div>
-        </div>
-      </a>
-
-      <div class="buy-info">
-        <span class="price">￥<span>36.5</span></span>
-      </div>
-    </div>
-  </section>
 </script>
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/template-native.js"></script>
 <script src="js/lib/main.js"></script>
 <script src="js/lib/common.js"></script>
 <script src="js/lib/ajaxHttpRequest.js"></script>
-<script src="js/lib/alloy_lever.js"></script>
 <script src="js/lib/zepto.md5.js"></script>
+<script src="js/lib/updown.js"></script>
 
 <script src="js/order.js"></script>
 </html>

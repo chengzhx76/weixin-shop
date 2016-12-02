@@ -1,6 +1,6 @@
 function ajaxHttpRequest(url, options) {
-    var server_url = 'http://wx.aqd123.com/moblie/';
-    //var server_url = 'http://localhost/moblie/';
+    //var server_url = 'http://wx.aqd123.com/moblie/';
+    var server_url = 'http://localhost/moblie/';
 
     var opts = $.extend({
         'method': 'get',
