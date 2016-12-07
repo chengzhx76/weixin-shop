@@ -227,7 +227,7 @@ header .weui-header {
 }
 .total-price {
   padding: 0 3px;
-  position: absolute;
+  position: fixed;
   line-height: 20px;
   left:50%;
   bottom: 64px;

@@ -28,15 +28,14 @@ $(function () {
     $('.weui_panel').dropload({
         scrollArea: window,
         autoLoad: true,
-        domUp: {
-            domClass: 'dropload-up',
-            domRefresh: '<div class="dropload-refresh"><i class="icon icon-12 xz180"></i>上拉加载更多</div>',
-            domUpdate: '<div class="dropload-load f15"><i class="icon icon-12"></i>释放更新...</div>',
-            domLoad: '<div class="dropload-load f15"><span class="weui-loading"></span>正在加载中...</div>'
+        domDown : {//下拉
+            domClass   : 'dropload-down',
+            domRefresh : '<div class="dropload-refresh f15 "><i class="icon icon-12 xz180"></i>下拉加载更多</div>',
+            domLoad    : '<div class="dropload-load f15"><span class="weui-loading"></span>正在加载中...</div>',
+            domNoData  : '<div class="dropload-noData">没有更多数据了</div>'
         },
         loadDownFn: function (me) {
             ajaxHttpRequest('order/v1/orders', {
-                jsonpCallback: 'callback',
                 data :{
                     pageNum: page,
                     pageSize: 10
@@ -53,14 +52,14 @@ $(function () {
                         $('#net-loading').hide();
                         return;
                     }
-                    page++;
-                    var main = template('main-temp', data);
-                    $('.main-wrap').append(main);
-                    me.resetload();
                     if (!data.data.hasNextPage) {
                         me.lock();
                         me.noData();
                     }
+                    page++;
+                    var main = template('main-temp', data);
+                    $('.main-wrap').append(main);
+                    me.resetload();
                 },
                 error: function (errorType, error) {
                     showError("ERROR--请求出现异常！");
@@ -71,31 +70,3 @@ $(function () {
         }
     });
 });
-
-function handler(data) {
-    console.log(data);
-}
-
-/*
-function handler(data) {
-/!*    if (!data.meta.success) {
-        showError(data.meta.msg);
-        $('#net-loading').hide();
-        return;
-    }*!/
-    /!*var main = template('main-temp', data);
-    $('.main-wrap').html(main);*!/
-
-/!*
-    console.log(data.data);
-    page++;
-    var main = template('main-temp', data);
-    $('.weui_panel_bd').append(main);
-    me.resetload();
-    if (!data.data.hasNextPage) {
-        me.lock();
-        me.noData();
-    }
-*!/
-
-}*/
