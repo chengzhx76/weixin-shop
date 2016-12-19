@@ -7,7 +7,7 @@ setLocVal(APPSECRET, "wxclient");
  * @param String key  保存数据的key值
  * @param String value  保存的数据
  */
-function setLocVal(key,value){
+function setLocVal(key, value){
     window.localStorage[key] = value;
 }
 
